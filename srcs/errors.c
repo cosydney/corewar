@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:22:06 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/02 20:11:12 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/02 20:17:10 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*g_errors[4] =
 {
 	[0] = "Unknown error",
 	[GENERIC_ERROR] = "Error",
-	[ARG_ERROR] = "Error: can't read the file",
+	[ARG_ERROR] = "Error: invalid argument",
 	[MALLOC_ERROR] = "Error: cannot allocate memory"
 };
 
