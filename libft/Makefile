@@ -1,121 +1,129 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: abonneca <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/11/03 09:59:58 by abonneca          #+#    #+#              #
-#    Updated: 2017/03/02 11:16:51 by abonneca         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+SOURCES = ./srcs/ft_abs.c \
+		  ./srcs/ft_bzero.c \
+		  ./srcs/ft_atoi.c \
+		  ./srcs/ft_atoi2.c \
+		  ./srcs/ft_isalnum.c \
+		  ./srcs/ft_isalpha.c \
+		  ./srcs/ft_isascii.c \
+		  ./srcs/ft_isdigit.c \
+		  ./srcs/ft_isprint.c \
+		  ./srcs/ft_itoa.c \
+		  ./srcs/ft_lstadd.c \
+		  ./srcs/ft_lstdel.c \
+		  ./srcs/ft_lstdelone.c \
+		  ./srcs/ft_lstiter.c \
+		  ./srcs/ft_lstlen.c \
+		  ./srcs/ft_lstmap.c \
+		  ./srcs/ft_lstnew.c \
+		  ./srcs/ft_memalloc.c \
+		  ./srcs/ft_memccpy.c \
+		  ./srcs/ft_memchr.c \
+		  ./srcs/ft_memcmp.c \
+		  ./srcs/ft_memcpy.c \
+		  ./srcs/ft_memdel.c \
+		  ./srcs/ft_memmove.c \
+		  ./srcs/ft_memset.c \
+		  ./srcs/ft_putchar.c \
+		  ./srcs/ft_putchar_fd.c \
+		  ./srcs/ft_putendl.c \
+		  ./srcs/ft_putendl_fd.c \
+		  ./srcs/ft_putnbr.c \
+		  ./srcs/ft_putnbr_fd.c \
+		  ./srcs/ft_putstr.c \
+		  ./srcs/ft_putstr_fd.c \
+		  ./srcs/ft_strcat.c \
+		  ./srcs/ft_strchr.c \
+		  ./srcs/ft_strclr.c \
+		  ./srcs/ft_strcmp.c \
+		  ./srcs/ft_strcpy.c \
+		  ./srcs/ft_strdel.c \
+		  ./srcs/ft_strdup.c \
+		  ./srcs/ft_strequ.c \
+		  ./srcs/ft_striter.c \
+		  ./srcs/ft_striteri.c \
+		  ./srcs/ft_strjoin.c \
+		  ./srcs/ft_strlcat.c \
+		  ./srcs/ft_strlen.c \
+		  ./srcs/ft_strmap.c \
+		  ./srcs/ft_strmapi.c \
+		  ./srcs/ft_strncat.c \
+		  ./srcs/ft_strncmp.c \
+		  ./srcs/ft_strncpy.c \
+		  ./srcs/ft_strnequ.c \
+		  ./srcs/ft_strnew.c \
+		  ./srcs/ft_strnstr.c \
+		  ./srcs/ft_strrchr.c \
+		  ./srcs/ft_strsplit.c \
+		  ./srcs/ft_strstr.c \
+		  ./srcs/ft_strsub.c \
+		  ./srcs/ft_strtoi.c \
+		  ./srcs/ft_strtrim.c \
+		  ./srcs/ft_tolower.c \
+		  ./srcs/ft_toupper.c \
+		  ./srcs/ft_putptr.c \
+		  ./srcs/ft_itoa_base.c \
+		  ./srcs/ft_putnbr_base.c \
+		  ./srcs/ft_max.c \
+		  ./srcs/ft_min.c \
+		  ./srcs/ft_writeendl.c \
+		  ./srcs/ft_get_line.c \
+		  ./srcs/ft_strcnt.c \
+		  ./srcs/ft_putwchar.c \
+		  ./srcs/ft_putwstr.c \
+		  ./srcs/ft_putwchar_fd.c \
+		  ./srcs/ft_putwstr_fd.c \
+		  ./srcs/ft_printf/srcs/ft_printf_core.c \
+		  ./srcs/ft_printf/srcs/ft_printf_fd.c \
+		  ./srcs/ft_printf/srcs/ft_printf.c \
+		  ./srcs/ft_printf/srcs/ft_printf_char.c \
+		  ./srcs/ft_printf/srcs/ft_printf_handlings.c \
+		  ./srcs/ft_printf/srcs/ft_printf_noconv.c \
+		  ./srcs/ft_printf/srcs/ft_printf_parser.c \
+		  ./srcs/ft_printf/srcs/ft_printf_signed_decimal.c \
+		  ./srcs/ft_printf/srcs/ft_printf_signedtostr.c \
+		  ./srcs/ft_printf/srcs/ft_printf_string.c \
+		  ./srcs/ft_printf/srcs/ft_printf_unsigned_decimal.c \
+		  ./srcs/ft_printf/srcs/ft_printf_unsigned_hex.c \
+		  ./srcs/ft_printf/srcs/ft_printf_unsigned_octal.c \
+		  ./srcs/ft_printf/srcs/ft_printf_unsignedtostr_base.c \
+		  ./srcs/ft_printf/srcs/ft_printf_utils.c \
+		  ./srcs/ft_printf/srcs/ft_printf_wchar.c \
+		  ./srcs/ft_printf/srcs/ft_printf_wstring.c \
 
-CC=clang
+INCLUDES = ./includes/libft.h \
+		   ./includes/ft_printf_handler.h \
+		   ./includes/ft_printf_internal.h
 
-FLAGS=-Wall -Wextra -Werror
+OBJECTS = $(notdir $(SOURCES:.c=.o))
+NAME = libft.a
 
-NAME=libft.a
-
-SRC=	ft_memset.c\
-		ft_bzero.c\
-		ft_memcpy.c\
-		ft_memccpy.c\
-		ft_memmove.c\
-		ft_memchr.c\
-		ft_memcmp.c\
-		ft_strlen.c\
-		ft_strdup.c\
-		ft_strcpy.c\
-		ft_strncpy.c\
-		ft_strcat.c\
-		ft_strncat.c\
-		ft_strlcat.c\
-		ft_strchr.c\
-		ft_strrchr.c\
-		ft_strstr.c\
-		ft_strnstr.c\
-		ft_strcmp.c\
-		ft_strncmp.c\
-		ft_atoi.c\
-		ft_isalpha.c\
-		ft_isdigit.c\
-		ft_isalnum.c\
-		ft_isascii.c\
-		ft_isprint.c\
-		ft_toupper.c\
-		ft_tolower.c\
-		ft_memalloc.c\
-		ft_memdel.c\
-		ft_strnew.c\
-		ft_strdel.c\
-		ft_strclr.c\
-		ft_striter.c\
-		ft_striteri.c\
-		ft_strmap.c\
-		ft_strmapi.c\
-		ft_strequ.c\
-		ft_strnequ.c\
-		ft_strsub.c\
-		ft_strjoin.c\
-		ft_strtrim.c\
-		ft_strsplit.c\
-		ft_itoa.c\
-		ft_putchar.c\
-		ft_putstr.c\
-		ft_putendl.c\
-		ft_putnbr.c\
-		ft_putchar_fd.c\
-		ft_putstr_fd.c\
-		ft_putendl_fd.c\
-		ft_putnbr_fd.c\
-		ft_lstnew.c\
-		ft_lstdelone.c\
-		ft_lstdel.c\
-		ft_lstadd.c\
-		ft_lstiter.c\
-		ft_lstmap.c\
-		ft_count_words.c\
-		ft_print_words_tables.c\
-		ft_is_prime.c\
-		ft_swap.c\
-		ft_strrev.c\
-		ft_sort_int_tab.c\
-		ft_pgcd.c\
-		ft_list_size.c\
-		get_next_line.c\
-
-RED = \033[31;1m
-GRN = \033[32;1m
-YEL = \033[33;1m
-BLU = \033[34;1m
-MAG = \033[35;1m
-CYN = \033[36;1m
-WHT = \033[37;1m
-EOC = \033[0m
-BEER = \xF0\x9F\x8D\xBA
-
-OBJ=$(SRC:.c=.o)
-
-$(NAME): $(OBJ)
-	@ar rc $(NAME) $(OBJ)
-	@ranlib $(NAME)
-	@echo "$(GRN)$(BEER) $(NAME) created successfully!$(EOC)"
+vpath %.c ./srcs ./srcs/ft_printf/srcs
 
 all: $(NAME)
 
-%.o: %.c
-	@$(CC) -c $^ -o $@
-	@echo "$(GRN)$< =>$(EOC) $(YEL)$@$(EOC) $(GRN)✓$(EOC)"
+$(NAME): $(OBJECTS)
+	@ /bin/echo -n "Creating library => "
+	@ if ar rc $(NAME) $(OBJECTS) ; \
+		then /bin/echo ✅; \
+		else /bin/echo ❌ ; fi
+	@ ranlib $(NAME)
+	@ echo "Finished"
+
+%.o: %.c $(INCLUDES)
+	@ /bin/echo -n "Compiling: $< => "
+	@ if $(CC) -o $@ -c $(CFLAGS) $< $(addprefix -I ,$(sort $(dir $(INCLUDES)))) ;\
+		then /bin/echo ✅; \
+		else /bin/echo ❌ ; fi
 
 clean:
-	@rm -rf $(OBJ)
+	@ echo "Deleting object files"
+	@ rm -f $(OBJECTS)
 
 fclean: clean
-	@rm -rf $(NAME)
-	@echo "$(RED)$(NAME) removed!$(EOC)"
+	@ echo "Deleting $(NAME)"
+	@ rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: clean
-	clean:
-	rm -rf $(OBJ)
