@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 11:59:55 by amarzial          #+#    #+#             */
-/*   Updated: 2017/02/11 18:54:01 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/02 19:26:24 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,6 @@ int						ft_printf_core(int fd, const char *format, \
 int						ft_printf_fd(int fd, const char *format, ...);
 int						ft_printf(const char *format, ...);
 int						ft_strtoi(int *dest, const char *nbr);
+unsigned int			ft_strtou(unsigned int *dest, const char *nbr);
 
 #endif

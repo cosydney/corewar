@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/02 17:17:34 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/02 19:17:29 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include "op.h"
 
 typedef unsigned char byte;
+
+enum			e_errcodes
+{
+	MALLOC_ERROR= 1,
+	ARG_ERROR
+};
 
 typedef struct	s_op
 {
@@ -37,12 +43,12 @@ typedef	struct	s_vm
 	int		cycle;
 }				t_vm;
 
-struct			s_champion
+typedef struct		s_champion
 {
 	char			*name;
 	char			*comment;
 	unsigned int	id;
-	int				fd;
+	char			*filename;
 	t_list			*processes;
 	size_t			process_n;
 }				t_champion;
@@ -56,7 +62,24 @@ typedef struct	s_process
 	int		cycle_count;
 }				t_process;
 
-t_vm			*vm_get()
-int				*vm_init()
+typedef struct	s_player
+{
+	t_process		*process;
+	struct s_player	*next;
+
+}				t_player;
+
+typedef struct	s_options
+{
+	int		dump:1;
+	int		dump_cycles;
+}				t_options;
+
+t_vm			*vm_get();
+int				vm_init();
+
+int			parse_args(int argc, char **argv, t_vm *vm, t_options *opt);
+int				create_champion(t_vm *vm, char *str, unsigned int *custom_nbr, \
+		unsigned int *player_n);
 
 #endif
