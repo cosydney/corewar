@@ -2,9 +2,11 @@ NAME 	=	corewar
 CC		=	clang
 CFLAGS 	=	-Wall -Werror -Wextra -fsanitize=address
 INC		=	-I includes/ -I libft/
-SRCS 	=	main.c
+SRCS 	=	main.c\
+			op.c
 OBJ		=	$(SRCS:.c=.o)
-HDRS	=	corewar.h
+HDRS	=	corewar.h\
+			op.h
 SDIR	=	$(addprefix srcs/, $(SRCS))
 ODIR	=	$(addprefix objs/, $(OBJ))
 HDIR	=	$(addprefix includes/, $(HDRS))
@@ -21,8 +23,10 @@ BEER = \xF0\x9F\x8D\xBA
 
 all: $(NAME)
 
-$(NAME): $(ODIR)
+lib: 
 	@make $(LIBPATH)
+
+$(NAME): lib $(ODIR)
 	@$(CC) $(CFLAGS) $(ODIR) -L./libft -lft -o $(NAME) $(INC)
 	@echo "$(GRN)$(BEER) $(NAME) created successfully!$(EOC)"
 
