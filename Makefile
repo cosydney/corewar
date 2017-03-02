@@ -10,7 +10,7 @@ HDRS	=	corewar.h\
 SDIR	=	$(addprefix srcs/, $(SRCS))
 ODIR	=	$(addprefix objs/, $(OBJ))
 HDIR	=	$(addprefix includes/, $(HDRS))
-LIBPATH =	-C ./libft
+LIBPATH =	./libft
 RED = \033[31;1m
 GRN = \033[32;1m
 YEL = \033[33;1m
@@ -23,10 +23,8 @@ BEER = \xF0\x9F\x8D\xBA
 
 all: $(NAME)
 
-lib: 
-	@make $(LIBPATH)
-
-$(NAME): lib $(ODIR)
+$(NAME): $(ODIR)
+	@make -C $(LIBPATH)
 	@$(CC) $(CFLAGS) $(ODIR) -L./libft -lft -o $(NAME) $(INC)
 	@echo "$(GRN)$(BEER) $(NAME) created successfully!$(EOC)"
 
@@ -37,16 +35,15 @@ objs/%.o: srcs/%.c $(HDIR)
 
 clean:
 	@/bin/rm -rf objs
-	@make clean $(LIBPATH)
+	@make -C $(LIBPATH) clean
 
 fclean: clean
 	@/bin/rm -f $(NAME)
-	@make fclean $(LIBPATH)
+	@make -C $(LIBPATH) fclean
 	@echo "$(RED)$(NAME) removed!$(EOC)"
 
 reli:
-	@make clean $(LIBPATH)
-	@rm -f libft/libft.a
+	@make -C $(LIBPATH) re
 
 re: fclean all
 
