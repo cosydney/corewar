@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 18:59:05 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/02 19:05:52 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/02 22:59:25 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_print_mem(byte *memory, size_t size)
 	while (i < size)
 	{
 		if (counter == 0)
-			ft_printf("%.7x ", address);
+			ft_printf("%.7x:", address);
 		ft_printf(" %.2hhx", memory[i]);
 		++counter;
 		++address;
