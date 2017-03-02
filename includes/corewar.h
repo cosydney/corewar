@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/02 20:09:48 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/02 20:16:01 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void		ft_print_mem(byte *memory, size_t size);
 int			parse_args(int argc, char **argv, t_vm *vm, t_options *opt);
 int				create_champion(t_vm *vm, char *str, unsigned int *custom_nbr, \
 		unsigned int *player_n);
+
+void	error_exit(int code);
 
 /*
 ** free memory
