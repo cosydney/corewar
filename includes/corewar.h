@@ -6,15 +6,19 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/02 17:18:13 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/02 19:00:01 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 # include <libft.h>
 # include "op.h"
+
 
 typedef unsigned char byte;
 
@@ -66,4 +70,5 @@ typedef struct	s_player
 t_vm			*vm_get();
 int				vm_init();
 
+void		ft_print_mem(byte *memory, size_t size);
 #endif
