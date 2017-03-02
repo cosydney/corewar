@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 16:05:31 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/02 16:22:33 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/02 17:17:57 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_vm	*vm_get()
 	return (vm);
 }
 
-int		*vm_init()
+int		vm_init()
 {
 	if (vm_get())
 		return (1);

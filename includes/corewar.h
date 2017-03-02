@@ -6,14 +6,14 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/02 16:22:30 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/02 17:18:13 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
-# include "libft.h"
+# include <libft.h>
 # include "op.h"
 
 typedef unsigned char byte;
@@ -63,7 +63,7 @@ typedef struct	s_player
 
 }				t_player;
 
-t_vm			*vm_get()
-int				*vm_init()
+t_vm			*vm_get();
+int				vm_init();
 
 #endif
