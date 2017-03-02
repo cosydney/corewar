@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/05 14:43:26 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/02 11:40:50 by abonneca         ###   ########.fr       */
+/*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
+/*   Updated: 2017/03/02 15:22:43 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,21 @@
 # define COREWAR_H
 
 # include <libft.h>
-# include <op.h>
+# include "op.h"
 
 typedef unsigned char byte;
+
+typedef struct	s_op
+{
+	char		*mnemonic;
+	char		arg_c;
+	t_arg_type	ar[3];
+	byte		opcode;
+	size_t		cycles;
+	char		*full_mess;
+	char		reg:1;
+	char		index:1;
+}				t_op;
 
 typedef	struct	s_vm
 {
