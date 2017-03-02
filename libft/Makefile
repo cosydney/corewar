@@ -6,7 +6,7 @@
 #    By: abonneca <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 09:59:58 by abonneca          #+#    #+#              #
-#    Updated: 2017/03/02 10:15:34 by abonneca         ###   ########.fr        #
+#    Updated: 2017/03/02 11:16:51 by abonneca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,21 +84,35 @@ SRC=	ft_memset.c\
 		ft_list_size.c\
 		get_next_line.c\
 
+RED = \033[31;1m
+GRN = \033[32;1m
+YEL = \033[33;1m
+BLU = \033[34;1m
+MAG = \033[35;1m
+CYN = \033[36;1m
+WHT = \033[37;1m
+EOC = \033[0m
+BEER = \xF0\x9F\x8D\xBA
+
 OBJ=$(SRC:.c=.o)
 
-$(NAME):
-	@$(CC) -c $(FLAGS) $(SRC)
+$(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
+	@echo "$(GRN)$(BEER) $(NAME) created successfully!$(EOC)"
 
 all: $(NAME)
+
+%.o: %.c
+	@$(CC) -c $^ -o $@
+	@echo "$(GRN)$< =>$(EOC) $(YEL)$@$(EOC) $(GRN)✓$(EOC)"
 
 clean:
 	@rm -rf $(OBJ)
 
 fclean: clean
 	@rm -rf $(NAME)
-	@echo "\033[31;1m$(NAME) removed!\033[0m"
+	@echo "$(RED)$(NAME) removed!$(EOC)"
 
 re: fclean all
 
