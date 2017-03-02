@@ -2,10 +2,15 @@ NAME 	=	corewar
 CC		=	clang
 CFLAGS 	=	-Wall -Werror -Wextra #-fsanitize=address
 INC		=	-I includes/ -I libft/includes/
-SRCS 	=	main.c\
-			op.c\
-			helpers.c\
-			vm_setup.c
+SRCS 	=	main.c \
+			op.c \
+			helpers.c \
+			vm_setup.c \
+			arg_parser.c \
+			champion.c \
+			errors.c \
+			clear_memory.c
+
 OBJ		=	$(SRCS:.c=.o)
 HDRS	=	corewar.h\
 			op.h
