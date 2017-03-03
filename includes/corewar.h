@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/02 20:16:01 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/03 12:15:41 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ enum			e_errcodes
 {
 	MALLOC_ERROR= 1,
 	GENERIC_ERROR,
-	ARG_ERROR
+	ARG_ERROR,
+	TOO_MANY_PLAYERS
 };
 
 typedef struct	s_op
@@ -41,9 +42,10 @@ typedef struct	s_op
 
 typedef	struct	s_vm
 {
-	byte	memory[MEM_SIZE];
-	t_list	*players;
-	int		cycle;
+	byte			memory[MEM_SIZE];
+	t_list			*players;
+	unsigned int	player_count;
+	int				cycle;
 }				t_vm;
 
 typedef struct		s_champion

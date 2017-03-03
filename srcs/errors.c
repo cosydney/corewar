@@ -6,19 +6,20 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:22:06 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/02 20:17:10 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/03 12:15:34 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "corewar.h"
 
-static char	*g_errors[4] =
+static char	*g_errors[5] =
 {
 	[0] = "Unknown error",
 	[GENERIC_ERROR] = "Error",
 	[ARG_ERROR] = "Error: invalid argument",
-	[MALLOC_ERROR] = "Error: cannot allocate memory"
+	[MALLOC_ERROR] = "Error: cannot allocate memory",
+	[TOO_MANY_PLAYERS] = "Error: too many players specified"
 };
 
 void	error_exit(int code)
