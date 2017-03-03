@@ -1,6 +1,6 @@
 NAME 	=	corewar
 CC		=	clang
-CFLAGS 	=	-Wall -Werror -Wextra #-fsanitize=address
+CFLAGS 	=	-Wall -Werror -Wextra -fsanitize=address
 INC		=	-I includes/ -I libft/includes/
 SRCS 	=	main.c \
 			op.c \
