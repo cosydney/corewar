@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 18:26:32 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/02 19:29:09 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/03 12:16:09 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ int				create_champion(t_vm *vm, char *str, unsigned int *custom_nbr, \
 	t_list			*tmp;
 	unsigned int	next_id;
 
+	if (vm->player_count >= MAX_PLAYERS)
+		error_exit(TOO_MANY_PLAYERS);
+	vm->player_count++;
 	ft_bzero(&champ, sizeof(t_champion));
 	champ.filename = str;
 	if (custom_nbr[1] == 0)
