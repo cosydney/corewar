@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/02 19:37:04 by amarzial         ###   ########.fr       */
+/*   Created: 2017/02/10 15:22:06 by amarzial          #+#    #+#             */
+/*   Updated: 2017/03/02 20:17:10 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "corewar.h"
 
-int			main(int argc, char **argv)
+static char	*g_errors[4] =
 {
-	t_vm		*vm;
-	t_options	opt;
+	[0] = "Unknown error",
+	[GENERIC_ERROR] = "Error",
+	[ARG_ERROR] = "Error: invalid argument",
+	[MALLOC_ERROR] = "Error: cannot allocate memory"
+};
 
-	if (!vm_init())
-		exit(1);
-	vm = vm_get();
-	parse_args(argc, argv, vm, &opt);
-	if (opt.dump)
-		ft_print_mem(vm->memory, MEM_SIZE);
-	return (0);
+void	error_exit(int code)
+{
+	t_vm	*vm;
+
+	ft_printf_fd(2, "%s\n", g_errors[code]);
+	if ((vm = vm_get()))
+		clear_vm(vm);
+	exit(code);
 }
-

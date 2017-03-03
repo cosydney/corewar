@@ -59,6 +59,7 @@ SOURCES = ./srcs/ft_abs.c \
 		  ./srcs/ft_strstr.c \
 		  ./srcs/ft_strsub.c \
 		  ./srcs/ft_strtoi.c \
+		  ./srcs/ft_strtou.c \
 		  ./srcs/ft_strtrim.c \
 		  ./srcs/ft_tolower.c \
 		  ./srcs/ft_toupper.c \
