@@ -6,14 +6,14 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:22:06 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/03 16:10:10 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/03 19:02:12 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "corewar.h"
 
-static char	*g_errors[9] =
+static char	*g_errors[10] =
 {
 	[0] = "Unknown error",
 	[GENERIC_ERROR] = "Error",
@@ -23,7 +23,8 @@ static char	*g_errors[9] =
 	[OPEN_ERROR] = "Error: Open() failed",
 	[CLOSE_ERROR] = "Error: Close() failed",
 	[READ_ERROR] = "Error: Read() failed",
-	[LSEEK_ERROR] = "Error: Lseek() failed"
+	[LSEEK_ERROR] = "Error: Lseek() failed",
+	[INVALID_FILE] = "Error: the file is not valid"
 };
 
 void	error_exit(int code)

@@ -6,23 +6,13 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 13:52:38 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/03 18:09:59 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/03 19:33:28 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int		ft_power(int nb, int power)
-{
-	if (power < 0)
-		return (0);
-	if (power == 0)
-		return (1);
-	nb *= ft_power(nb, power - 1);
-	return (nb);
-}
-
-static void		ft_parse_header(char *str, int fd, int length)
+static int		ft_parse_header(char *str, int fd, int length)
 {
 	int		i;
 	char	buf;
@@ -31,56 +21,71 @@ static void		ft_parse_header(char *str, int fd, int length)
 	while (i < length)
 	{
 		if (read(fd, &buf, 1) == -1)
-			error_exit(READ_ERROR);
+			return (0);
 		str[i] = buf;
 		++i;
 	}
+	return (1);
 }
 
-static void		ft_get_prog_size(t_champion *player, int fd)
+static int		ft_get_prog_size(t_champion *player, int fd)
 {
-	int		i;
-	char	buf;
+	int				i;
+	unsigned char	buf;
 
 	i = 0;
-	while (i < 8)
+	while (i < sizeof(player->header.prog_size))
 	{
 		if (read(fd, &buf, 1) == -1)
-			error_exit(READ_ERROR);
-		player->header.prog_size += buf * ft_power(16, 14 - i * 2);
+			return (0);
+		player->header.prog_size = player->header.prog_size << 8;
+		player->header.prog_size += buf;
 		++i;
 	}
+	return (1);
 }
 
-void			ft_parse_chmp(t_vm vm)
+static int		check_magic(int fd, unsigned int magic_n)
 {
-	t_list	*players;
-	int		fd;
-	int		i;
+	unsigned char	buff;
+	unsigned int	nbr;
+	int				i;
 
-	players = vm.players;
+	nbr = 0;
+	while (i < sizeof(nbr))
+	{
+		if (read(fd, &buff, 1) != 1)
+			return (0);
+		nbr == nbr << 8;
+		nbr += buff;
+		++i;
+	}
+	if (nbr != magic_n)
+		return (0);
+	return (1);
+}
+
+void			ft_parse_champion(t_vm *vm)
+{
+	t_list		*players;
+	t_champion	*champ;
+	int			fd;
+	int			i;
+
+	players = vm->players;
 	while (players)
 	{
-		i = 0;
-		fd = open(((t_champion *)(players->content))->filename, O_RDONLY);
-		if (fd == -1)
+		champ = (t_champion*)players->content;
+		if ((fd = open(champ->filename, O_RDONLY)) == -1)
 			error_exit(OPEN_ERROR);
-		if (lseek(fd, 4, SEEK_SET) != 4)
-			error_exit(LSEEK_ERROR);
-		ft_parse_header(((t_champion *)(players->content))->header.prog_name\
-				, fd, PROG_NAME_LENGTH);
-		ft_get_prog_size(((t_champion *)(players->content)), fd);
-		ft_parse_header(((t_champion *)(players->content))->header.comment\
-				, fd, COMMENT_LENGTH);
-		fd = close(fd);
-		if (fd == -1)
+		if (!check_magic(fd, COREWAR_EXEC_MAGIC))
+			error_exit(INVALID_FILE);
+		if (!ft_parse_header(champ->header.prog_name, fd, PROG_NAME_LENGTH) || \
+		!ft_get_prog_size(champ, fd) || \
+		!ft_parse_header(champ->header.comment, fd, COMMENT_LENGTH))
+			error_exit(INVALID_FILE);
+		if ((fd = close(fd)) == -1)
 			error_exit(CLOSE_ERROR);
 		players = players->next;
 	}
 }
-
-/*
-**		ft_printf("%s\n", ((t_champion *)(players->content))->header.prog_name);
-**		ft_printf("%i\n", ((t_champion *)(players->content))->header.prog_size);
-**		ft_printf("%s\n", ((t_champion *)(players->content))->header.comment);
-*/
