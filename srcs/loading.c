@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   loading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/03 20:24:06 by amarzial         ###   ########.fr       */
+/*   Created: 2017/03/03 20:12:26 by amarzial          #+#    #+#             */
+/*   Updated: 2017/03/03 20:21:31 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int			main(int argc, char **argv)
+int		load_to_memory(int fd, int current, t_vm *vm, unsigned int prog_size)
 {
-	t_vm		*vm;
-	t_options	opt;
+	int	offset;
+	int	i;
 
-	if (!vm_init())
-		exit(1);
-	vm = vm_get();
-	ft_bzero(&opt, sizeof(t_options));
-	parse_args(argc, argv, vm, &opt);
-	parse_champion(vm);
-	if (opt.dump)
-		ft_print_mem(vm->memory, MEM_SIZE);
-	clear_vm(vm);
-//	sleep(10);
-	return (0);
+	offset = (MEM_SIZE / vm->player_count) * current;
+	i = 0;
+	if (read(fd, vm->memory + offset, prog_size) != prog_size)
+		return (0);
+	return (1);
 }
-

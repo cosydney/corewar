@@ -10,7 +10,8 @@ SRCS 	=	main.c \
 			champion.c \
 			errors.c \
 			parse_champions.c \
-			clear_memory.c
+			clear_memory.c \
+			loading.c
 
 OBJ		=	$(SRCS:.c=.o)
 HDRS	=	corewar.h\
