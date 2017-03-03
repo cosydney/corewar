@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 20:02:48 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/03 14:01:52 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/03 14:05:12 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ static void	delete_champion(void *content, size_t content_size)
 void		clear_vm(t_vm *vm)
 {
 	ft_lstdel(&(vm->players), delete_champion);
+	free(vm);
 }

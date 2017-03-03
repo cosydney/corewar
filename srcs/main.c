@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/03 11:42:37 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/03 14:05:41 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int			main(int argc, char **argv)
 	parse_args(argc, argv, vm, &opt);
 	if (opt.dump)
 		ft_print_mem(vm->memory, MEM_SIZE);
+	clear_vm(vm);
 	return (0);
 }
 
