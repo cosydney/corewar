@@ -6,20 +6,24 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 15:22:06 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/03 12:15:34 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/03 16:10:10 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "corewar.h"
 
-static char	*g_errors[5] =
+static char	*g_errors[9] =
 {
 	[0] = "Unknown error",
 	[GENERIC_ERROR] = "Error",
 	[ARG_ERROR] = "Error: invalid argument",
 	[MALLOC_ERROR] = "Error: cannot allocate memory",
-	[TOO_MANY_PLAYERS] = "Error: too many players specified"
+	[TOO_MANY_PLAYERS] = "Error: too many players specified",
+	[OPEN_ERROR] = "Error: Open() failed",
+	[CLOSE_ERROR] = "Error: Close() failed",
+	[READ_ERROR] = "Error: Read() failed",
+	[LSEEK_ERROR] = "Error: Lseek() failed"
 };
 
 void	error_exit(int code)

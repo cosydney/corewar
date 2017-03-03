@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 20:02:48 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/02 20:12:37 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/03 15:19:50 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ static void	delete_node(void *content, size_t content_size)
 
 	(void)content_size;
 	champ = (t_champion*)content;
-	if (champ->name)
-		free(champ->name);
-	if (champ->comment)
-		free(champ->comment);
+	free(champ->header.prog_name);
+	free(champ->header.comment);
 	clear_processes(champ->processes);
 	free(content);
 }
