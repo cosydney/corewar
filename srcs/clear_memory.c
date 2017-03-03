@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 20:02:48 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/03 18:40:56 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/03 19:34:17 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static void	delete_champion(void *content, size_t content_size)
 
 	(void)content_size;
 	champ = (t_champion*)content;
-	free(champ->header.prog_name);
-	free(champ->header.comment);
 	ft_lstdel(&(champ->processes), delete_process);
 	free(content);
 }

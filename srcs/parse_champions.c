@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 13:52:38 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/03 19:33:28 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/03 19:59:46 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,12 @@ static int		check_magic(int fd, unsigned int magic_n)
 	int				i;
 
 	nbr = 0;
+	i = 0;
 	while (i < sizeof(nbr))
 	{
 		if (read(fd, &buff, 1) != 1)
 			return (0);
-		nbr == nbr << 8;
+		nbr = nbr << 8;
 		nbr += buff;
 		++i;
 	}
@@ -65,7 +66,7 @@ static int		check_magic(int fd, unsigned int magic_n)
 	return (1);
 }
 
-void			ft_parse_champion(t_vm *vm)
+void			parse_champion(t_vm *vm)
 {
 	t_list		*players;
 	t_champion	*champ;
@@ -80,7 +81,8 @@ void			ft_parse_champion(t_vm *vm)
 			error_exit(OPEN_ERROR);
 		if (!check_magic(fd, COREWAR_EXEC_MAGIC))
 			error_exit(INVALID_FILE);
-		if (!ft_parse_header(champ->header.prog_name, fd, PROG_NAME_LENGTH) || \
+		//the + 4 is a temporary workaround until we find the meaning of the 4 empty bytes between name and prog_size
+		if (!ft_parse_header(champ->header.prog_name, fd, PROG_NAME_LENGTH + 4) || \
 		!ft_get_prog_size(champ, fd) || \
 		!ft_parse_header(champ->header.comment, fd, COMMENT_LENGTH))
 			error_exit(INVALID_FILE);
