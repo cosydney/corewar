@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 12:35:18 by amarzial          #+#    #+#             */
-/*   Updated: 2016/11/10 18:38:14 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/03 14:31:41 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 		{
 			ft_memcpy(node->content, content, content_size);
 			node->content_size = content_size;
+		}
+		else
+		{
+			free(node);
+			return (0);
 		}
 	}
 	return (node);
