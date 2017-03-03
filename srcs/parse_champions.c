@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 13:52:38 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/03 20:18:06 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/03 20:35:22 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ void			parse_champion(t_vm *vm)
 		(lseek(fd, 4, SEEK_CUR) == -1) || !ft_get_prog_size(champ, fd) || \
 		!ft_parse_header(champ->header.comment, fd, COMMENT_LENGTH))
 			error_exit(INVALID_FILE);
-		if (!load_to_memory(fd, i, vm, champ->header.prog_size))
+		//same here
+		lseek(fd, 4, SEEK_CUR);
+		if (!load_to_memory(fd, i++, vm, champ->header.prog_size))
 			error_exit(READ_ERROR);
 		if ((fd = close(fd)) == -1)
 			error_exit(CLOSE_ERROR);
