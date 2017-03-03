@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/03 20:19:08 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/03 20:45:43 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct		s_champion
 	struct s_header	header;
 	unsigned int	id;
 	char			*filename;
+	int				offset;
 	t_list			*processes;
 	size_t			process_n;
 }				t_champion;
