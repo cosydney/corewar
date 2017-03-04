@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 16:05:31 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/02 17:17:57 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/04 17:36:31 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_vm	*vm_get()
 	if (!vm)
 	{
 		if (!(vm = (t_vm*)ft_memalloc(sizeof(t_vm))))
-		return (0);
+			return (0);
+		vm->cycle_to_die = CYCLE_TO_DIE;
 	}
 	return (vm);
 }
