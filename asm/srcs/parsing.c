@@ -12,15 +12,15 @@
 
 #include "asm.h"
 
-static int		asm_check_champ(char *champ)
+static int		check_champ_name(char *champ)
 {
 	int i;
 
-	i = ft_strlen(champ[i]);
+	i = ft_strlen(&champ[i]);
 	if (i > 3 && champ[i - 1] == 's' && champ[i - 2] == '.')
 		return (1);
 	else
-		(ft_error("Wrong file extension."));
+		return (ft_error("Wrong file extension."));
 }
 
 int				parsing(char *champion, t_header *head, int check)
@@ -38,4 +38,5 @@ int				parsing(char *champion, t_header *head, int check)
 		return (-1);
 	name_comment_handler(fd, head);
 	//todo rest of the parsing 
+	return (0);
 }

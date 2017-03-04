@@ -49,5 +49,6 @@ typedef struct		s_label
 }					t_label;
 
 int			parsing(char *champion, t_header *head, int check);
+int			name_comment_handler(int fd, t_header *head);
 
 #endif

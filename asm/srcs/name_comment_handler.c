@@ -28,7 +28,7 @@ static int			header_pass(char *line, int name, int com, int check)
 	return (i);
 }
 
-static t_header		save_header(char *line, t_header *head, int check)
+static t_header		*save_header(char *line, t_header *head, int check)
 {
 	char *tmp;
 
@@ -73,14 +73,14 @@ static int			save_name_comment(char *line, t_header *head, int name, int com)
 
 	i = 0;
 	tmp = NULL;
-	if (!head->prog_name[0] && ft_strcmp(NAME_CMD_STRING, line, name) == 0)
+	if (!head->prog_name[0] && ft_strncmp(NAME_CMD_STRING, line, name) == 0)
 	{
 		if ((i = header_pass(line, name, com, 1)) == 0)
 			return (ft_error("Wrong format name -> line: "));//todo line with ft_error line number
 		else
 			save_header(&line[i], head, 0);
 	}
-	else if (!head->comment[0] && ft_strncmp(COMMENT_CMD_STRING, line, cmd) == 0)
+	else if (!head->comment[0] && ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
 	{
 		if ((i = header_pass(line, name, com, 0)) == 0)
 			return (ft_error("No name or comment."));
@@ -99,7 +99,7 @@ int			name_comment_handler(int fd, t_header *head)
 
 	i = 0;
 	line = 0;
-	while (get_next_line(fd, &line) > 0)
+	while (ft_getline(fd, &line) > 0)
 	{
 		g_line++;
 		if (line[0] != COMMENT_CHAR && line[0] != ';' && line[0] != '\0')
