@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 17:55:11 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/04 19:46:19 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/04 19:54:55 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void		remove_if_dead(t_list **procs, t_vm *vm)
 void	kill_processes(t_vm *vm)
 {
 	t_champion	*champ;
-	t_process	*proc;
 	t_list		*players;
 
 	players = vm->players;

@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/04 19:46:24 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/04 19:53:59 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct	s_options
 
 t_vm			*vm_get();
 int				vm_init();
+void			init_processes(t_vm *vm);
 
 void			ft_print_mem(byte *memory, size_t size);
 int				parse_args(int argc, char **argv, t_vm *vm, t_options *opt);
@@ -102,6 +103,7 @@ int				create_champion(t_vm *vm, char *str, unsigned int *custom_nbr, \
 void			parse_champion(t_vm *vm);
 int				load_to_memory(int fd, int current, t_vm *vm, \
 					unsigned int prog_size);
+void			vm_loop(t_vm *vm);
 
 void			error_exit(int code);
 
