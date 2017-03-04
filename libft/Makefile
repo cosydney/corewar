@@ -92,6 +92,8 @@ SOURCES = ./srcs/ft_abs.c \
 		  ./srcs/ft_printf/srcs/ft_printf_utils.c \
 		  ./srcs/ft_printf/srcs/ft_printf_wchar.c \
 		  ./srcs/ft_printf/srcs/ft_printf_wstring.c \
+		  ft_error.c\
+		  ft_strclen.c\
 
 INCLUDES = ./includes/libft.h \
 		   ./includes/ft_printf_handler.h \
