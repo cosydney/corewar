@@ -1,6 +1,4 @@
 objs/*
-objs/src/*.o
+objs/srcs/*.o
 asm
-objs/srcs/main.o
-objs/srcs/name_comment_handler.o
-objs/srcs/parsing.o
+.gitignore
