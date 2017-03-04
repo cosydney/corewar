@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 18:22:17 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/03 21:18:24 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/04 16:32:03 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define LABEL_CHAR					':'
 # define DIRECT_CHAR				'%'
 # define SEPARATOR_CHAR				','
+
+#define LABEL_CHARS					"abcdefghijklmnopqrstuvwxyz_0123456789"
 
 
 int					g_line;
@@ -50,5 +52,8 @@ typedef struct		s_label
 
 int			parsing(char *champion, t_header *head, int check);
 int			name_comment_handler(int fd, t_header *head);
+int			check_header(t_header *head, char *line);
+int			check_label(char *str);
+t_label		*label_init(t_label *label, char *line);
 
 #endif

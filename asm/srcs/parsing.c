@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 19:50:25 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/03 21:08:28 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/04 16:36:59 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,39 @@ static int		check_champ_name(char *champ)
 		return (ft_printf_fd(2, "Wrong file extension.\n"));
 }
 
+static void		display_champ_name(t_header *head)
+{
+	ft_printf("%-15s : %s\n", "Nom du Champion", head->prog_name);
+	ft_printf("%-15s : %s\n", "Commentaire", head->comment);
+}
+
+t_label			*parse_line(int fd, char **file)
+{
+	t_label *label;
+	char	*line;
+	int		i;
+
+	label = NULL;
+	line = NULL;
+	while (!(i = 0) && ft_getline(fd, &line) > 0)
+	{
+		g_line++;
+		while (line[i] == '\t' || line[i] == ' ')
+			i++;
+		if (line[i] && line[i] != COMMENT_CHAR && line[i] != ';' &&
+				check_label(line) >= 1) 
+		{
+			(label = label_init(label, line));
+			while (line[i] != LABEL_CHAR)
+				i++;
+			i++;
+		}
+//		*file = put_line_in_file(line, i, *file); //to do asm_put_line_in_file
+	}
+	free(line);
+	return (label);
+}
+
 int				parsing(char *champion, t_header *head, int check)
 {
 	int		fd;
@@ -39,6 +72,9 @@ int				parsing(char *champion, t_header *head, int check)
 	if ((fd = open(champion, O_RDONLY, 0555)) == -1)
 		return (-1);
 	name_comment_handler(fd, head);
+	if (check == 1)
+		display_champ_name(head);
+	label = parse_line(fd, &file);
 	//todo rest of the parsing 
 	return (0);
 }
