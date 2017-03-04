@@ -38,7 +38,7 @@ static void	init_global(void)
 static int	ac_check(int ac)
 {
 	if (ac == 2)
-		ft_error("Missing champion.");
+		ft_printf_fd(2, "Missing champion.\n");
 	return (1);
 }
 
@@ -58,9 +58,9 @@ int			main(int ac, char **av)
 		while (index < ac)
 		{
 			if ((head = header_init()) == NULL)
-				ft_error("Malloc probleme.");
+				ft_printf_fd(2, "Malloc probleme.\n");
 			if (parsing(av[index++], head, check) == -1)
-				ft_error("Champion is not valid.");	
+				ft_printf_fd(2, "Champion is not valid.\n");	
 			//
 			//free head here
 			// 
@@ -68,6 +68,6 @@ int			main(int ac, char **av)
 		}
 	}
 	else
-		ft_error("Missing champion.");
+		ft_printf_fd(2, "Missing champion.");
 	return (0);
 }

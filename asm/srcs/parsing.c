@@ -16,11 +16,13 @@ static int		check_champ_name(char *champ)
 {
 	int i;
 
-	i = ft_strlen(&champ[i]);
+	i = 0;
+	while (champ[i])
+		i++;
 	if (i > 3 && champ[i - 1] == 's' && champ[i - 2] == '.')
 		return (1);
 	else
-		return (ft_error("Wrong file extension."));
+		return (ft_printf_fd(2, "Wrong file extension.\n"));
 }
 
 int				parsing(char *champion, t_header *head, int check)
