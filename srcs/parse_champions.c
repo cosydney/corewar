@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 13:52:38 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/03 20:47:47 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/04 13:41:06 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int		ft_parse_header(char *str, int fd, int length)
 
 static int		ft_get_prog_size(t_champion *player, int fd)
 {
-	int				i;
+	unsigned int	i;
 	unsigned char	buf;
 
 	i = 0;
@@ -38,7 +38,7 @@ static int		ft_get_prog_size(t_champion *player, int fd)
 	{
 		if (read(fd, &buf, 1) == -1)
 			return (0);
-		player->header.prog_size = player->header.prog_size << 8;
+		player->header.prog_size <<= 8;
 		player->header.prog_size += buf;
 		++i;
 	}
@@ -49,7 +49,7 @@ static int		check_magic(int fd, unsigned int magic_n)
 {
 	unsigned char	buff;
 	unsigned int	nbr;
-	int				i;
+	unsigned int	i;
 
 	nbr = 0;
 	i = 0;
@@ -57,7 +57,7 @@ static int		check_magic(int fd, unsigned int magic_n)
 	{
 		if (read(fd, &buff, 1) != 1)
 			return (0);
-		nbr = nbr << 8;
+		nbr <<= 8;
 		nbr += buff;
 		++i;
 	}
