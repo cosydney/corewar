@@ -12,7 +12,10 @@ SRCS 	=	main.c \
 			parse_champions.c \
 			clear_memory.c \
 			parse_instruction.c \
-			loading.c
+			loading.c \
+			initializer.c \
+			process_loop.c \
+			killer.c
 
 OBJ		=	$(SRCS:.c=.o)
 HDRS	=	corewar.h\

@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 18:59:05 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/02 22:59:25 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/04 15:20:08 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,17 @@ void	ft_print_mem(byte *memory, size_t size)
 			ft_printf("\n");
 		}
 		i++;
+	}
+}
+
+void	utoreg(unsigned int n, byte reg[REG_SIZE])
+{
+	int i;
+
+	i = REG_SIZE;
+	while (i--)
+	{
+		reg[i] = n & 0xff;
+		n = n >> 8;
 	}
 }
