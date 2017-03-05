@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/03 20:45:43 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/05 15:22:50 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,22 +85,30 @@ typedef struct	s_options
 	int		dump_cycles;
 }				t_options;
 
+typedef	struct s_operation
+{
+	t_op	*op;
+	byte	params_byte;
+	byte	params[MAX_ARGS_NUMBER][REG_SIZE];
+}		t_operation;
+
 t_vm			*vm_get();
 int				vm_init();
 
 void			ft_print_mem(byte *memory, size_t size);
 int				parse_args(int argc, char **argv, t_vm *vm, t_options *opt);
 int				create_champion(t_vm *vm, char *str, unsigned int *custom_nbr, \
-					unsigned int *player_n);
+		unsigned int *player_n);
 void			parse_champion(t_vm *vm);
 int				load_to_memory(int fd, int current, t_vm *vm, \
-					unsigned int prog_size);
+		unsigned int prog_size);
 
 void			error_exit(int code);
+void			parse_instruction(char **argv);
 
 /*
-** free memory
-*/
+ ** free memory
+ */
 void			clear_vm(t_vm *vm);
 
 #endif

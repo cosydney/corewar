@@ -11,6 +11,7 @@ SRCS 	=	main.c \
 			errors.c \
 			parse_champions.c \
 			clear_memory.c \
+			parse_instruction.c \
 			loading.c
 
 OBJ		=	$(SRCS:.c=.o)
