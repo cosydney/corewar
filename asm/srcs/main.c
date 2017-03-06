@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 18:19:45 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/03 20:01:27 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/06 17:06:01 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ int			main(int ac, char **av)
 				ft_printf_fd(2, "Malloc probleme.\n");
 			if (parsing(av[index++], head, check) == -1)
 				ft_printf_fd(2, "Champion is not valid.\n");	
-			//
-			//free head here
-			// 
+			free(head);
+			head = NULL;
 			init_global();
 		}
 	}
 	else
 		ft_printf_fd(2, "Missing champion.");
+	sleep(30);
 	return (0);
 }

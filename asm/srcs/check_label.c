@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:35:07 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/04 16:34:07 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/06 16:01:47 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int		check_label(char *str)
 			str[i] != '\n' && str[i] != '\t' && str[i] != COMMENT_CHAR && str[i] != ',')
 	{
 		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
-			return (ft_printf_fd(2, "Wrong format label_char -> line: %d\n", g_line));
-		return (ft_printf_fd(2, "Wrong format labels_char -> line: %d\n", g_line));
+			return (asm_error(LABEL_CHAR_ERROR));
+		return (asm_error(LABELS_ERROR));
 	}
 	return (0);
 }

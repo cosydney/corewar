@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   label_init.c                                       :+:      :+:    :+:   */
+/*   check_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/04 16:10:30 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/06 16:09:51 by sycohen          ###   ########.fr       */
+/*   Created: 2017/03/06 17:06:11 by sycohen           #+#    #+#             */
+/*   Updated: 2017/03/06 17:06:56 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_label		*label_init(t_label *label, char *line)
+int		check_arg(char **line, int op)
 {
-	t_label		*new;
-	int			len;
 
-	len = 0;
-	if (!(new = malloc(sizeof(t_label))))
-		return (NULL);
-	while (line[len] != LABEL_CHAR)
-		len++;
-	new->name = NULL;
-	new->next = NULL;
-	new->pos = 0;
-	new->name = ft_strsub(line, 0, len);
-	new->pos = g_pos;
-	new->next = label;
-	return (new);
 }

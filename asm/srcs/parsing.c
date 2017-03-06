@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 19:50:25 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/04 16:36:59 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/06 16:00:00 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,25 @@ static int		check_champ_name(char *champ)
 	if (i > 3 && champ[i - 1] == 's' && champ[i - 2] == '.')
 		return (1);
 	else
-		return (ft_printf_fd(2, "Wrong file extension.\n"));
+		return (asm_error(FILE_ERROR));
 }
 
 static void		display_champ_name(t_header *head)
 {
 	ft_printf("%-15s : %s\n", "Nom du Champion", head->prog_name);
 	ft_printf("%-15s : %s\n", "Commentaire", head->comment);
+}
+
+char			*put_line_in_file(char *line, int i, char *file)
+{
+	while (line[i] == '\t' || line[i] == ' ')
+		i++;
+	if (line[i] && line[i] != COMMENT_CHAR && line[i] != ';' &&
+			check_valid_line(&line[i])) //todo check valid line
+		file = asm_free_join(&line[i], file); //to do free_join
+	free(line);
+	line = NULL;
+	return (file);
 }
 
 t_label			*parse_line(int fd, char **file)
@@ -52,7 +64,7 @@ t_label			*parse_line(int fd, char **file)
 				i++;
 			i++;
 		}
-//		*file = put_line_in_file(line, i, *file); //to do asm_put_line_in_file
+		*file = put_line_in_file(line, i, *file);
 	}
 	free(line);
 	return (label);
