@@ -6,15 +6,15 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 14:02:39 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/05 16:11:06 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/06 16:30:57 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	parse_instruction(char **argv)
+t_op	*ft_get(void)
 {
-/*	t_op    op_tab[17] =
+	static t_op    op_tab[17] =
 	{
 		{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 		{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -40,42 +40,56 @@ void	parse_instruction(char **argv)
 		{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
 		{0, 0, {0}, 0, 0, 0, 0, 0}
 	};
-	t_operation	operation;
-*/	int		fd;
-	char	tab_i;
+	return (op_tab);
+}
+
+//vm or (vm->memory), process
+void	parse_instruction(t_vm *vm, t_process *process)
+{
+
+
+	t_action	operation;
 	int		i;
 	int		j;
-	char	buf;
-	fd = open(argv[1], O_RDONLY);
-
-	tab_i = 0;
+	t_op 	*op_tab;
 	i = 0;
-	j = 3;
-	lseek(fd, COMMENT_LENGTH + PROG_NAME_LENGTH + 16, SEEK_CUR);
+	j = 0;
+	op_tab = ft_get();
 
-		while (read(fd, &buf, 1)>0)
-			ft_printf("%.2hhx ", buf);
-/*	read(fd, &buf, 1);
+//	while (i < MEM_SIZE)
+//		ft_printf("%.2hhx ", (vm->memory)[i++]);
+	process->cycle_count = 0;
+	ft_bzero(&operation, sizeof(t_action));
 	while (i < 17)
 	{
-		if (op_tab[i].opcode == buf)
+		if (op_tab[i].opcode == (vm->memory)[j])
 			operation.op = &op_tab[i];
 		++i;
 	}
-	if (tab_i != 0)
-	{		
-		read(fd, &buf, 1);
-		operation.params_byte = buf;
-	}
-	while (j >= 0)
+	if (operation.op)
+		operation.encoding = (vm->memory)[++j];
+	i = operation.op->arg_c;
+	++j;
+	while (i >= 0)
 	{
-		if ((operation.params_byte >> 2 * j) & REG_CODE)
-
-		else if ((operation.params_byte >> 2 * j) & DIR_CODE)
-
-		else if ((operation.params_byte >> 2 * j) & IND_CODE)
-		
-		--j;
+		if ((operation.encoding >> 2 * i) & REG_CODE)
+			operation.params[operation.op->arg_c - i][0] = (vm->memory)[j++];
+		else if ((operation.encoding >> 2 * i) & DIR_CODE)
+		{
+			operation.params[operation.op->arg_c - i][0] = (vm->memory)[j++];
+			operation.params[operation.op->arg_c - i][1] = (vm->memory)[j++];
+		}
+		else if ((operation.encoding >> 2 * i) & IND_CODE)
+		{
+			operation.params[operation.op->arg_c - i][0] = (vm->memory)[j++];
+			operation.params[operation.op->arg_c - i][1] = (vm->memory)[j++];
+			operation.params[operation.op->arg_c - i][2] = (vm->memory)[j++];
+		}
+		--i;
 	}
-*/
+	/*
+	ft_printf("%.2x\n", operation.params[0][0]);
+	ft_printf("%.2x %.2x\n", operation.params[1][0], operation.params[1][1]);
+	ft_printf("%.2x %.2x\n", operation.params[2][0], operation.params[2][1]);
+	*/
 }
