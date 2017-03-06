@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/06 16:31:31 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/06 19:02:20 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,17 @@ typedef struct		s_champion
 	size_t			process_n;
 }				t_champion;
 
+typedef	struct	s_param
+{
+	t_arg_type	t;
+	byte		value[REG_SIZE];
+}				t_param;
+
 typedef struct	s_action
 {
 	t_op	*op;
 	byte	encoding;
-	byte	params[MAX_ARGS_NUMBER][REG_SIZE];
+	t_param	params[MAX_ARGS_NUMBER];
 	byte	four[4];
 }				t_action;
 
@@ -118,9 +124,16 @@ void			error_exit(int code);
 void			parse_instruction(char **argv);
 
 void			utoreg(unsigned int n, byte reg[REG_SIZE]);
+int				bytetou(byte *arr, unsigned int *n, size_t size);
+
 /*
- ** free memory
- */
+** operations
+*/
+void			op_live(t_process *proc, t_vm *vm);
+
+/*
+** free memory
+*/
 void			clear_vm(t_vm *vm);
 void			kill_processes(t_vm *vm);
 void			delete_process(void *content, size_t content_size);
