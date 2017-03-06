@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 10:59:34 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/06 17:20:55 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/06 17:58:21 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,43 @@ int			check_valid_line(char *line)
 		else
 			line++;
 	return (1);
+}
+
+static int	check_comma(char **line)
+{
+	while (**line == '\t' || **line == ' ')
+		(*line)++;
+	if (**line != SEPARATOR_CHAR)
+		return (asm_error(ARGS_ERROR));
+	(*line)++;
+	while (**line == '\t' || **line == ' ')
+		(*line)++;
+	return (1);
+}
+
+int			check_direct(char **line, int op, int check)
+{
+	if (**line == DIRECT_CHAR)
+	{
+		if (op > 8 && op != 13)
+			g_pos = g_pos + 2;
+		else
+			g_pos = g_pos + 4;
+		(*line)++;
+		if (**line != LABEL_CHAR && !(**line >= '0' && **line <= '9') &&
+				**line != '-' && **line != '+')
+			asm_error(15);
+		if (**line == LABEL_CHAR)
+			(*line)++;
+		else if (**line == '+' || **line =='-')
+			(*line)++;
+		while (**line && ft_strchr(LABEL_CHARS, **line))
+			(*line)++;
+		while (**line == ' ' || **line == '\t')
+			(*line)++;
+		if (check == 1)
+			return (check_comma(line));
+		return (1);
+	}
+	return (0);
 }
