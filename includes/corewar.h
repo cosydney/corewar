@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/05 16:14:20 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/06 16:31:31 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef	struct	s_vm
 	unsigned int	checks;
 	unsigned int	live_count;
 	unsigned int	process_count;
+	unsigned int	last_live_id;
 }				t_vm;
 
 typedef struct		s_champion
@@ -73,6 +74,7 @@ typedef struct	s_action
 	t_op	*op;
 	byte	encoding;
 	byte	params[MAX_ARGS_NUMBER][REG_SIZE];
+	byte	four[4];
 }				t_action;
 
 typedef struct	s_process
