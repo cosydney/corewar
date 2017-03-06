@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 10:59:34 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/06 17:58:21 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/06 18:20:30 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,28 @@ static int	check_comma(char **line)
 	return (1);
 }
 
+int			check_register(char **line, int check)
+{
+	int reg;
+
+	reg = 0;
+	if (**line == 'r')
+	{
+		(*line)++;
+		reg = ft_atoi(*line);
+		if ( reg > REG_NUMBER || reg <=0)
+			return (asm_error(REG_ERROR));
+		(*line)++;
+		if (reg > 9)
+			(*line)++;
+		g_pos++;
+		if (check == 1)
+			return (check_comma(line));
+		return (1);
+	}
+	return (0);
+}
+
 int			check_direct(char **line, int op, int check)
 {
 	if (**line == DIRECT_CHAR)
@@ -79,4 +101,29 @@ int			check_direct(char **line, int op, int check)
 		return (1);
 	}
 	return (0);
+}
+
+int			check_indirect(char **line, int check)
+{
+	if (**line == LABEL_CHAR)
+	{
+		(*line)++;
+		while (**line && ft_strchr(LABEL_CHARS, **line))
+			(*line)++;
+	}
+	else if (((**line == '+' || **line == '-') && (*line)++) ||
+			ft_isdigit(**line))
+	{
+		while (ft_isdigit(**line))
+			(*line)++;
+	}
+	else
+		return (0);
+	if (**line != '\0' && **line != '\n'
+			&& **line != SEPARATOR_CHAR && **line != ' ' && **line != '\t')
+		return (asm_error(INDIRECT_ERROR));
+	g_pos = g_pos + 2;
+	if (check == 1)
+		return (check_comma(line));
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 15:24:30 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/06 17:02:20 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/06 18:17:35 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int		asm_error_sec(int error)
 		ft_printf_fd(2, "Label Char error\n");
 	if (error == MALLOC_ERROR)
 		ft_printf_fd(2, "Malloc probs");
+	if (error == REG_ERROR)
+		ft_printf_fd(2, "Register troubles -> line: %d\n", g_line);
 	exit(0);
 	return (0);
 }
