@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 18:59:05 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/04 15:20:08 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/06 17:52:04 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,19 @@ void	utoreg(unsigned int n, byte reg[REG_SIZE])
 		reg[i] = n & 0xff;
 		n = n >> 8;
 	}
+}
+
+unsigned int regtou(byte reg[REG_SIZE])
+{
+	int				i;
+	unsigned int	res;
+
+	res = 0;
+	i = REG_SIZE;
+	while (i--)
+	{
+		res += reg[i];
+		res <<= 8;
+	}
+	return (res);
 }
