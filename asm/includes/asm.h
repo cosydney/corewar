@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 18:22:17 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/06 17:54:54 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/06 18:19:45 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 # define DIRECT_CHAR				'%'
 # define SEPARATOR_CHAR				','
 
+# define REG_NUMBER					16
+
+#define LABEL_CHARS					"abcdefghijklmnopqrstuvwxyz_0123456789"
+
 # define FORMAT_ERROR				1
 # define COMMENT_ERROR				2
 # define LABELS_ERROR				3
@@ -43,6 +47,7 @@
 # define LINES_ERROR				13
 # define FILE_ERROR					14
 # define LABEL_ERROR				15
+# define REG_ERROR					16
 
 # define LIVE						1
 # define LD							2
@@ -61,7 +66,6 @@
 # define LFORK						15
 # define AFF						16
 
-#define LABEL_CHARS					"abcdefghijklmnopqrstuvwxyz_0123456789"
 
 
 int					g_line;
@@ -94,6 +98,7 @@ char		*asm_free_join(char *line, char *file);
 int			asm_error(int error);
 int			check_arg(char **line, int op);
 int			check_direct(char **line, int op, int check);
-
+int			check_register(char **line, int check);
+int			check_indirect(char **line, int check);
 
 #endif
