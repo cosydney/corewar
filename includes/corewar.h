@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/06 19:09:32 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/07 15:48:04 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ typedef struct	s_options
 	int		dump:1;
 	int		dump_cycles;
 }				t_options;
+
+extern t_op op_tab[17];
 
 t_vm			*vm_get();
 int				vm_init();
