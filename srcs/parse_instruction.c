@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 14:02:39 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/06 18:19:39 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/07 15:13:09 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,31 +59,39 @@ static void	offset_pc(byte pc[REG_SIZE], unsigned int to_add)
 	utoreg((pc_u +  to_add) % MEM_SIZE, pc);
 }
 
-void	input_params(t_vm *vm, t_process *process, int i, int *j)
+void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 {
 	if (((process->act).encoding >> 2 * i) & REG_CODE)
-		(process->act).params[(process->act).op->arg_c - i][0] = (vm->memory)[(*j)++];
+	{
+		(process->act).params[(process->act).op->arg_c - i][0] = (vm->memory)[*j];
+		*j = (*j + 1) % MEM_SIZE;
+	}
 	else if (((process->act).encoding >> 2 * i) & DIR_CODE)
 	{
-		(process->act).params[(process->act).op->arg_c - i][0] = (vm->memory)[(*j)++];
-		(process->act).params[(process->act).op->arg_c - i][1] = (vm->memory)[(*j)++];
+		(process->act).params[(process->act).op->arg_c - i][0] = (vm->memory)[*j];
+		*j = (*j + 1) % MEM_SIZE;
+		(process->act).params[(process->act).op->arg_c - i][1] = (vm->memory)[*j];
+		*j = (*j + 1) % MEM_SIZE;
 	}
 	else if (((process->act).encoding >> 2 * i) & IND_CODE)
 	{
-		(process->act).params[(process->act).op->arg_c - i][0] = (vm->memory)[(*j)++];
-		(process->act).params[(process->act).op->arg_c - i][1] = (vm->memory)[(*j)++];
-		(process->act).params[(process->act).op->arg_c - i][2] = (vm->memory)[(*j)++];
+		(process->act).params[(process->act).op->arg_c - i][0] = (vm->memory)[*j];
+		*j = (*j + 1) % MEM_SIZE;
+		(process->act).params[(process->act).op->arg_c - i][1] = (vm->memory)[*j];
+		*j = (*j + 1) % MEM_SIZE;
+		(process->act).params[(process->act).op->arg_c - i][2] = (vm->memory)[*j];
+		*j = (*j + 1) % MEM_SIZE;
 	}
 }
 
 void	parse_instruction(t_vm *vm, t_process *process)
 {
 	int		i;
-	int		j;
+	unsigned int		j;
 	t_op 	*op_tab;
 
 	i = 0;
-	j = 0;
+	j = regtou(process->pc);
 	op_tab = ft_get();
 	while (i < 17)
 	{
@@ -93,9 +101,10 @@ void	parse_instruction(t_vm *vm, t_process *process)
 	}
 	if ((process->act).op)
 	{
-		(process->act).encoding = (vm->memory)[++j];
+		j = (j + 1) % MEM_SIZE;
+		(process->act).encoding = (vm->memory)[j];
 		i = (process->act).op->arg_c;
-		++j;
+		j = (j + 1) % MEM_SIZE;
 		while (i >= 0)
 		{
 			input_params(vm, process, i, &j);
@@ -106,9 +115,9 @@ void	parse_instruction(t_vm *vm, t_process *process)
 }
 
 /*
- **	ft_printf("%i\n", regtou(process->pc));
- **	ft_printf("%.2x %.2x %.2x %.2x\n", process->pc[0], process->pc[1], process->pc[2],process->pc[3]);
- **	ft_printf("%.2x\n", (process->act).params[0][0]);
- **	ft_printf("%.2x %.2x\n", (process->act).params[1][0], (process->act).params[1][1]);
- **	ft_printf("%.2x %.2x\n", (process->act).params[2][0], (process->act).params[2][1]);
+ 	ft_printf("%i\n", regtou(process->pc));
+ 	ft_printf("%.2x %.2x %.2x %.2x\n", process->pc[0], process->pc[1], process->pc[2],process->pc[3]);
+ 	ft_printf("%.2x\n", (process->act).params[0][0]);
+ 	ft_printf("%.2x %.2x\n", (process->act).params[1][0], (process->act).params[1][1]);
+ 	ft_printf("%.2x %.2x\n", (process->act).params[2][0], (process->act).params[2][1]);
  */
