@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 10:59:34 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/06 18:20:30 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/07 15:49:18 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			check_register(char **line, int check)
 	{
 		(*line)++;
 		reg = ft_atoi(*line);
-		if ( reg > REG_NUMBER || reg <=0)
+		if (reg > REG_NUMBER || reg <= 0)
 			return (asm_error(REG_ERROR));
 		(*line)++;
 		if (reg > 9)

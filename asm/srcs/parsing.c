@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 19:50:25 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/06 17:58:08 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/07 18:07:14 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,12 @@ int				parsing(char *champion, t_header *head, int check)
 	if (check == 1)
 		display_champ_name(head);
 	label = parse_line(fd, &file);
-	//todo rest of the parsing 
+	check_double_label(label);
+	if (check_label_exist(label, file) == 0)
+		return (asm_error(ARG_ERROR));
+	reader(label, head, champion, file);
+	if (file && file[0])
+		free(file);
+	//todo free label
 	return (0);
 }
