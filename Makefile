@@ -17,6 +17,7 @@ SRCS 	=	main.c \
 			process_loop.c \
 			op_add.c \
 			op_sub.c \
+			op_zjump.c \
 			killer.c
 
 OBJ		=	$(SRCS:.c=.o)
