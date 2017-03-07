@@ -15,6 +15,8 @@ SRCS 	=	main.c \
 			loading.c \
 			initializer.c \
 			process_loop.c \
+			op_add.c \
+			op_sub.c \
 			killer.c
 
 OBJ		=	$(SRCS:.c=.o)

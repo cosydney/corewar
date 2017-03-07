@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/07 15:48:04 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/07 16:45:46 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ unsigned int	regtou(byte reg[REG_SIZE]);
 ** operations
 */
 void			op_live(t_process *proc, t_vm *vm);
+void			op_add(t_process *proc, t_vm *vm);
+void			op_sub(t_process *proc, t_vm *vm);
 
 /*
 ** free memory
