@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 12:10:14 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/08 14:39:58 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef	struct	s_vm
 {
 	byte			memory[MEM_SIZE];
 	t_list			*players;
+	t_list			*processes;
 	unsigned int	player_count;
 	unsigned int	total_cycles;
 	unsigned int	cycle;
@@ -65,7 +66,6 @@ typedef struct		s_champion
 	unsigned int	id;
 	char			*filename;
 	unsigned int	offset;
-	t_list			*processes;
 	size_t			process_n;
 }				t_champion;
 
@@ -85,6 +85,8 @@ typedef struct	s_action
 
 typedef struct	s_process
 {
+	unsigned int	pid;
+	t_champion		*parent;
 	t_action		act;
 	byte			registers[REG_NUMBER][REG_SIZE];
 	byte			pc[REG_SIZE];

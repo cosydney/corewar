@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 17:55:11 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/08 11:39:00 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/08 14:48:29 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ static t_list	*delete_node(t_list **prev, t_list *node)
 	return (node);
 }
 
-static void		remove_if_dead(t_list **procs, t_vm *vm)
+void			kill_processes(t_vm *vm)
 {
 	t_process	*process;
 	t_list		*tmp;
+	t_list		**procs;
 
+	procs = &(vm->processes);
 	while (*procs)
 	{
 		process = (t_process*)(*procs)->content;
@@ -46,19 +48,5 @@ static void		remove_if_dead(t_list **procs, t_vm *vm)
 			delete_node(&tmp, tmp->next);
 		else if (!(process->live_count = 0))
 			tmp = tmp->next;
-	}
-}
-
-void			kill_processes(t_vm *vm)
-{
-	t_champion	*champ;
-	t_list		*players;
-
-	players = vm->players;
-	while (players)
-	{
-		champ = (t_champion*)players->content;
-		remove_if_dead(&(champ->processes), vm);
-		players = players->next;
 	}
 }
