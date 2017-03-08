@@ -6,18 +6,19 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 14:56:51 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/08 11:42:50 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/08 14:29:31 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "corewar.h"
 
-/*
+
 void	run_cycle(t_vm *vm)
 {
 	t_list				*player;
 	t_list				*process;
+	t_process			*proc;
 
 	cycle_n++;
 	player = vm->players;
@@ -26,10 +27,17 @@ void	run_cycle(t_vm *vm)
 		process = ((t_champion*)player->content)->processes;
 		while (process)
 		{
-			if ()
+			proc = (t_process*)process->content;
+			if (!proc->cycle_count)
+			{
+				//exec op
+				//parse next
+			}
+			if (proc->cycle_count)
+				proc->cycle_count--;
 		}
 	}
-}*/
+}
 
 void	vm_loop(t_vm *vm)
 {
@@ -47,6 +55,6 @@ void	vm_loop(t_vm *vm)
 			vm->cycle = 0;
 			vm->live_count = 0;
 		}
-		//run_cycle(vm);
+		run_cycle(vm);
 	}
 }
