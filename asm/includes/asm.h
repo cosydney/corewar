@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 18:22:17 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 11:24:15 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 14:33:22 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define FILE_ERROR					14
 # define LABEL_ERROR				15
 # define REG_ERROR					16
+# define CHAMPION_ERROR				17
 
 # define LIVE						1
 # define LD							2
