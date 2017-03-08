@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_lld.c                                           :+:      :+:    :+:   */
+/*   op_ld.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/08 11:07:27 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 18:35:09 by abonneca         ###   ########.fr       */
+/*   Created: 2017/03/06 17:25:02 by amarzial          #+#    #+#             */
+/*   Updated: 2017/03/08 18:34:52 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
 /*
-static void		lld_ind(unsigned int offset, byte *reg, t_vm *vm)
+static void		ld_ind(unsigned int offset, byte *reg, t_vm *vm)
 {
 	int	i;
 
@@ -22,7 +21,7 @@ static void		lld_ind(unsigned int offset, byte *reg, t_vm *vm)
 		reg[i++] = vm->memory[(offset + i) % MEM_SIZE];
 }
 
-void			op_lld(t_process *proc, t_vm *vm)
+void			op_ldi(t_process *proc, t_vm *vm)
 {
 	unsigned int	reg_n;
 	byte			*value;
@@ -35,7 +34,5 @@ void			op_lld(t_process *proc, t_vm *vm)
 	if (proc.act->params[1].t == T_DIR)
 		ft_memcpy(proc->registers + reg_n, value, REG_SIZE);
 	else if (proc.act->params[1].t == T_DIR)
-	{
-		ld_ind(regtou(proc->pc) + ind, proc->registers + reg_n, vm);
-	}
+		ld_ind(regtou(proc->pc) + (ind % IDX_MOD), proc->registers + reg_n, vm);
 }*/

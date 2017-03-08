@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 12:10:14 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/08 14:01:46 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,19 +127,19 @@ unsigned int	regtou(byte reg[REG_SIZE]);
 void			op_live(t_process *proc, t_vm *vm);
 void			op_ld(t_process *proc, t_vm *vm);
 void			op_st(t_process *proc, t_vm *vm);
-void			op_add(t_process *proc);
-void			op_sub(t_process *proc);
-void			op_and(t_process *proc);
-void			op_or(t_process *proc);
-void			op_xor(t_process *proc);
-void			op_zjump(t_process *proc);
-
+void			op_add(t_process *proc, t_vm *vm);
+void			op_sub(t_process *proc, t_vm *vm);
+void			op_and(t_process *proc, t_vm *vm);
+void			op_or(t_process *proc, t_vm *vm);
+void			op_xor(t_process *proc, t_vm *vm);
+void			op_zjump(t_process *proc, t_vm *vm);
+void			op_ldi(t_process *proc, t_vm *vm);
 
 
 void			op_lld(t_process *proc, t_vm *vm);
 
 
-
+void			op_aff(t_process *proc, t_vm *vm);
 
 /*
 ** free memory
