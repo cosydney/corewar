@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 14:01:46 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/08 18:46:38 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef	struct	s_vm
 {
 	byte			memory[MEM_SIZE];
 	t_list			*players;
+	t_list			*processes;
 	unsigned int	player_count;
 	unsigned int	total_cycles;
 	unsigned int	cycle;
@@ -65,7 +66,6 @@ typedef struct		s_champion
 	unsigned int	id;
 	char			*filename;
 	unsigned int	offset;
-	t_list			*processes;
 	size_t			process_n;
 }				t_champion;
 
@@ -85,6 +85,8 @@ typedef struct	s_action
 
 typedef struct	s_process
 {
+	unsigned int	pid;
+	t_champion		*parent;
 	t_action		act;
 	byte			registers[REG_NUMBER][REG_SIZE];
 	byte			pc[REG_SIZE];
@@ -100,6 +102,8 @@ typedef struct	s_options
 	int		dump_cycles;
 }				t_options;
 
+typedef void (*t_callback)(t_process*, t_vm*);
+
 extern t_op op_tab[17];
 
 t_vm			*vm_get();
@@ -113,10 +117,10 @@ int				create_champion(t_vm *vm, char *str, unsigned int *custom_nbr, \
 void			parse_champion(t_vm *vm);
 int				load_to_memory(int fd, int current, t_vm *vm, \
 					unsigned int prog_size);
-void			vm_loop(t_vm *vm);
+void			vm_loop(t_vm *vm, t_options *opt);
 
 void			error_exit(int code);
-void			parse_instruction(t_vm *vm, t_process *process);
+void			parse_instruction(t_process *process, t_vm *vm);
 
 void			utoreg(unsigned int n, byte reg[REG_SIZE]);
 unsigned int	regtou(byte reg[REG_SIZE]);
