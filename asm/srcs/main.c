@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 18:19:45 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/07 16:11:50 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 13:38:53 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int			main(int ac, char **av)
 
 	index = 1;
 	check = 0;
+	head = NULL;
 	init_global();
 	if (ac > 1)
 	{
@@ -58,9 +59,9 @@ int			main(int ac, char **av)
 		while (index < ac)
 		{
 			if ((head = header_init()) == NULL)
-				ft_printf_fd(2, "Malloc probleme.\n");
+				return (asm_error(MALLOC_ERROR));
 			if (parsing(av[index++], head, check) == -1)
-				ft_printf_fd(2, "Champion is not valid.\n");	
+				return (asm_error(FORMAT_ERROR));
 			free(head);
 			head = NULL;
 			init_global();
@@ -68,6 +69,5 @@ int			main(int ac, char **av)
 	}
 	else
 		ft_printf_fd(2, "Missing champion.");
-	sleep(30);
 	return (0);
 }

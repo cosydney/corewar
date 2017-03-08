@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 10:59:34 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/07 15:49:18 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 10:25:53 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int			check_register(char **line, int check)
 		(*line)++;
 		if (reg > 9)
 			(*line)++;
+		if (reg > 99)
+			(*line)++;
 		g_pos++;
 		if (check == 1)
 			return (check_comma(line));
@@ -87,7 +89,7 @@ int			check_direct(char **line, int op, int check)
 		(*line)++;
 		if (**line != LABEL_CHAR && !(**line >= '0' && **line <= '9') &&
 				**line != '-' && **line != '+')
-			asm_error(15);
+			asm_error(LABEL_ERROR);
 		if (**line == LABEL_CHAR)
 			(*line)++;
 		else if (**line == '+' || **line =='-')

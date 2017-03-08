@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:35:07 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/07 16:04:31 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 11:12:25 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ static int		match_label(t_label *label, char *str)
 	while (label)
 	{
 		if (ft_strncmp(label->name, str, i) == 0)
+		{
 			if (!label->name[i])
 				return (1);
+		}
 		label = label->next;
 	}
 	return (asm_error(LABEL_MATCH_ERROR));

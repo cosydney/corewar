@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 19:50:25 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/07 18:07:14 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 12:22:54 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ char			*put_line_in_file(char *line, int i, char *file)
 	while (line[i] == '\t' || line[i] == ' ')
 		i++;
 	if (line[i] && line[i] != COMMENT_CHAR && line[i] != ';' &&
-			check_valid_line(&line[i])) //todo check valid line
-		file = asm_free_join(&line[i], file); //to do free_join
+			check_valid_line(&line[i]))
+	{
+		file = asm_free_join(&line[i], file);
+	}
 	free(line);
 	line = NULL;
 	return (file);
@@ -59,14 +61,14 @@ t_label			*parse_line(int fd, char **file)
 		if (line[i] && line[i] != COMMENT_CHAR && line[i] != ';' &&
 				check_label(line) >= 1) 
 		{
-			(label = label_init(label, line));
+			label = label_init(label, line);
 			while (line[i] != LABEL_CHAR)
 				i++;
 			i++;
 		}
 		*file = put_line_in_file(line, i, *file);
 	}
-	free(line);
+//	free(line);
 	return (label);
 }
 
@@ -93,6 +95,7 @@ int				parsing(char *champion, t_header *head, int check)
 	reader(label, head, champion, file);
 	if (file && file[0])
 		free(file);
-	//todo free label
+	if (label)
+		free_label(label);
 	return (0);
 }

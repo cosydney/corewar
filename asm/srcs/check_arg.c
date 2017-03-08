@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:06:11 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/07 15:43:46 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 11:18:14 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	check_arg_sec(char **line, int op)
 {
 	if (op == ST && check_register(line, 1) && (check_indirect(line, 0) ||
-			check_register(line, 0)))
+				check_register(line, 0)))
 		return (1);
 	if ((op == ADD || op == SUB) && check_register(line, 1) &&
 			check_register(line, 1) && check_register(line, 0))
@@ -37,16 +37,16 @@ int			check_arg(char **line, int op)
 		return (1);
 	if ((op == LD || op == LLD) && (check_direct(line, op, 1) ||
 				check_indirect(line, 1)) && check_register(line, 0))
-	   return (1);
+		return (1);
 	if ((op == AND || op == OR  || op == XOR) && ((check_direct(line, op, 1) ||
 					check_register(line, 1) || check_indirect(line, 1))
 				&& (check_direct(line, op, 1) || check_register(line, 1) ||
 					check_indirect(line, 1)) && check_register(line, 0)))
 		return (1);
 	if (op == STI && check_register(line, 1) && (check_direct(line, op, 1) ||
-			check_register(line, 1) || check_indirect(line, 1)) &&
+				check_register(line, 1) || check_indirect(line, 1)) &&
 			(check_direct(line, op, 0) || check_register(line, 0)))
-				return (1);
+		return (1);
 	if (op == AFF && check_register(line, 0))
 		return (1);
 	return (check_arg_sec(line, op));

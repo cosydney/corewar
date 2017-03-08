@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 13:53:44 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/06 16:09:23 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 11:32:35 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*asm_realloc(char *line, char *file, int i)
 	tmp = NULL;
 	sub = NULL;
 	sub = ft_strsub(line, i, ft_strlen(line) - i);
-	if (!(tmp = malloc(sizeof(char) * (ft_strlen(file) + ft_strlen(sub) + 1))))
+	if (!(tmp = malloc(sizeof(char) * (ft_strlen(file) + ft_strlen(sub) + 2))))
 		return (NULL);
 	tmp = ft_strcpy(tmp, file);
 	tmp = ft_strcat(tmp, sub);
@@ -39,11 +39,29 @@ char	*asm_realloc(char *line, char *file, int i)
 	return (file);
 }
 
+int		free_label(t_label *label)
+{
+	t_label *nxt;
+
+	nxt = label->next;
+	while (nxt)
+	{
+		label->next = NULL;
+		free(label->name);
+		free(label);
+		label = nxt;
+		nxt = label->next;
+	}
+	free(label->name);
+	free(label);
+	return (1);
+}
+
 char	*asm_free_join(char *line, char *file)
 {
 	int		i;
 	int		len;
-	char *sub;
+	char	*sub;
 
 	i = 0;
 	sub = NULL;
@@ -52,7 +70,7 @@ char	*asm_free_join(char *line, char *file)
 		if (!(len = 0) && !file)
 		{
 			sub = ft_strsub(line, i , ft_strlen(line) - i);
-			if(!(file = malloc(sizeof(char) * (ft_strlen(sub) + 1))))
+			if(!(file = malloc(sizeof(char) * (ft_strlen(sub) + 2))))
 				return (NULL);
 			file = ft_strcpy(file, sub);
 			while (file[len])

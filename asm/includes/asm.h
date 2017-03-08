@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 18:22:17 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/07 16:32:01 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 11:24:15 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,6 @@ int			check_indirect(char **line, int check);
 int			check_double_label(t_label *label);
 int			check_label_exist(t_label *label, char *str);
 int			reader(t_label *label, t_header *header, char *champ, char *file);
+int			free_label(t_label *label);
 
 #endif
