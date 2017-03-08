@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:17:14 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 10:33:49 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 19:07:38 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,23 @@ int			asm_instruct_name(char *line)
 	if (ft_strncmp("sti", line, 3) == 0)
 		return (STI);
 	return (instruct_name_sec(line));
+}
+
+int			calculate_i(char *file, t_label *label)
+{
+	size_t	len;
+
+	len = 0;
+	while (ft_strchr(LABEL_CHARS, file[len]))
+			len++;
+	while (label)
+	{
+		if (len >= ft_strlen(label->name))
+			if (!ft_strncmp(file, label->name, len))
+				return (label->Pos - g_pos);
+			else if (!ft_strncmp(file, label->name, ft_strlen(label->name)))
+				return (label->pos - g_pos);
+		label = label->next;
+	}
+	return (asm_error(ARG_ERROR));
 }

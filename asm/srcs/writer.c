@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:05:37 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 16:40:46 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 17:49:44 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,7 @@ int			reader(t_label *label, t_header *header, char *champ, char *file)
 	{
 		header_creator(fd, header);
 		g_pos = 0;
-		label = NULL;
-		file = NULL;
-//		binary_creator(fd, label, file);//todo
+		binary_creator(fd, label, file);
 	}
 	ft_printf("Writing output program OK\n");
 	free(file_name);
