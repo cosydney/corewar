@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/06 17:17:41 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/08 14:50:55 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			main(int argc, char **argv)
 	parse_args(argc, argv, vm, &opt);
 	parse_champion(vm);
 	init_processes(vm);
-	parse_instruction(vm, (t_process *)((t_champion *)(vm->players->content))->processes->content);
+	parse_instruction(vm, (t_process *)(vm->processes->content));
 	vm_loop(vm);
 	if (opt.dump)
 		ft_print_mem(vm->memory, MEM_SIZE);
