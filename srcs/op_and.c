@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm_setup.c                                         :+:      :+:    :+:   */
+/*   op_and.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:05:31 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/08 11:40:27 by abonneca         ###   ########.fr       */
+/*   Created: 2017/03/08 11:17:53 by abonneca          #+#    #+#             */
+/*   Updated: 2017/03/08 11:36:49 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-t_vm	*vm_get(void)
+void	op_and(t_process *proc)
 {
-	static t_vm	*vm;
+	unsigned int i;
 
-	if (!vm)
+	i = 0;
+	while (i < REG_SIZE)
 	{
-		if (!(vm = (t_vm*)ft_memalloc(sizeof(t_vm))))
-			return (0);
-		vm->cycle_to_die = CYCLE_TO_DIE;
+		proc->act.params[2].value[i] = proc->act.params[0].value[i] \
+	& proc->act.params[1].value[i];
+		i++;
 	}
-	return (vm);
-}
-
-int		vm_init(void)
-{
-	if (vm_get())
-		return (1);
-	return (0);
 }

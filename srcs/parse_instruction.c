@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 14:02:39 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/07 17:41:39 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/08 11:31:29 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 	if (((process->act).encoding >> 2 * i) & REG_CODE)
 		input_reg(vm, process, index, j);
 	else if (((process->act).encoding >> 2 * i) & DIR_CODE)
-	{
 		input_dir(vm, process, index, j);
-	}
 	else if (((process->act).encoding >> 2 * i) & IND_CODE)
 		input_ind(vm, process, index, j);
 }
@@ -77,7 +75,7 @@ void	parse_instruction(t_vm *vm, t_process *process)
 			(process->act).op = &op_tab[i];
 		++i;
 	}
-	if ((process->act).op && (process->act.op->opcode != 9))
+	if ((process->act).op && (process->act.op->opcode != 0x01 || process->act.op->opcode != 0x09 || process->act.op->opcode !=  0x0c || process->act.op->opcode != 0x0f))
 	{
 		j = (j + 1) % MEM_SIZE;
 		(process->act).encoding = (vm->memory)[j];
