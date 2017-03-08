@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 15:34:13 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/08 16:01:44 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int				create_champion(t_vm *vm, char *str, unsigned int *custom_nbr, \
 void			parse_champion(t_vm *vm);
 int				load_to_memory(int fd, int current, t_vm *vm, \
 					unsigned int prog_size);
-void			vm_loop(t_vm *vm);
+void			vm_loop(t_vm *vm, t_options *opt);
 
 void			error_exit(int code);
 void			parse_instruction(t_process *process, t_vm *vm);

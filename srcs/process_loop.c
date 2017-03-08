@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 14:56:51 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/08 15:50:14 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/08 16:01:28 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ void	run_cycle(t_vm *vm)
 	}
 }
 
-void	vm_loop(t_vm *vm)
+void	vm_loop(t_vm *vm, t_options *opt)
 {
-	while (vm->process_count)
+	while (vm->process_count && \
+	(!opt->dump || (vm->total_cycles < opt->dump_cycles)))
 	{
 		vm->cycle++;
 		vm->total_cycles++;
@@ -67,4 +68,6 @@ void	vm_loop(t_vm *vm)
 		}
 		run_cycle(vm);
 	}
+	if (opt->dump)
+		ft_print_mem(vm->memory, MEM_SIZE);
 }
