@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 14:02:39 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 14:29:36 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/08 15:32:43 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 		input_ind(vm, process, index, j);
 }
 
-void	parse_instruction(t_vm *vm, t_process *process)
+void	parse_instruction(t_process *process, t_vm *vm)
 {
 	int		i;
 	unsigned int		j;

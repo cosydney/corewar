@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 15:56:00 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/06 18:05:25 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/08 15:43:01 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	op_live(t_process *proc, t_vm *vm)
 {
 	unsigned int id;
 
-	bytetou(proc->act.four, &id, 4);
+	id = regtou(proc->act.four);
+	(void)id;
 	//callalive(id, vm);
 	vm->live_count++;
 }

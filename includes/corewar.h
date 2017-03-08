@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 15:09:29 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/08 15:34:13 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ typedef struct	s_options
 	int		dump_cycles;
 }				t_options;
 
+typedef void (*t_callback)(t_process*, t_vm*);
+
 extern t_op op_tab[17];
 
 t_vm			*vm_get();
@@ -118,7 +120,7 @@ int				load_to_memory(int fd, int current, t_vm *vm, \
 void			vm_loop(t_vm *vm);
 
 void			error_exit(int code);
-void			parse_instruction(t_vm *vm, t_process *process);
+void			parse_instruction(t_process *process, t_vm *vm);
 
 void			utoreg(unsigned int n, byte reg[REG_SIZE]);
 unsigned int	regtou(byte reg[REG_SIZE]);
@@ -129,11 +131,11 @@ unsigned int	regtou(byte reg[REG_SIZE]);
 void			op_live(t_process *proc, t_vm *vm);
 void			op_ld(t_process *proc, t_vm *vm);
 void			op_st(t_process *proc, t_vm *vm);
-void			op_add(t_process *proc);
-void			op_sub(t_process *proc);
-void			op_and(t_process *proc);
-void			op_or(t_process *proc);
-void			op_xor(t_process *proc);
+void			op_add(t_process *proc, t_vm *vm);
+void			op_sub(t_process *proc, t_vm *vm);
+void			op_and(t_process *proc, t_vm *vm);
+void			op_or(t_process *proc, t_vm *vm);
+void			op_xor(t_process *proc, t_vm *vm);
 void			op_zjump(t_process *proc, t_vm *vm);
 
 

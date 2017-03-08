@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:07:27 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 11:42:31 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/08 15:46:17 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void			op_lld(t_process *proc, t_vm *vm)
 	value = proc->act.params[1].value;
 	ind = regtou(value);
 	proc->carry = (ind) ? 0 : 1;
-	if (proc.act->params[1].t == T_DIR)
+	if (proc->act.params[1].t == T_DIR)
 		ft_memcpy(proc->registers + reg_n, value, REG_SIZE);
-	else if (proc.act->params[1].t == T_DIR)
+	else if (proc->act.params[1].t == T_DIR)
 	{
-		ld_ind(regtou(proc->pc) + ind, proc->registers + reg_n, vm);
+		lld_ind(regtou(proc->pc) + ind, proc->registers[reg_n], vm);
 	}
 }
