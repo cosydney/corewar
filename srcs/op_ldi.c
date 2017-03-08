@@ -6,33 +6,52 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:25:02 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/08 18:34:52 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/08 19:50:41 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-/*
-static void		ld_ind(unsigned int offset, byte *reg, t_vm *vm)
+
+static void		ld(unsigned int offset, byte reg[REG_SIZE], t_vm *vm)
 {
 	int	i;
 
 	i = 0;
 	while (i < REG_SIZE)
-		reg[i++] = vm->memory[(offset + i) % MEM_SIZE];
+	{
+		reg[i] = vm->memory[(offset + i) % MEM_SIZE];
+		++i;
+	}
+}
+
+static unsigned int		read_bytes(unsigned int offset, t_vm *vm)
+{
+	int	i;
+	unsigned int sum;
+
+	i = 0;
+	sum = 0;
+	while (i < REG_SIZE)
+	{
+		sum += vm->memory[(offset + i) % MEM_SIZE];
+		++i;
+	}
+	return (sum);
 }
 
 void			op_ldi(t_process *proc, t_vm *vm)
 {
-	unsigned int	reg_n;
-	byte			*value;
-	unsigned int	ind;
+	byte			*reg_first;
+	byte			*reg_second;
+	byte			*reg_dst;
+	unsigned int	sum;
 
-	reg_n = regtou(proc->act.params[0].value) - 1;
-	value = proc->act.params[1].value;
-	ind = regtou(value);
-	proc->carry = (ind) ? 0 : 1;
-	if (proc.act->params[1].t == T_DIR)
-		ft_memcpy(proc->registers + reg_n, value, REG_SIZE);
-	else if (proc.act->params[1].t == T_DIR)
-		ld_ind(regtou(proc->pc) + (ind % IDX_MOD), proc->registers + reg_n, vm);
-}*/
+	reg_first = proc->act.params[0].value;
+	reg_second = proc->act.params[1].value;
+	reg_dst = proc->act.params[2].value;
+
+	sum = regtou(reg_second) +\
+	read_bytes(regtou(proc->pc) + (regtou(reg_first) % IDX_MOD), vm);
+	proc->carry = (reg_dst) ? 0 : 1;
+	ld(regtou(proc->pc) + (sum % IDX_MOD), reg_dst, vm);
+}
