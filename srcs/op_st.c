@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:56:00 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 15:45:19 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/09 11:22:23 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static void		ld_reg(unsigned int offset, byte *reg, t_vm *vm)
 
 	i = 0;
 	while (i < REG_SIZE)
-		reg[i++] = vm->memory[(offset + i) % MEM_SIZE];
+	{
+		reg[i] = vm->memory[(offset + i) % MEM_SIZE];
+		i++;
+	}
 }
 
 void			op_st(t_process *proc, t_vm *vm)

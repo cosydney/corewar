@@ -1,6 +1,6 @@
 NAME 	=	corewar
 CC		=	clang
-CFLAGS 	=	-Wall -Werror -Wextra -fsanitize=address
+CFLAGS 	=	-Wall -Werror -Wextra
 INC		=	-I includes/ -I libft/includes/
 SRCS 	=	main.c \
 			op.c \
@@ -44,6 +44,8 @@ WHT = \033[37;1m
 EOC = \033[0m
 BEER = \xF0\x9F\x8D\xBA
 
+asan: CFLAGS += -fsanitize=address
+
 all: $(NAME)
 
 $(NAME): $(ODIR)
@@ -69,5 +71,8 @@ reli:
 	@make -C $(LIBPATH) re
 
 re: fclean all
+
+asan: all
+
 
 .PHONY: re all clean fclean

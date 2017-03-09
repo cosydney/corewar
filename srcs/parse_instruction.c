@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 14:02:39 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 15:32:43 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/08 18:52:08 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,30 @@ static void	input_reg(t_vm *vm, t_process *process, int index, unsigned int *j)
 
 static void	input_dir(t_vm *vm, t_process *process, int index, unsigned int *j)
 {
+	int i;
+
 	(process->act).params[index].t = T_DIR;
-	(process->act).params[index].value[0] = (vm->memory)[*j];
-	*j = (*j + 1) % MEM_SIZE;
-	(process->act).params[index].value[1] = (vm->memory)[*j];
-	*j = (*j + 1) % MEM_SIZE;
+	i = 0;
+	while (i < DIR_SIZE)
+	{
+		(process->act).params[index].value[i] = (vm->memory)[*j];
+		*j = (*j + 1) % MEM_SIZE;
+		i++;
+	}
 }
 
 static void	input_ind(t_vm *vm, t_process *process, int index, unsigned int *j)
 {
+	int i;
+
 	(process->act).params[index].t = T_IND;
-	(process->act).params[index].value[0] = (vm->memory)[*j];
-	*j = (*j + 1) % MEM_SIZE;
-	(process->act).params[index].value[1] = (vm->memory)[*j];
-	*j = (*j + 1) % MEM_SIZE;
-	(process->act).params[index].value[2] = (vm->memory)[*j];
-	*j = (*j + 1) % MEM_SIZE;
+	i = 0;
+	while (i < IND_SIZE)
+	{
+		(process->act).params[index].value[i] = (vm->memory)[*j];
+		*j = (*j + 1) % MEM_SIZE;
+		i++;
+	}
 }
 
 static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
@@ -67,14 +75,14 @@ void	parse_instruction(t_process *process, t_vm *vm)
 	unsigned int		j;
 	unsigned int pc_u;
 
-	i = 0;
+	i = -1;
 	j = regtou(process->pc);
-	while (i < 17)
-	{
+	while (++i < 17)
 		if (op_tab[i].opcode == (vm->memory)[j])
+		{
 			(process->act).op = &op_tab[i];
-		++i;
-	}
+			break ;
+		}
 	if ((process->act).op && (process->act.op->opcode != 0x01 || process->act.op->opcode != 0x09 || process->act.op->opcode !=  0x0c || process->act.op->opcode != 0x0f))
 	{
 		j = (j + 1) % MEM_SIZE;

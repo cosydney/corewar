@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/08 16:01:10 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/08 17:29:26 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,5 @@ int			main(int argc, char **argv)
 	init_processes(vm);
 	vm_loop(vm, &opt);
 	clear_vm(vm);
-//	sleep(10);
 	return (0);
 }
-
