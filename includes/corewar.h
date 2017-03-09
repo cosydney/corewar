@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 18:46:38 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/09 18:33:59 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct	s_action
 	t_op	*op;
 	byte	encoding;
 	t_param	params[MAX_ARGS_NUMBER];
-	byte	four[4];
 }				t_action;
 
 typedef struct	s_process
@@ -92,7 +91,7 @@ typedef struct	s_process
 	byte			pc[REG_SIZE];
 	int				carry:1;
 	unsigned int	live_count;
-	int				cycle_count;
+	unsigned int	cycle_count;
 
 }				t_process;
 
@@ -138,6 +137,12 @@ void			op_or(t_process *proc, t_vm *vm);
 void			op_xor(t_process *proc, t_vm *vm);
 void			op_zjump(t_process *proc, t_vm *vm);
 void			op_ldi(t_process *proc, t_vm *vm);
+void			op_sti(t_process *proc, t_vm *vm);
+void			op_fork(t_process *proc, t_vm *vm);
+void			op_lld(t_process *proc, t_vm *vm);
+void			op_lldi(t_process *proc, t_vm *vm);
+void			op_lfork(t_process *proc, t_vm *vm);
+void			op_akk(t_process *proc, t_vm *vm);
 
 
 void			op_lld(t_process *proc, t_vm *vm);

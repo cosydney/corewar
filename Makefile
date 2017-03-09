@@ -25,7 +25,11 @@ SRCS 	=	main.c \
 			op_xor.c \
 			op_zjump.c \
 			op_ldi.c \
+			op_sti.c \
+			op_fork.c \
 			op_lld.c \
+			op_lldi.c \
+			op_lfork.c \
 			op_aff.c \
 			killer.c
 

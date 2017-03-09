@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 19:59:03 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 19:59:09 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/09 18:35:22 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void			op_sti(t_process *proc, t_vm *vm)
 	byte			*reg_src;
 
 	reg_src = proc->act.params[0].value;
-	reg_param_first = proc->act.params[1];
-	reg_param_second = proc->act.params[2];
+	reg_param_first = proc->act.params[1].value;
+	reg_param_second = proc->act.params[2].value;
 	proc->carry = (reg_src) ? 0 : 1;
 	ld_to_mem(regtou(reg_param_first) + regtou(reg_param_second), reg_src, vm);
 }

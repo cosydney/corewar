@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 14:02:39 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 18:52:08 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/09 18:16:49 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,81 +21,69 @@
  *       **   }
  *        */
 
-static void	input_reg(t_vm *vm, t_process *process, int index, unsigned int *j)
+static void	set_param(t_vm *vm, byte *dest, unsigned int *offset, size_t size)
 {
-	(process->act).params[index].t = T_REG;
-	(process->act).params[index].value[0] = (vm->memory)[*j];
-	*j = (*j + 1) % MEM_SIZE;
-}
+	size_t i;
 
-static void	input_dir(t_vm *vm, t_process *process, int index, unsigned int *j)
-{
-	int i;
-
-	(process->act).params[index].t = T_DIR;
 	i = 0;
-	while (i < DIR_SIZE)
+	while (i < size)
 	{
-		(process->act).params[index].value[i] = (vm->memory)[*j];
-		*j = (*j + 1) % MEM_SIZE;
-		i++;
-	}
-}
-
-static void	input_ind(t_vm *vm, t_process *process, int index, unsigned int *j)
-{
-	int i;
-
-	(process->act).params[index].t = T_IND;
-	i = 0;
-	while (i < IND_SIZE)
-	{
-		(process->act).params[index].value[i] = (vm->memory)[*j];
-		*j = (*j + 1) % MEM_SIZE;
+		dest[i] = (vm->memory)[*offset];
+		*offset = (*offset + 1) % MEM_SIZE;
 		i++;
 	}
 }
 
 static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 {
-	unsigned int index;
+	unsigned int	index;
+	byte			code;
 
 	index = (process->act).op->arg_c - i;
-	if (((process->act).encoding >> 2 * i) & REG_CODE)
-		input_reg(vm, process, index, j);
-	else if (((process->act).encoding >> 2 * i) & DIR_CODE)
-		input_dir(vm, process, index, j);
-	else if (((process->act).encoding >> 2 * i) & IND_CODE)
-		input_ind(vm, process, index, j);
+	code = (process->act.encoding >> (6 - (index << 1))) & 0x03;
+	if (code == REG_CODE)
+	{
+		process->act.params[index].t = T_REG;
+		set_param(vm, process->act.params[index].value, j, 1);
+	}
+	else if (code == DIR_CODE)
+	{
+		process->act.params[index].t = T_DIR;
+		set_param(vm, process->act.params[index].value, j, DIR_SIZE);
+	}
+	else if (code == IND_CODE)
+	{
+		process->act.params[index].t = T_IND;
+		set_param(vm, process->act.params[index].value, j, IND_SIZE);
+	}
+	else if (!code)
+		set_param(vm, process->act.params[index].value, j, \
+				(process->act.op->opcode == 0x01) ? 4 : IND_SIZE);
 }
 
 void	parse_instruction(t_process *process, t_vm *vm)
 {
-	int		i;
-	unsigned int		j;
-	unsigned int pc_u;
+	int				i;
+	unsigned int	pc;
+	unsigned int	opcode;
 
-	i = -1;
-	j = regtou(process->pc);
-	while (++i < 17)
-		if (op_tab[i].opcode == (vm->memory)[j])
-		{
-			(process->act).op = &op_tab[i];
-			break ;
-		}
-	if ((process->act).op && (process->act.op->opcode != 0x01 || process->act.op->opcode != 0x09 || process->act.op->opcode !=  0x0c || process->act.op->opcode != 0x0f))
+	i = 0;
+	pc = regtou(process->pc);
+	while (i < 17 && (op_tab[i].opcode != (vm->memory)[pc]))
+		i++;
+	pc = (pc + 1) % MEM_SIZE;
+	if ((process->act.op = (i < 17) ? &op_tab[i] : 0))
 	{
-		j = (j + 1) % MEM_SIZE;
-		(process->act).encoding = (vm->memory)[j];
+		opcode = process->act.op->opcode;
+		if (opcode != 0x01 && opcode != 0x0c && opcode != 0x0f)
+			(process->act).encoding = (vm->memory)[pc++];
 		i = (process->act).op->arg_c;
-		j = (j + 1) % MEM_SIZE;
-		while (i >= 0)
-			input_params(vm, process, i--, &j);
+		pc %= MEM_SIZE;
+		while (i > 0)
+			input_params(vm, process, i--, &pc);
+		process->cycle_count = process->act.op->cycles;
 	}
-	else if (process->act.op->opcode == 9)
-		input_reg(vm, process, 0, &j);
-	pc_u = regtou(process->pc);
-	utoreg((pc_u +  j) % MEM_SIZE, process->pc);
+	utoreg(pc, process->pc);
 }
 
 /*

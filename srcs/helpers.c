@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 18:59:05 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 11:38:41 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/09 18:08:24 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ unsigned int		regtou(byte reg[REG_SIZE])
 	unsigned int	res;
 
 	res = 0;
-	i = REG_SIZE;
-	while (i--)
+	i = 0;
+	while (i < REG_SIZE)
 	{
-		res += reg[i];
 		res <<= 8;
+		res += reg[i++];
 	}
 	return (res);
 }

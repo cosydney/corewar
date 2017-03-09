@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 14:56:51 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/09 11:35:13 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/09 18:34:23 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@ t_callback	g_operators[17] =
 	[0x07] = op_or,
 	[0x08] = op_xor,
 	[0x09] = op_zjump,
-	[0x0d] = op_lld
+	[0x0a] = op_ldi,
+	[0x0b] = op_sti,
+	[0x0c] = op_fork,
+	[0x0d] = op_lld,
+	[0x0e] = op_lldi,
+	[0x0f] = op_lfork,
+	[0x10] = op_aff
 };
 
 void	run_cycle(t_vm *vm)

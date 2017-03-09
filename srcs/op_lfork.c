@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_live.c                                          :+:      :+:    :+:   */
+/*   op_lfork.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/06 15:56:00 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/09 18:17:27 by amarzial         ###   ########.fr       */
+/*   Created: 2017/03/09 18:28:41 by amarzial          #+#    #+#             */
+/*   Updated: 2017/03/09 18:29:33 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	op_live(t_process *proc, t_vm *vm)
+void	op_lfork(t_process *proc, t_vm *vm)
 {
-	unsigned int id;
-
+	(void)proc;
 	(void)vm;
-	id = regtou(proc->act.params[0].value);
-	vm->last_live_id = id;
-	vm->live_count++;
 }
