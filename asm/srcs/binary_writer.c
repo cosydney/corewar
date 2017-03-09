@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 17:49:57 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/09 14:33:37 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:46:43 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			move_separator(char **file)
 	if (**file == '\n')
 		return (1);
 	(*file)++;
-	while (**file && (**file == ' ' || **file =='\t'))
+	while (**file && (**file == ' ' || **file == '\t'))
 		(*file)++;
 	return (1);
 }
@@ -44,22 +44,23 @@ int			function_call2(int fct, int fd, t_label *label, char **file)
 	if ((fct == AND || fct == OR || fct == XOR) && opcode(fd, 3, 0, *file)
 			&& ((write_register(fd, file) || write_direct(fd, 4, label, file) ||
 					write_indirect(fd, label, file)) &&
-				((write_register(fd, file) || write_direct(fd, 4, label, file) ||
-				  write_indirect(fd, label, file)))))
+				((write_register(fd, file) || write_direct(fd, 4, label, file)
+				|| write_indirect(fd, label, file)))))
 		return (write_register(fd, file));
-	else if (fct == ZJMP || fct == FORK ||fct == LFORK)
+	else if (fct == ZJMP || fct == FORK || fct == LFORK)
 		return (write_direct(fd, 2, label, file));
 	else if ((fct == LDI || fct == LLDI) && opcode(fd, 3, 0, *file) &&
-		(((write_register(fd, file) || write_direct(fd, 2, label, file) ||
-		   write_indirect(fd, label, file)) &&
-		  (write_register(fd, file) || write_direct(fd, 2, label, file)))))
-			return (write_register(fd, file));
+			(((write_register(fd, file) || write_direct(fd, 2, label, file) ||
+				write_indirect(fd, label, file)) &&
+	(write_register(fd, file) || write_direct(fd, 2, label, file)))))
+		return (write_register(fd, file));
 	else if (fct == STI && opcode(fd, 3, 0, *file) &&
 			((write_register(fd, file) && (write_register(fd, file) ||
-			write_direct(fd, 2, label, file) || write_indirect(fd, label, file)) &&
-			  (write_register(fd, file) || write_direct(fd, 2, label, file)))))
+			write_direct(fd, 2, label, file) ||
+			write_indirect(fd, label, file)) &&
+			(write_register(fd, file) || write_direct(fd, 2, label, file)))))
 		return (1);
-	else if (fct == AFF && write (fd, "@", 1) && ++g_temp)
+	else if (fct == AFF && write(fd, "@", 1) && ++g_temp)
 		return (write_register(fd, file));
 	return (1);
 }
@@ -71,7 +72,8 @@ int			function_call(int fct, int fd, t_label *label, char **file)
 	if (fct == LIVE)
 		return (write_direct(fd, 4, label, file));
 	else if ((fct == LD || fct == LLD) && opcode(fd, 2, 0, *file) &&
-			((write_direct(fd, 4, label, file) || write_indirect(fd, label, file))))
+			((write_direct(fd, 4, label, file) ||
+			write_indirect(fd, label, file))))
 		return (write_register(fd, file));
 	else if (fct == ST && opcode(fd, 2, 0, *file) && write_register(fd, file)
 			&& (write_register(fd, file) || write_indirect(fd, label, file)))

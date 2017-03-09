@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 18:22:17 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 19:33:16 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 15:02:11 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@
 # define SEPARATOR_CHAR				','
 
 # define REG_NUMBER					16
-
-#define LABEL_CHARS					"abcdefghijklmnopqrstuvwxyz_0123456789"
+# define LABEL_CHARS				"abcdefghijklmnopqrstuvwxyz_0123456789"
 
 # define T_REG						1
 # define T_DIR						2
@@ -70,8 +69,6 @@
 # define LLDI						14
 # define LFORK						15
 # define AFF						16
-
-
 
 int					g_line;
 int					g_pos;

@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:05:37 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/09 14:27:38 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:58:20 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*morph_cor(char *champ)
 	int		i;
 
 	i = 0;
-	if(!(str = malloc(sizeof(char *) * (ft_strlen(champ) + 3))))
+	if (!(str = malloc(sizeof(char *) * (ft_strlen(champ) + 3))))
 		return (NULL);
 	while (champ[i])
 	{
@@ -67,12 +67,11 @@ static int	header_creator(int fd, t_header *header)
 	return (1);
 }
 
-
 int			reader(t_label *label, t_header *header, char *champ, char *file)
 {
-	int fd;
-	char *file_name;
-	
+	int		fd;
+	char	*file_name;
+
 	fd = 0;
 	file_name = morph_cor(champ);
 	if ((fd = open(file_name, O_RDWR | O_CREAT | O_TRUNC |

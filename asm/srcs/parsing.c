@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 19:50:25 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/09 14:07:47 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:55:21 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_label			*parse_line(int fd, char **file)
 		while (line[i] == '\t' || line[i] == ' ')
 			i++;
 		if (line[i] && line[i] != COMMENT_CHAR && line[i] != ';' &&
-				check_label(line) >= 1) 
+				check_label(line) >= 1)
 		{
 			label = label_init(label, line);
 			while (line[i] != LABEL_CHAR)
@@ -68,7 +68,6 @@ t_label			*parse_line(int fd, char **file)
 		}
 		*file = put_line_in_file(line, i, *file);
 	}
-//	free(line);
 	return (label);
 }
 

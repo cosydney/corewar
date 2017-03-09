@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 10:59:34 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 16:54:24 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:48:04 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int			check_direct(char **line, int op, int check)
 			asm_error(LABEL_ERROR);
 		if (**line == LABEL_CHAR)
 			(*line)++;
-		else if (**line == '+' || **line =='-')
+		else if (**line == '+' || **line == '-')
 			(*line)++;
 		while (**line && ft_strchr(LABEL_CHARS, **line))
 			(*line)++;

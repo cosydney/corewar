@@ -6,15 +6,15 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:17:14 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 19:32:08 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:54:28 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
- ** Check if instructions is correct et return corresponding int
- */
+** Check if instructions is correct et return corresponding int
+*/
 
 static int	instruct_name_sec(char *line)
 {

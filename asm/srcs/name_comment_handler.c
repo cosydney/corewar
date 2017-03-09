@@ -6,13 +6,13 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 20:10:01 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 12:23:31 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:54:17 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int			header_pass(char *line, int name, int com, int check)
+static int		header_pass(char *line, int name, int com, int check)
 {
 	int i;
 
@@ -28,8 +28,7 @@ static int			header_pass(char *line, int name, int com, int check)
 	return (i);
 }
 
-static int			header_pass_end(char *line, int i)
-
+static int		header_pass_end(char *line, int i)
 {
 	while (line[i] && line[i] != '"')
 		i++;
@@ -41,8 +40,7 @@ static int			header_pass_end(char *line, int i)
 	return (0);
 }
 
-
-static t_header		*save_header(char *line, t_header *head, int check)
+static t_header	*save_header(char *line, t_header *head, int check)
 {
 	char *tmp;
 
@@ -63,12 +61,12 @@ static t_header		*save_header(char *line, t_header *head, int check)
 		}
 	}
 	if (tmp != NULL)
-		free (tmp);
+		free(tmp);
 	tmp = NULL;
 	return (head);
 }
 
-static int			save_name_comment(char *line, t_header *head, int name, int com)
+int				save_name_comment(char *line, t_header *head, int name, int com)
 {
 	int		i;
 	char	*tmp;
@@ -82,7 +80,8 @@ static int			save_name_comment(char *line, t_header *head, int name, int com)
 		else
 			save_header(&line[i], head, 0);
 	}
-	else if (!head->comment[0] && ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
+	else if (!head->comment[0] &&
+	ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
 	{
 		if ((i = header_pass(line, name, com, 0)) == 0)
 			return (asm_error(NAME_ERROR));
@@ -94,7 +93,7 @@ static int			save_name_comment(char *line, t_header *head, int name, int com)
 	return (header_pass_end(line, i));
 }
 
-int			name_comment_handler(int fd, t_header *head)
+int				name_comment_handler(int fd, t_header *head)
 {
 	int		i;
 	char	*line;
@@ -108,7 +107,8 @@ int			name_comment_handler(int fd, t_header *head)
 		{
 			while ((line[i] == ' ' || line[i] == '\t') && line[i] != '\0')
 				i++;
-			save_name_comment(&line[i], head, ft_strlen(NAME_CMD_STRING), ft_strlen(COMMENT_CMD_STRING));
+			save_name_comment(&line[i], head,
+			ft_strlen(NAME_CMD_STRING), ft_strlen(COMMENT_CMD_STRING));
 			ft_strlen(COMMENT_CMD_STRING);
 			if (check_header(head, line) == 1)
 				return (1);

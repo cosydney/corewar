@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 13:53:44 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 11:32:35 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:49:50 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ char	*asm_free_join(char *line, char *file)
 	{
 		if (!(len = 0) && !file)
 		{
-			sub = ft_strsub(line, i , ft_strlen(line) - i);
-			if(!(file = malloc(sizeof(char) * (ft_strlen(sub) + 2))))
+			sub = ft_strsub(line, i, ft_strlen(line) - i);
+			if (!(file = malloc(sizeof(char) * (ft_strlen(sub) + 2))))
 				return (NULL);
 			file = ft_strcpy(file, sub);
 			while (file[len])

@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 18:19:45 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/09 14:07:27 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 15:00:18 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,4 @@ int			main(int ac, char **av)
 	}
 	else
 		return (asm_error(CHAMPION_ERROR));
-	return (0);
 }

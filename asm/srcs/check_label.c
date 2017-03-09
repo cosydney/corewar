@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:35:07 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 11:12:25 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:49:02 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int		match_label(t_label *label, char *str)
 
 	i = 0;
 	while (ft_strchr(LABEL_CHARS, str[i]))
-			i++;
+		i++;
 	while (label)
 	{
 		if (ft_strncmp(label->name, str, i) == 0)
@@ -54,7 +54,7 @@ int				check_label_exist(t_label *label, char *str)
 	return (1);
 }
 
-int			check_label(char *str)
+int				check_label(char *str)
 {
 	int i;
 
@@ -73,7 +73,8 @@ int			check_label(char *str)
 		return (2);
 	}
 	else if (str[i] && str[i] != ' ' && str[i] != '\0' && str[i] != ';' &&
-			str[i] != '\n' && str[i] != '\t' && str[i] != COMMENT_CHAR && str[i] != ',')
+	str[i] != '\n' && str[i] != '\t' &&
+	str[i] != COMMENT_CHAR && str[i] != ',')
 	{
 		if (str[i + 1] == ' ' || str[i + 1] == '\n' || str[i + 1] == '\0')
 			return (asm_error(LABEL_CHAR_ERROR));
@@ -82,7 +83,7 @@ int			check_label(char *str)
 	return (0);
 }
 
-int			check_double_label(t_label *label)
+int				check_double_label(t_label *label)
 {
 	t_label *start;
 
