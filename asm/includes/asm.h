@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 18:22:17 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 19:07:32 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 19:33:16 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,13 @@ int			reader(t_label *label, t_header *header, char *champ, char *file);
 int			free_label(t_label *label);
 int			binary_creator(int fd, t_label *label, char *file);
 int			write_register(int fd, char **file);
+int			write_direct(int fd, int size, t_label *label, char **file);
+int			write_indirect(int fd, t_label *label, char **file);
 int			move_separator(char **file);
 int			calculate_i(char *file, t_label *label);
+int			cw_invert_endian(int x);
+int			cw_invert_endian2(int x);
+int			move_i(int i, char *file);
+int			opcode(int fd, int arg, int i, char *file);
 
 #endif

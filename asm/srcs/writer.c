@@ -6,16 +6,22 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:05:37 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 17:49:44 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 19:17:50 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int	cw_invert_endian(int x)
+int			cw_invert_endian(int x)
 {
 	x = ((x >> 24) & 0xff) | ((x >> 8) & 0xff00) | ((x << 8) & 0xff0000) |
 			((x << 24) & 0xff000000);
+	return (x);
+}
+
+int			cw_invert_endian2(int x)
+{
+	x = ((x >> 8) & 0xff) | ((x << 8) & 0xff00);
 	return (x);
 }
 

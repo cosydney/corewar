@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 17:49:57 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 19:10:30 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 19:30:40 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ int			move_separator(char **file)
 
 int			function_call(int fct, int fd, t_label *label, char **file)
 {
-	if ((fct == AND || fct == OR || fct == XOR) && opcode(fd, 3, 0, *file)//todo opcode
+	if ((fct == AND || fct == OR || fct == XOR) && opcode(fd, 3, 0, *file)
 			&& ((write_register(fd, file) || write_direct(fd, 4, label, file) ||
 					write_indirect(fd, label, file)) &&
 				((write_register(fd, file) || write_direct(fd, 4, label, file) ||
 				  write_indirect(fd, label, file)))))
 		return (write_register(fd, file));
-	//tofinish
+	//todo
+	return (0);
 }
 
 int			binary_creator(int fd, t_label *label, char *file)

@@ -6,15 +6,15 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:17:14 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 19:07:38 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/08 19:32:08 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
-** Check if instructions is correct et return corresponding int
-*/
+ ** Check if instructions is correct et return corresponding int
+ */
 
 static int	instruct_name_sec(char *line)
 {
@@ -64,15 +64,26 @@ int			calculate_i(char *file, t_label *label)
 
 	len = 0;
 	while (ft_strchr(LABEL_CHARS, file[len]))
-			len++;
+		len++;
 	while (label)
 	{
 		if (len >= ft_strlen(label->name))
+		{
 			if (!ft_strncmp(file, label->name, len))
-				return (label->Pos - g_pos);
-			else if (!ft_strncmp(file, label->name, ft_strlen(label->name)))
 				return (label->pos - g_pos);
+		}
+		else if (!ft_strncmp(file, label->name, ft_strlen(label->name)))
+			return (label->pos - g_pos);
 		label = label->next;
 	}
 	return (asm_error(ARG_ERROR));
+}
+
+int			move_i(int i, char *file)
+{
+	while (file[i] != ',')
+		i++;
+	while (file[i] == '\t' || file[i] == ' ')
+		i++;
+	return (i);
 }
