@@ -23,8 +23,10 @@ SRCS 	=	main.c \
 			op_and.c \
 			op_or.c \
 			op_xor.c \
-			op_lld.c \
 			op_zjump.c \
+			op_ldi.c \
+			op_lld.c \
+			op_aff.c \
 			killer.c
 
 OBJ		=	$(SRCS:.c=.o)

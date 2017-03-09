@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_lld.c                                           :+:      :+:    :+:   */
+/*   op_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/08 11:07:27 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/09 11:41:25 by amarzial         ###   ########.fr       */
+/*   Created: 2017/03/08 12:15:28 by abonneca          #+#    #+#             */
+/*   Updated: 2017/03/08 18:36:13 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void			op_lld(t_process *proc, t_vm *vm)
+void	op_aff(t_process *proc, t_vm *vm)
 {
-	(void)proc;
-	(void)vm;
+		unsigned int i;
+
+		(void)vm;
+		i = regtou(proc->act.params[0].value);
+		i %= 256;
+		write(1, &i, 1);
 }

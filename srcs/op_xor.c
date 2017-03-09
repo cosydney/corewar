@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:34:46 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 15:36:08 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/08 18:39:02 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	op_xor(t_process *proc, t_vm *vm)
 
 	(void)vm;
 	i = 0;
+	(void)vm;
 	while (i < REG_SIZE)
 	{
 		proc->act.params[2].value[i] = proc->act.params[0].value[i] \

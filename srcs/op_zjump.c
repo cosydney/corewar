@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 17:42:40 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 15:36:14 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/08 18:38:38 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void	op_zjump(t_process *proc, t_vm *vm)
 {
 	(void)vm;
-	if (proc->carry)
+	if (proc->carry == 1)
 		utoreg(regtou(proc->pc) + regtou(proc->act.params[0].value), proc->pc);
 }

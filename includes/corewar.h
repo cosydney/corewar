@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 16:01:44 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/08 18:46:38 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,13 @@ void			op_and(t_process *proc, t_vm *vm);
 void			op_or(t_process *proc, t_vm *vm);
 void			op_xor(t_process *proc, t_vm *vm);
 void			op_zjump(t_process *proc, t_vm *vm);
-
+void			op_ldi(t_process *proc, t_vm *vm);
 
 
 void			op_lld(t_process *proc, t_vm *vm);
 
 
-
+void			op_aff(t_process *proc, t_vm *vm);
 
 /*
 ** free memory
