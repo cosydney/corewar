@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 14:02:39 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/09 18:16:49 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/09 19:21:28 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,15 @@ void	parse_instruction(t_process *process, t_vm *vm)
 
 	i = 0;
 	pc = regtou(process->pc);
-	while (i < 17 && (op_tab[i].opcode != (vm->memory)[pc]))
+	while (i < 16 && (op_tab[i].opcode != (vm->memory)[pc]))
 		i++;
 	pc = (pc + 1) % MEM_SIZE;
-	if ((process->act.op = (i < 17) ? &op_tab[i] : 0))
+	if ((process->act.op = (i < 16) ? &op_tab[i] : 0))
 	{
 		opcode = process->act.op->opcode;
-		if (opcode != 0x01 && opcode != 0x0c && opcode != 0x0f)
+		process->act.encoding = 0;
+		if (opcode != 0x01 && opcode != 0x09 && opcode != 0x0c && \
+				opcode != 0x0f)
 			(process->act).encoding = (vm->memory)[pc++];
 		i = (process->act).op->arg_c;
 		pc %= MEM_SIZE;
