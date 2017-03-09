@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 18:40:57 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 19:34:16 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:21:34 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	opcode_assign(int *octout, int i, int check, char *file)
 	else if (check == 1)
 		*octout = 0xC0;
 	if (check == 2 && file[i] == 'r')
+		*octout = 0x10;
+	else if (check == 2 && file[i] == '%')
 		*octout = 0x20;
 	else if (check == 2)
 		*octout = 0x30;
@@ -45,6 +47,7 @@ int		write_indirect(int fd, t_label *label, char **file)
 		i = ft_atoi(*file);
 	i = cw_invert_endian2(i);
 	write(fd, &i, T_IND);
+	g_temp = g_temp + T_IND;
 	move_separator(file);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 18:19:45 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 14:16:00 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:07:27 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_header	*header_init(void)
 		return (NULL);
 	if (new != NULL)
 	{
-		new->magic = COREWARE_EXEC_MAGIC;//todo
+		new->magic = COREWARE_EXEC_MAGIC;
 		new->prog_size = 0;
 		ft_bzero(new->prog_name, PROG_NAME_LENGTH);
 		ft_bzero(new->comment, COMMENT_LENGTH);

@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:05:37 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/08 19:17:50 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:27:38 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,9 @@ static int	header_creator(int fd, t_header *header)
 
 	i = 0;
 	header->magic = cw_invert_endian(header->magic);
-//	ft_printf("Header->Magic(%d)\n", header->magic);
 	write(fd, &header->magic, 4);
 	while (header->prog_name[i])
 		write(fd, &header->prog_name[i++], 1);
-//	ft_printf("Header->prog_name(%s)\n", header->prog_name);
 	while (i++ < PROG_NAME_LENGTH)
 		write(fd, "\0", 1);
 	g_pos = cw_invert_endian(g_pos);
@@ -64,7 +62,6 @@ static int	header_creator(int fd, t_header *header)
 	i = 0;
 	while (header->comment[i])
 		write(fd, &header->comment[i++], 1);
-//	ft_printf("header->comment(%s)\n", header->comment);
 	while (i++ < COMMENT_LENGTH + 4)
 		write(fd, "\0", 1);
 	return (1);
