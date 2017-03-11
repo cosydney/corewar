@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:36:12 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 18:41:55 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/10 14:34:37 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void	op_add(t_process *proc, t_vm *vm)
 	reg_b = regtou(proc->act.params[1].value);
 	reg_res = reg_a + reg_b;
 	utoreg(reg_res, proc->act.params[2].value);
-	proc->carry = 1;
+	proc->carry = reg_res ? 0 : 1;
 }

@@ -6,14 +6,14 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:00:49 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/08 15:04:56 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/11 15:55:55 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "corewar.h"
 
-void	create_process(unsigned int offset, t_champion *parent, t_vm *vm)
+t_process	*create_process(unsigned int offset, t_champion *parent, t_vm *vm)
 {
 	static unsigned int	pid;
 	t_process			proc;
@@ -30,9 +30,10 @@ void	create_process(unsigned int offset, t_champion *parent, t_vm *vm)
 	ft_lstadd(&(vm->processes), tmp);
 	parent->process_n++;
 	vm->process_count++;
+	return ((t_process*)tmp->content);
 }
 
-void	init_processes(t_vm *vm)
+void		init_processes(t_vm *vm)
 {
 	t_champion	*champ;
 	t_list		*players;

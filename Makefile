@@ -15,6 +15,7 @@ SRCS 	=	main.c \
 			loading.c \
 			initializer.c \
 			process_loop.c \
+			op_funcs.c \
 			op_live.c \
 			op_ld.c \
 			op_st.c \

@@ -6,13 +6,13 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 18:59:05 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/09 18:08:24 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/11 17:46:19 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void				ft_print_mem(byte *memory, size_t size)
+void				ft_print_mem(t_byte *memory, size_t size)
 {
 	char	counter;
 	size_t	i;
@@ -37,7 +37,7 @@ void				ft_print_mem(byte *memory, size_t size)
 	}
 }
 
-void				utoreg(unsigned int n, byte reg[REG_SIZE])
+void				utoreg(unsigned int n, t_byte reg[REG_SIZE])
 {
 	int i;
 
@@ -49,7 +49,7 @@ void				utoreg(unsigned int n, byte reg[REG_SIZE])
 	}
 }
 
-unsigned int		regtou(byte reg[REG_SIZE])
+unsigned int		regtou(t_byte reg[REG_SIZE])
 {
 	int				i;
 	unsigned int	res;
@@ -60,6 +60,21 @@ unsigned int		regtou(byte reg[REG_SIZE])
 	{
 		res <<= 8;
 		res += reg[i++];
+	}
+	return (res);
+}
+
+unsigned int		memtou(t_byte *mem, unsigned int offset, size_t size)
+{
+	unsigned int	i;
+	unsigned int	res;
+
+	res = 0;
+	i = 0;
+	while (i < size)
+	{
+		res <<= 8;
+		res += mem[(offset + i++) % MEM_SIZE];
 	}
 	return (res);
 }

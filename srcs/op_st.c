@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-static void		ld_to_mem(unsigned int offset, byte reg[REG_SIZE], t_vm *vm)
+static void		ld_to_mem(unsigned int offset, t_byte reg[REG_SIZE], t_vm *vm)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ static void		ld_to_mem(unsigned int offset, byte reg[REG_SIZE], t_vm *vm)
 	}
 }
 
-static void		ld_to_reg(byte reg_src[REG_SIZE], byte reg_param[REG_SIZE])
+static void		ld_to_reg(t_byte reg_src[REG_SIZE], t_byte reg_param[REG_SIZE])
 {
 	int	i;
 
@@ -39,7 +39,7 @@ static void		ld_to_reg(byte reg_src[REG_SIZE], byte reg_param[REG_SIZE])
 void			op_st(t_process *proc, t_vm *vm)
 {
 	t_param			reg_param;
-	byte			*reg_src;
+	t_byte			*reg_src;
 
 	reg_src = proc->act.params[0].value;
 	reg_param = proc->act.params[1];

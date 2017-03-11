@@ -21,7 +21,7 @@
  *       **   }
  *        */
 
-static void	set_param(t_vm *vm, byte *dest, unsigned int *offset, size_t size)
+static void	set_param(t_vm *vm, t_byte *dest, unsigned int *offset, size_t size)
 {
 	size_t i;
 
@@ -37,7 +37,7 @@ static void	set_param(t_vm *vm, byte *dest, unsigned int *offset, size_t size)
 static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 {
 	unsigned int	index;
-	byte			code;
+	t_byte			code;
 
 	index = (process->act).op->arg_c - i;
 	code = (process->act.encoding >> (6 - (index << 1))) & 0x03;
