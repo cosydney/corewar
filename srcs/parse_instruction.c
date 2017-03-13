@@ -27,7 +27,9 @@ static void	set_param(t_vm *vm, t_byte *dest, unsigned int *offset, size_t size)
 
 	if (size > REG_SIZE)
 		return ;
-	i = REG_SIZE - size;
+	i = 0;
+	while (i < REG_SIZE - size)
+		dest[i++] = 0;
 	while (i < REG_SIZE)
 	{
 		dest[i] = (vm->memory)[*offset];
