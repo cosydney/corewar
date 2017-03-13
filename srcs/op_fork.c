@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:24:58 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/11 18:59:22 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/13 13:08:21 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ void	op_fork(t_process *proc, t_vm *vm)
 				proc->parent, vm);
 	ft_memcpy(new_proc->registers, proc->registers, \
 				(sizeof(t_byte) * REG_SIZE) * REG_NUMBER);
+	ft_memcpy(new_proc->pc, proc->act.pc, REG_SIZE);
 	new_proc->carry = proc->carry;
 }

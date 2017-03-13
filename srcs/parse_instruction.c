@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 14:02:39 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/09 19:21:28 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/13 13:03:59 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ static void	set_param(t_vm *vm, t_byte *dest, unsigned int *offset, size_t size)
 {
 	size_t i;
 
-	i = 0;
-	while (i < size)
+	if (size > REG_SIZE)
+		return ;
+	i = REG_SIZE - size;
+	while (i < REG_SIZE)
 	{
 		dest[i] = (vm->memory)[*offset];
 		*offset = (*offset + 1) % MEM_SIZE;
@@ -71,6 +73,7 @@ void	parse_instruction(t_process *process, t_vm *vm)
 	pc = regtou(process->pc);
 	while (i < 16 && (op_tab[i].opcode != (vm->memory)[pc]))
 		i++;
+	ft_memcpy(process->act.pc, process->pc, REG_SIZE);
 	pc = (pc + 1) % MEM_SIZE;
 	if ((process->act.op = (i < 16) ? &op_tab[i] : 0))
 	{

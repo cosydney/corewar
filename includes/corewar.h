@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/11 18:45:02 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/13 13:09:36 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct	s_action
 {
 	t_op	*op;
 	t_byte	encoding;
+	t_byte	pc[REG_SIZE];
 	t_param	params[MAX_ARGS_NUMBER];
 }				t_action;
 
