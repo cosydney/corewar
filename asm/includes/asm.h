@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 18:22:17 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/09 15:02:11 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/14 14:57:07 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,32 +89,33 @@ typedef struct		s_label
 	struct s_label	*next;
 }					t_label;
 
-int			parsing(char *champion, t_header *head, int check);
-int			name_comment_handler(int fd, t_header *head);
-int			check_header(t_header *head, char *line);
-int			check_label(char *str);
-t_label		*label_init(t_label *label, char *line);
-int			check_valid_line(char *line);
-int			asm_instruct_name(char *line);
-char		*asm_free_join(char *line, char *file);
-int			asm_error(int error);
-int			check_arg(char **line, int op);
-int			check_direct(char **line, int op, int check);
-int			check_register(char **line, int check);
-int			check_indirect(char **line, int check);
-int			check_double_label(t_label *label);
-int			check_label_exist(t_label *label, char *str);
-int			reader(t_label *label, t_header *header, char *champ, char *file);
-int			free_label(t_label *label);
-int			binary_creator(int fd, t_label *label, char *file);
-int			write_register(int fd, char **file);
-int			write_direct(int fd, int size, t_label *label, char **file);
-int			write_indirect(int fd, t_label *label, char **file);
-int			move_separator(char **file);
-int			calculate_i(char *file, t_label *label);
-int			cw_invert_endian(int x);
-int			cw_invert_endian2(int x);
-int			move_i(int i, char *file);
-int			opcode(int fd, int arg, int i, char *file);
+int					parsing(char *champion, t_header *head, int check);
+int					name_comment_handler(int fd, t_header *head);
+int					check_header(t_header *head, char *line);
+int					check_label(char *str);
+t_label				*label_init(t_label *label, char *line);
+int					check_valid_line(char *line);
+int					asm_instruct_name(char *line);
+char				*asm_free_join(char *line, char *file);
+int					asm_error(int error);
+int					check_arg(char **line, int op);
+int					check_direct(char **line, int op, int check);
+int					check_register(char **line, int check);
+int					check_indirect(char **line, int check);
+int					check_double_label(t_label *label);
+int					check_label_exist(t_label *label, char *str);
+int					reader(t_label *label,
+	t_header *header, char *champ, char *file);
+int					free_label(t_label *label);
+int					binary_creator(int fd, t_label *label, char *file);
+int					write_register(int fd, char **file);
+int					write_direct(int fd, int size, t_label *label, char **file);
+int					write_indirect(int fd, t_label *label, char **file);
+int					move_separator(char **file);
+int					calculate_i(char *file, t_label *label);
+int					cw_invert_endian(int x);
+int					cw_invert_endian2(int x);
+int					move_i(int i, char *file);
+int					opcode(int fd, int arg, int i, char *file);
 
 #endif

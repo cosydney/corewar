@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 11:17:14 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/09 14:54:28 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/14 14:55:53 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,16 @@ int			asm_instruct_name(char *line)
 	return (instruct_name_sec(line));
 }
 
+int			move_i(int i, char *file)
+{
+	while (file[i] != ',')
+		i++;
+	i++;
+	while (file[i] == '\t' || file[i] == ' ')
+		i++;
+	return (i);
+}
+
 int			calculate_i(char *file, t_label *label)
 {
 	size_t	len;
@@ -77,13 +87,4 @@ int			calculate_i(char *file, t_label *label)
 		label = label->next;
 	}
 	return (asm_error(ARG_ERROR));
-}
-
-int			move_i(int i, char *file)
-{
-	while (file[i] != ',')
-		i++;
-	while (file[i] == '\t' || file[i] == ' ')
-		i++;
-	return (i);
 }

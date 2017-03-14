@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 20:10:01 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/09 14:54:17 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/14 14:55:28 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int		header_pass(char *line, int name, int com, int check)
 {
-	int i;
+	int	i;
 
 	if (check)
 		i = name;
@@ -53,7 +53,7 @@ static t_header	*save_header(char *line, t_header *head, int check)
 	if (check == 1)
 	{
 		if (line[0] == '"')
-			ft_strcpy(head->comment, "I am commentless.");
+			ft_strcpy(head->comment, "Commentless champion");
 		else
 		{
 			tmp = ft_strsub(line, 0, ft_strclen(line, '"'));
@@ -81,7 +81,7 @@ int				save_name_comment(char *line, t_header *head, int name, int com)
 			save_header(&line[i], head, 0);
 	}
 	else if (!head->comment[0] &&
-	ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
+		ft_strncmp(COMMENT_CMD_STRING, line, com) == 0)
 	{
 		if ((i = header_pass(line, name, com, 0)) == 0)
 			return (asm_error(NAME_ERROR));
@@ -107,9 +107,8 @@ int				name_comment_handler(int fd, t_header *head)
 		{
 			while ((line[i] == ' ' || line[i] == '\t') && line[i] != '\0')
 				i++;
-			save_name_comment(&line[i], head,
-			ft_strlen(NAME_CMD_STRING), ft_strlen(COMMENT_CMD_STRING));
-			ft_strlen(COMMENT_CMD_STRING);
+			save_name_comment(&line[i], head, ft_strlen(NAME_CMD_STRING),
+			ft_strlen(COMMENT_CMD_STRING));
 			if (check_header(head, line) == 1)
 				return (1);
 		}

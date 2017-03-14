@@ -6,48 +6,28 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:05:37 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/09 14:58:20 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/14 14:53:42 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			cw_invert_endian(int x)
+int		cw_invert_endian(int x)
 {
 	x = ((x >> 24) & 0xff) | ((x >> 8) & 0xff00) | ((x << 8) & 0xff0000) |
-			((x << 24) & 0xff000000);
+	((x << 24) & 0xff000000);
 	return (x);
 }
 
-int			cw_invert_endian2(int x)
+int		cw_invert_endian2(int x)
 {
 	x = ((x >> 8) & 0xff) | ((x << 8) & 0xff00);
 	return (x);
 }
 
-static char	*morph_cor(char *champ)
+int		header_creator(int fd, t_header *header)
 {
-	char	*str;
-	int		i;
-
-	i = 0;
-	if (!(str = malloc(sizeof(char *) * (ft_strlen(champ) + 3))))
-		return (NULL);
-	while (champ[i])
-	{
-		str[i] = champ[i];
-		i++;
-	}
-	str[i - 1] = 'c';
-	str[i] = 'o';
-	str[++i] = 'r';
-	str[++i] = '\0';
-	return (str);
-}
-
-static int	header_creator(int fd, t_header *header)
-{
-	int i;
+	int	i;
 
 	i = 0;
 	header->magic = cw_invert_endian(header->magic);
@@ -67,7 +47,27 @@ static int	header_creator(int fd, t_header *header)
 	return (1);
 }
 
-int			reader(t_label *label, t_header *header, char *champ, char *file)
+char	*morph_cor(char *champ)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	if (!(str = malloc(sizeof(char*) * (ft_strlen(champ) + 3))))
+		return (NULL);
+	while (champ[i])
+	{
+		str[i] = champ[i];
+		i++;
+	}
+	str[i - 1] = 'c';
+	str[i] = 'o';
+	str[++i] = 'r';
+	str[++i] = '\0';
+	return (str);
+}
+
+int		reader(t_label *label, t_header *header, char *champ, char *file)
 {
 	int		fd;
 	char	*file_name;
@@ -75,7 +75,7 @@ int			reader(t_label *label, t_header *header, char *champ, char *file)
 	fd = 0;
 	file_name = morph_cor(champ);
 	if ((fd = open(file_name, O_RDWR | O_CREAT | O_TRUNC |
-					O_APPEND, 0777)) > -1)
+		O_APPEND, 0777)) > -1)
 	{
 		header_creator(fd, header);
 		g_pos = 0;
