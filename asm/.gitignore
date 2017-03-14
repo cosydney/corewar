@@ -1,0 +1,3 @@
+objs/srcs/*.o
+asm
+.gitignore

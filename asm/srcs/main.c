@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 18:19:45 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/03 20:01:27 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/09 15:00:18 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_header	*header_init(void)
 		return (NULL);
 	if (new != NULL)
 	{
-		new->magic = COREWARE_EXEC_MAGIC;//todo
+		new->magic = COREWARE_EXEC_MAGIC;
 		new->prog_size = 0;
 		ft_bzero(new->prog_name, PROG_NAME_LENGTH);
 		ft_bzero(new->comment, COMMENT_LENGTH);
@@ -38,7 +38,7 @@ static void	init_global(void)
 static int	ac_check(int ac)
 {
 	if (ac == 2)
-		ft_error("Missing champion.");
+		ft_printf_fd(2, "Missing champion.\n");
 	return (1);
 }
 
@@ -50,6 +50,7 @@ int			main(int ac, char **av)
 
 	index = 1;
 	check = 0;
+	head = NULL;
 	init_global();
 	if (ac > 1)
 	{
@@ -58,16 +59,14 @@ int			main(int ac, char **av)
 		while (index < ac)
 		{
 			if ((head = header_init()) == NULL)
-				ft_error("Malloc probleme.");
+				return (asm_error(MALLOC_ERROR));
 			if (parsing(av[index++], head, check) == -1)
-				ft_error("Champion is not valid.");	
-			//
-			//free head here
-			// 
+				return (asm_error(CHAMPION_ERROR));
+			free(head);
+			head = NULL;
 			init_global();
 		}
 	}
 	else
-		ft_error("Missing champion.");
-	return (0);
+		return (asm_error(CHAMPION_ERROR));
 }
