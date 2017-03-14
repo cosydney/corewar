@@ -6,13 +6,13 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 20:10:01 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/14 13:15:36 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/14 14:55:28 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int			header_pass(char *line, int name, int com, int check)
+static int		header_pass(char *line, int name, int com, int check)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ static int			header_pass(char *line, int name, int com, int check)
 	return (i);
 }
 
-static int			header_pass_end(char *line, int i)
+static int		header_pass_end(char *line, int i)
 {
 	while (line[i] && line[i] != '"')
 		i++;
@@ -66,7 +66,7 @@ static t_header	*save_header(char *line, t_header *head, int check)
 	return (head);
 }
 
-int			save_name_comment(char *line, t_header *head, int name, int com)
+int				save_name_comment(char *line, t_header *head, int name, int com)
 {
 	int		i;
 	char	*tmp;
@@ -93,7 +93,7 @@ int			save_name_comment(char *line, t_header *head, int name, int com)
 	return (header_pass_end(line, i));
 }
 
-int			name_comment_handler(int fd, t_header *head)
+int				name_comment_handler(int fd, t_header *head)
 {
 	int		i;
 	char	*line;
