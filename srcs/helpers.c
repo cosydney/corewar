@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 18:59:05 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/11 17:46:19 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/15 20:20:53 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,12 @@ unsigned int		memtou(t_byte *mem, unsigned int offset, size_t size)
 		res += mem[(offset + i++) % MEM_SIZE];
 	}
 	return (res);
+}
+
+unsigned int		indtoabs(unsigned int ind, unsigned int pc)
+{
+	unsigned int	offset;
+
+	offset = pc - (pc % IDX_MOD);
+	return ((offset + ((pc + ind) % IDX_MOD)) % MEM_SIZE);
 }
