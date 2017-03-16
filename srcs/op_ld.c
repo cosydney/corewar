@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:25:02 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/13 13:07:08 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/16 15:30:44 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void			op_ld(t_process *proc, t_vm *vm)
 	if (proc->act.params[0].t == T_DIR)
 		utoreg(src_param, reg_dst);
 	else if (proc->act.params[0].t == T_IND)
-		ld(regtou(proc->act.pc) + (src_param % IDX_MOD), reg_dst, vm);
+		ld(regtou(proc->act.pc) + ((short)src_param % IDX_MOD), reg_dst, vm);
 	proc->carry = (regtou(reg_dst)) ? 0 : 1;
 }
