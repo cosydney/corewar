@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/15 20:18:04 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/16 13:30:11 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ void			utoreg(unsigned int n, t_byte reg[REG_SIZE]);
 unsigned int	regtou(t_byte reg[REG_SIZE]);
 unsigned int	memtou(t_byte *mem, unsigned int offset, size_t size);
 unsigned int	par_to_val(int par, size_t size, t_process *proc, t_vm *vm);
-unsigned int	indtoabs(unsigned int ind, unsigned int pc);
 
 t_champion		*id_to_champion(t_list *champions, unsigned int id);
 

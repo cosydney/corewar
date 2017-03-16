@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:56:00 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/15 20:23:29 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/16 13:28:41 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void			op_st(t_process *proc, t_vm *vm)
 {
 	t_param			reg_param;
 	t_byte			*reg_src;
-	unsigned int	offset;
 
 	reg_src = proc->registers[regtou(proc->act.params[0].value) - 1];
 	reg_param = proc->act.params[1];
@@ -37,7 +36,7 @@ void			op_st(t_process *proc, t_vm *vm)
 			REG_SIZE);
 	else if (reg_param.t == T_IND)
 	{
-		ld_to_mem(indtoabs(regtou(reg_param.value), regtou(proc->act.pc)), \
-			reg_src, vm);
+		ld_to_mem(((short)regtou(reg_param.value) % IDX_MOD) + \
+		regtou(proc->act.pc), reg_src, vm);
 	}
 }
