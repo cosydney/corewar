@@ -26,13 +26,12 @@ static void		ld_to_mem(unsigned int offset, t_byte reg[REG_SIZE], t_vm *vm)
 
 void			op_sti(t_process *proc, t_vm *vm)
 {
-	t_byte			*reg_param_first;
-	t_byte			*reg_param_second;
+	unsigned int	reg_param_first;
+	unsigned int	reg_param_second;
 	t_byte			*reg_src;
 
 	reg_src = proc->act.params[0].value;
-	reg_param_first = proc->act.params[1].value;
-	reg_param_second = proc->act.params[2].value;
-	proc->carry = (reg_src) ? 0 : 1;
-	ld_to_mem(regtou(reg_param_first) + regtou(reg_param_second), reg_src, vm);
+	reg_param_first = par_to_val(1, IND_SIZE, proc, vm);
+	reg_param_second = par_to_val(2, IND_SIZE, proc, vm);
+	ld_to_mem((reg_param_first + reg_param_second) % IDX_MOD, reg_src, vm);
 }
