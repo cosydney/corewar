@@ -37,9 +37,7 @@ void	opcode_assign(int *octout, int i, int check, char *file)
 int		write_indirect(int fd, t_label *label, char **file)
 {
 	int i;
-	int len;
 
-	len = 0;
 	i = 0;
 	if (**file == LABEL_CHAR && (*file)++)
 		i = calculate_i(*file, label);
@@ -81,9 +79,7 @@ int		opcode(int fd, int arg, int i, char *file)
 int		write_direct(int fd, int size, t_label *label, char **file)
 {
 	int i;
-	int len;
 
-	len = 0;
 	if (!(i = 0) && **file != DIRECT_CHAR)
 		return (0);
 	if (++(*file) && **file == LABEL_CHAR && (*file)++)

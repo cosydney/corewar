@@ -65,7 +65,7 @@ int			move_i(int i, char *file)
 	i++;
 	while (file[i] == '\t' || file[i] == ' ')
 		i++;
-	return (i);
+	return (i + 1);
 }
 
 int			calculate_i(char *file, t_label *label)

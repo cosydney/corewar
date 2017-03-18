@@ -74,11 +74,9 @@ t_label			*parse_line(int fd, char **file)
 int				parsing(char *champion, t_header *head, int check)
 {
 	int		fd;
-	int		pos;
 	char	*file;
 	t_label	*label;
 
-	pos = 0;
 	label = NULL;
 	file = NULL;
 	check_champ_name(champion);

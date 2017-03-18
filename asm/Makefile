@@ -2,7 +2,7 @@ NAME 	=	asm
 DOBJ 	=	objs
 DSRC 	=	srcs
 INC 	=	-I includes/ -I ../libft/includes
-CC	 	=	gcc -g
+CC	 	=	gcc
 CFLAGS 	=	-Wall -Werror -Wextra -fsanitize=address 
 SRC 	=	$(shell find $(DSRC) -name '*.c' -type f)
 SDIR	=	$(shell find $(DSRC) -type d)

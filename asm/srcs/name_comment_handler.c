@@ -69,10 +69,8 @@ static t_header	*save_header(char *line, t_header *head, int check)
 int				save_name_comment(char *line, t_header *head, int name, int com)
 {
 	int		i;
-	char	*tmp;
 
 	i = 0;
-	tmp = NULL;
 	if (!head->prog_name[0] && ft_strncmp(NAME_CMD_STRING, line, name) == 0)
 	{
 		if ((i = header_pass(line, name, com, 1)) == 0)
