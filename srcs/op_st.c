@@ -28,12 +28,20 @@ void			op_st(t_process *proc, t_vm *vm)
 {
 	t_param			reg_param;
 	t_byte			*reg_src;
+	unsigned int	idx;
 
-	reg_src = proc->registers[regtou(proc->act.params[0].value) - 1];
+	if (!param_checker(proc))
+		return ;
+	if ((idx = regtou(proc->act.params[0].value) - 1) >= REG_NUMBER)
+		return ;
+	reg_src = proc->registers[idx];
 	reg_param = proc->act.params[1];
 	if (reg_param.t == T_REG)
-		ft_memcpy(proc->registers[regtou(reg_param.value) - 1], reg_src, \
-			REG_SIZE);
+	{
+		if ((idx = regtou(proc->act.params[1].value) - 1) >= REG_NUMBER)
+			return ;
+		ft_memcpy(proc->registers[idx], reg_src, REG_SIZE);
+	}
 	else if (reg_param.t == T_IND)
 	{
 		ld_to_mem(((short)regtou(reg_param.value) % IDX_MOD) + \

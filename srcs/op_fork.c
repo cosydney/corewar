@@ -16,11 +16,10 @@ void	op_fork(t_process *proc, t_vm *vm)
 {
 	t_process *new_proc;
 
-	new_proc = create_process(regtou(proc->pc) + \
+	new_proc = create_process(regtou(proc->act.pc) + \
 				regtou(proc->act.params[0].value) % IDX_MOD, \
 				proc->parent, vm);
 	ft_memcpy(new_proc->registers, proc->registers, \
 				(sizeof(t_byte) * REG_SIZE) * REG_NUMBER);
-	ft_memcpy(new_proc->pc, proc->act.pc, REG_SIZE);
 	new_proc->carry = proc->carry;
 }

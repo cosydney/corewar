@@ -16,7 +16,7 @@ void	op_lfork(t_process *proc, t_vm *vm)
 {
 	t_process *new_proc;
 
-	new_proc = create_process(regtou(proc->pc) + \
+	new_proc = create_process(regtou(proc->act.pc) + \
 				regtou(proc->act.params[0].value), \
 				proc->parent, vm);
 	ft_memcpy(new_proc->registers, proc->registers, \

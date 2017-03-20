@@ -20,5 +20,6 @@ void	op_live(t_process *proc, t_vm *vm)
 	id = regtou(proc->act.params[0].value);
 	if (id_to_champion(vm->players, id))
 		vm->last_live_id = id;
+	proc->live_count++;
 	vm->live_count++;
 }

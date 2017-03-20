@@ -12,32 +12,59 @@
 
 #include "corewar.h"
 
-unsigned int	par_to_val(int par, size_t size, t_process *proc, t_vm *vm)
+int				par_to_val(int par, unsigned int *vars, t_process *proc, \
+t_vm *vm)
 {
-	t_param *p;
+	t_param			*p;
+	unsigned int	tmp;
 
 	p = &(proc->act.params[par]);
 	if (p->t == T_REG)
-		return (regtou(proc->registers[regtou(p->value)]));
+	{
+		tmp = regtou(p->value);
+		if (tmp > REG_NUMBER || !tmp)
+			return (0);
+		vars[0] = (regtou(proc->registers[tmp - 1]));
+	}
 	else if (p->t == T_DIR)
-		return (regtou(p->value));
+		vars[0] = (regtou(p->value));
 	else if (p->t == T_IND)
-		return (memtou(vm->memory, (((short)regtou(p->value) % IDX_MOD) + \
-		regtou(proc->pc)), size));
-	return (0);
+		vars[0] = (memtou(vm->memory, (((short)regtou(p->value) % IDX_MOD) + \
+		regtou(proc->pc)), vars[1]));
+	return (1);
 }
 
-unsigned int	lpar_to_val(int par, size_t size, t_process *proc, t_vm *vm)
+int				lpar_to_val(int par, unsigned int *vars, t_process *proc, \
+t_vm *vm)
 {
-	t_param *p;
+	t_param			*p;
+	unsigned int	tmp;
 
 	p = &(proc->act.params[par]);
 	if (p->t == T_REG)
-		return (regtou(proc->registers[regtou(p->value)]));
+	{
+		tmp = regtou(p->value);
+		if (tmp > REG_NUMBER || !tmp)
+			return (0);
+		vars[0] = (regtou(proc->registers[tmp - 1]));
+	}
 	else if (p->t == T_DIR)
-		return (regtou(p->value));
+		vars[0] = (regtou(p->value));
 	else if (p->t == T_IND)
-		return (memtou(vm->memory, ((short)regtou(p->value) + \
-		regtou(proc->pc)), size));
-	return (0);
+		vars[0] = (memtou(vm->memory, ((short)regtou(p->value) + \
+		regtou(proc->pc)), vars[1]));
+	return (1);
+}
+
+int				param_checker(t_process *proc)
+{
+	int i;
+
+	i = 0;
+	while (i < proc->act.op->arg_c)
+	{
+		if (!(proc->act.params[i].t && proc->act.op->ar[i]))
+			return (0);
+	}
+	return (1);
 }

@@ -27,10 +27,15 @@ static void		ld(unsigned int offset, t_byte reg[REG_SIZE], t_vm *vm)
 void			op_lld(t_process *proc, t_vm *vm)
 {
 	unsigned int	src_param;
+	unsigned int	idx;
 	t_byte			*reg_dst;
 
+	if (!param_checker(proc))
+		return ;
 	src_param = regtou(proc->act.params[0].value);
-	reg_dst = proc->registers[regtou(proc->act.params[1].value) - 1];
+	if ((idx = regtou(proc->act.params[1].value) - 1) >= REG_NUMBER)
+		return ;
+	reg_dst = proc->registers[idx];
 	if (proc->act.params[0].t == T_DIR)
 		utoreg(src_param, reg_dst);
 	else if (proc->act.params[0].t == T_IND)

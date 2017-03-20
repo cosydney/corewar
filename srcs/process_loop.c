@@ -74,6 +74,6 @@ void	vm_loop(t_vm *vm, t_options *opt)
 		}
 		run_cycle(vm);
 	}
-	if (opt->dump)
+	if (opt->dump && vm->process_count)
 		ft_print_mem(vm->memory, MEM_SIZE);
 }

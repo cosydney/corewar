@@ -127,8 +127,11 @@ void			parse_instruction(t_process *process, t_vm *vm);
 void			utoreg(unsigned int n, t_byte reg[REG_SIZE]);
 unsigned int	regtou(t_byte reg[REG_SIZE]);
 unsigned int	memtou(t_byte *mem, unsigned int offset, size_t size);
-unsigned int	par_to_val(int par, size_t size, t_process *proc, t_vm *vm);
-unsigned int	lpar_to_val(int par, size_t size, t_process *proc, t_vm *vm);
+int				par_to_val(int par, unsigned int *vars, t_process *proc, \
+					t_vm *vm);
+int				lpar_to_val(int par, unsigned int *vars, t_process *proc, \
+					t_vm *vm);
+int				param_checker(t_process *proc);
 
 t_champion		*id_to_champion(t_list *champions, unsigned int id);
 

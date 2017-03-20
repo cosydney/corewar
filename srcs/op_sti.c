@@ -26,12 +26,17 @@ static void		ld_to_mem(unsigned int offset, t_byte reg[REG_SIZE], t_vm *vm)
 
 void			op_sti(t_process *proc, t_vm *vm)
 {
-	unsigned int	reg_param_first;
-	unsigned int	reg_param_second;
+	unsigned int	first[2];
+	unsigned int	second[2];
 	t_byte			*reg_src;
 
+	if (!param_checker(proc))
+		return ;
 	reg_src = proc->act.params[0].value;
-	reg_param_first = par_to_val(1, IND_SIZE, proc, vm);
-	reg_param_second = par_to_val(2, IND_SIZE, proc, vm);
-	ld_to_mem((reg_param_first + reg_param_second) % IDX_MOD, reg_src, vm);
+	first[1] = IND_SIZE;
+	second[1] = IND_SIZE;
+	if (!par_to_val(1, first, proc, vm) || !par_to_val(2, second, proc, vm))
+		return ;
+	ld_to_mem(((first[0] + second[0]) % IDX_MOD) + regtou(proc->act.pc), \
+		reg_src, vm);
 }

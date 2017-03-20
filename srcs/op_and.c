@@ -14,10 +14,19 @@
 
 void	op_and(t_process *proc, t_vm *vm)
 {
-	unsigned int i;
+	unsigned int a[2];
+	unsigned int b[2];
+	unsigned int idx;
 
 	(void)vm;
-	i = par_to_val(0, REG_SIZE, proc, vm) & par_to_val(1, REG_SIZE, proc,  vm);
-	utoreg(i, proc->registers[regtou(proc->act.params[2].value) - 1]);
-	proc->carry = i ? 0 : 1;
+	if (!param_checker(proc))
+		return ;
+	a[1] = REG_SIZE;
+	b[1] = REG_SIZE;
+	if (!par_to_val(0, a, proc, vm) || !par_to_val(1, b, proc,  vm))
+		return ;
+	if ((idx = regtou(proc->act.params[2].value) - 1) >= REG_NUMBER)
+		return ;
+	utoreg(a[0] & b[0], proc->registers[idx]);
+	proc->carry = (a[0] & b[0]) ? 0 : 1;
 }
