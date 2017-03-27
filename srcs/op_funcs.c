@@ -30,7 +30,7 @@ t_vm *vm)
 		vars[0] = (regtou(p->value));
 	else if (p->t == T_IND)
 		vars[0] = (memtou(vm->memory, (((short)regtou(p->value) % IDX_MOD) + \
-		regtou(proc->pc)), vars[1]));
+		regtou(proc->act.pc)), vars[1]));
 	return (1);
 }
 
@@ -63,8 +63,9 @@ int				param_checker(t_process *proc)
 	i = 0;
 	while (i < proc->act.op->arg_c)
 	{
-		if (!(proc->act.params[i].t && proc->act.op->ar[i]))
+		if (!(proc->act.params[i].t & proc->act.op->ar[i]))
 			return (0);
+		i++;
 	}
 	return (1);
 }

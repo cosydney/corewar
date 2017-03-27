@@ -1,5 +1,5 @@
 NAME 	=	corewar
-CC		=	clang
+CC		=	gcc
 CFLAGS 	=	-Wall -Werror -Wextra
 INC		=	-I includes/ -I libft/includes/
 SRCS 	=	main.c \

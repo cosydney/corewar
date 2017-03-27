@@ -22,10 +22,10 @@ void	op_sub(t_process *proc, t_vm *vm)
 	(void)vm;
 	if (!param_checker(proc))
 		return ;
-	reg_a = regtou(proc->act.params[0].value);
-	reg_b = regtou(proc->act.params[1].value);
-	reg_res = regtou(proc->act.params[2].value);
-	if (reg_a > REG_NUMBER || reg_b > REG_NUMBER || reg_res > REG_NUMBER)
+	reg_a = regtou(proc->act.params[0].value) - 1;
+	reg_b = regtou(proc->act.params[1].value) - 1;
+	reg_res = regtou(proc->act.params[2].value) - 1;
+	if (reg_a >= REG_NUMBER || reg_b >= REG_NUMBER || reg_res >= REG_NUMBER)
 		return ;
 	diff = regtou(proc->registers[reg_a]) - regtou(proc->registers[reg_b]);
 	utoreg(diff, proc->registers[reg_res]);

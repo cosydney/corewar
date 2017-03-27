@@ -53,7 +53,10 @@ static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 	else if (code == DIR_CODE)
 	{
 		process->act.params[index].t = T_DIR;
-		set_param(vm, process->act.params[index].value, j, DIR_SIZE);
+		if (process->act.op->opcode != 0x0a)
+			set_param(vm, process->act.params[index].value, j, DIR_SIZE);
+		else
+			set_param(vm, process->act.params[index].value, j, IND_SIZE);
 	}
 	else if (code == IND_CODE)
 	{

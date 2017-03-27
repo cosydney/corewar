@@ -33,13 +33,13 @@ void			op_ldi(t_process *proc, t_vm *vm)
 
 	if (!param_checker(proc))
 		return ;
-	first[1] = IDX_MOD;
-	second[1] = IDX_MOD;
+	first[1] = REG_SIZE;
+	second[1] = IND_SIZE;
 	if (!par_to_val(0, first, proc, vm) || !par_to_val(1, second, proc, vm))
 		return ;
 	if ((idx = regtou(proc->act.params[2].value) - 1) >= REG_NUMBER)
 		return ;
 	reg_dst = proc->registers[idx];
-	ld(regtou(proc->pc) + ((first[0] + second[0]) % IDX_MOD), reg_dst, vm);
+	ld(regtou(proc->act.pc) + ((first[0] + second[0]) % IDX_MOD), reg_dst, vm);
 	proc->carry = (regtou(reg_dst)) ? 0 : 1;
 }

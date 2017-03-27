@@ -16,7 +16,7 @@ void	op_zjump(t_process *proc, t_vm *vm)
 {
 	(void)vm;
 	if (proc->carry)
-		utoreg((regtou(proc->pc) + \
+		utoreg((regtou(proc->act.pc) + \
 		((short)regtou(proc->act.params[0].value) % IDX_MOD)) % MEM_SIZE, \
 			proc->pc);
 }
