@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 14:56:51 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/14 18:37:53 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/28 21:10:52 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,19 @@ void	run_cycle(t_vm *vm)
 		if (!proc->cycle_count)
 		{
 			if (proc->act.op)
+			{
 				g_operators[proc->act.op->opcode](proc, vm);
+				if (vm->opt.gui)
+					gui_highlight(0, regtou(proc->act.pc), vm);
+			}
 			parse_instruction(proc, vm);
+			if (vm->opt.gui)
+				gui_highlight(1, regtou(proc->act.pc), vm);
 		}
 		if (proc->cycle_count)
 			proc->cycle_count--;
 		process = process->next;
+		mvprintw(68, 0, "PROCESS COUNT: %u", vm->process_count);
 	}
 }
 
@@ -60,6 +67,8 @@ void	vm_loop(t_vm *vm, t_options *opt)
 	while (vm->process_count && \
 	(!opt->dump || (vm->total_cycles < (unsigned int)opt->dump_cycles)))
 	{
+		mvprintw(66, 0, "CYCLE NUMBER: %u", vm->total_cycles);
+		mvprintw(67, 0, "CYCLE TO DIE: %5u", vm->cycle_to_die);
 		vm->cycle++;
 		vm->total_cycles++;
 		if (vm->cycle >= vm->cycle_to_die)

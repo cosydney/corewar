@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 18:42:05 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/28 14:25:46 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/28 20:58:26 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,19 @@ int				param_checker(t_process *proc)
 		i++;
 	}
 	return (1);
+}
+
+void			st_to_mem(unsigned int offset, t_byte reg[REG_SIZE], \
+		t_process *proc, t_vm *vm)
+{
+	int	i;
+
+	i = 0;
+	while (i < REG_SIZE)
+	{
+		vm->memory[(offset + i) % MEM_SIZE] = reg[i];
+		++i;
+	}
+	if (vm->opt.gui)
+		gui_writemem(offset, proc->parent->id, vm);
 }

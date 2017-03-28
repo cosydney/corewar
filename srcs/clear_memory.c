@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 20:02:48 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/08 14:51:20 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/28 16:10:42 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,6 @@ void		clear_vm(t_vm *vm)
 	ft_lstdel(&(vm->players), delete_champion);
 	ft_lstdel(&(vm->processes), delete_process);
 	free(vm);
+	if (vm->opt.gui)
+		endwin();
 }

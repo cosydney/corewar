@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 14:02:39 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/28 13:22:14 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/28 19:35:19 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,7 @@ void	parse_instruction(t_process *process, t_vm *vm)
 	{
 		opcode = process->act.op->opcode;
 		process->act.encoding = 0;
-		if (opcode != 0x01 && opcode != 0x09 && opcode != 0x0c && \
-				opcode != 0x0f)
+		if (opcode != 1 && opcode != 9 && opcode != 0x0c && opcode != 0x0f)
 			(process->act).encoding = (vm->memory)[pc++];
 		i = (process->act).op->arg_c;
 		pc %= MEM_SIZE;
