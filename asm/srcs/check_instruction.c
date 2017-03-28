@@ -31,7 +31,7 @@ int			check_valid_line(char *line)
 		line = line + 5;
 	else
 		line = line + 3;
-	if (fct != LIVE && fct != ZJMP && fct != FORK & fct != LFORK)
+	if (fct != LIVE && fct != ZJMP && fct != FORK && fct != LFORK)
 		g_pos++;
 	check_arg(&line, fct);
 	while (*line && *line != '\n' && *line != COMMENT_CHAR && *line != ';')
