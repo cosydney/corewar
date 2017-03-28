@@ -37,9 +37,7 @@ char			*put_line_in_file(char *line, int i, char *file)
 		i++;
 	if (line[i] && line[i] != COMMENT_CHAR && line[i] != ';' &&
 			check_valid_line(&line[i]))
-	{
 		file = asm_free_join(&line[i], file);
-	}
 	free(line);
 	line = NULL;
 	return (file);
