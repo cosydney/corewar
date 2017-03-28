@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:24:58 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/13 13:08:21 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/28 14:26:39 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	op_fork(t_process *proc, t_vm *vm)
 	t_process *new_proc;
 
 	new_proc = create_process(regtou(proc->act.pc) + \
-				regtou(proc->act.params[0].value) % IDX_MOD, \
+				(short)regtou(proc->act.params[0].value) % IDX_MOD, \
 				proc->parent, vm);
 	ft_memcpy(new_proc->registers, proc->registers, \
 				(sizeof(t_byte) * REG_SIZE) * REG_NUMBER);

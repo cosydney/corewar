@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:28:41 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/11 18:56:53 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/28 14:43:13 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	op_lfork(t_process *proc, t_vm *vm)
 	t_process *new_proc;
 
 	new_proc = create_process(regtou(proc->act.pc) + \
-				regtou(proc->act.params[0].value), \
+				(short)regtou(proc->act.params[0].value), \
 				proc->parent, vm);
 	ft_memcpy(new_proc->registers, proc->registers, \
 				(sizeof(t_byte) * REG_SIZE) * REG_NUMBER);

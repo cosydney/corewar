@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 18:42:05 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/11 18:44:13 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/28 14:25:46 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,14 @@ t_vm *vm)
 	else if (p->t == T_DIR)
 		vars[0] = (regtou(p->value));
 	else if (p->t == T_IND)
-		vars[0] = (memtou(vm->memory, (((short)regtou(p->value) % IDX_MOD) + \
-		regtou(proc->act.pc)), vars[1]));
+	{
+		if (vars[1] != IND_SIZE)
+			vars[0] = (memtou(vm->memory, ((regtou(p->value) % IDX_MOD) + \
+							regtou(proc->act.pc)), vars[1]));
+		else
+			vars[0] = (memtou(vm->memory, (((short)regtou(p->value) % IDX_MOD) \
+							+ regtou(proc->act.pc)), vars[1]));
+	}
 	return (1);
 }
 
@@ -51,8 +57,14 @@ t_vm *vm)
 	else if (p->t == T_DIR)
 		vars[0] = (regtou(p->value));
 	else if (p->t == T_IND)
-		vars[0] = (memtou(vm->memory, ((short)regtou(p->value) + \
-		regtou(proc->pc)), vars[1]));
+	{
+		if (vars[1] != IND_SIZE)
+			vars[0] = (memtou(vm->memory, ((short)regtou(p->value) + \
+				regtou(proc->pc)), vars[1]));
+		else
+			vars[0] = (memtou(vm->memory, ((short)regtou(p->value) + \
+				regtou(proc->pc)), vars[1]));
+	}
 	return (1);
 }
 

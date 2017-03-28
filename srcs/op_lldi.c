@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:28:17 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/09 18:36:19 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/28 14:42:44 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ void			op_lldi(t_process *proc, t_vm *vm)
 	if ((idx = regtou(proc->act.params[2].value) - 1) >= REG_NUMBER)
 		return ;
 	reg_dst = proc->registers[idx];
-	ld(regtou(proc->pc) + (first[0] + second[0]), reg_dst, vm);
+	ld(regtou(proc->act.pc) + ((first[0] + second[0])), reg_dst, vm);
 	proc->carry = (regtou(reg_dst)) ? 0 : 1;
 }
