@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 14:02:39 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/13 13:03:59 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/28 13:22:14 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ static void	set_param(t_vm *vm, t_byte *dest, unsigned int *offset, size_t size)
 	}
 }
 
+static int	as_idx(t_process *proc)
+{
+	int opcode;
+
+	opcode = proc->act.op->opcode;
+	if (opcode == 0xa || opcode == 0xb)
+		return (1);
+	return (0);
+}
+
 static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 {
 	unsigned int	index;
@@ -53,7 +63,7 @@ static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 	else if (code == DIR_CODE)
 	{
 		process->act.params[index].t = T_DIR;
-		if (process->act.op->opcode != 0x0a)
+		if (!as_idx(process))
 			set_param(vm, process->act.params[index].value, j, DIR_SIZE);
 		else
 			set_param(vm, process->act.params[index].value, j, IND_SIZE);
