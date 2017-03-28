@@ -6,13 +6,13 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:25:02 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/08 18:41:25 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/16 15:30:44 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void		ld(unsigned int offset, byte reg[REG_SIZE], t_vm *vm)
+static void		ld(unsigned int offset, t_byte reg[REG_SIZE], t_vm *vm)
 {
 	int	i;
 
@@ -26,14 +26,19 @@ static void		ld(unsigned int offset, byte reg[REG_SIZE], t_vm *vm)
 
 void			op_ld(t_process *proc, t_vm *vm)
 {
-	byte			*reg_param;
-	byte			*reg_dst;
+	unsigned int	src_param;
+	unsigned int	idx;
+	t_byte			*reg_dst;
 
-	reg_param = proc->act.params[0].value;
-	reg_dst = proc->act.params[1].value;
-	proc->carry = (reg_dst) ? 0 : 1;
+	if (!param_checker(proc))
+		return ;
+	src_param = regtou(proc->act.params[0].value);
+	if ((idx = regtou(proc->act.params[1].value) - 1) >= REG_NUMBER)
+		return ;
+	reg_dst = proc->registers[idx];
 	if (proc->act.params[0].t == T_DIR)
-		ld(regtou(proc->pc) + (regtou(reg_param) % IDX_MOD), reg_dst, vm);
+		utoreg(src_param, reg_dst);
 	else if (proc->act.params[0].t == T_IND)
-		ld(regtou(reg_param), reg_dst, vm);
+		ld(regtou(proc->act.pc) + ((short)src_param % IDX_MOD), reg_dst, vm);
+	proc->carry = (regtou(reg_dst)) ? 0 : 1;
 }

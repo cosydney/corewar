@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 18:46:38 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/16 13:30:11 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <libft.h>
 # include "op.h"
 
-typedef unsigned char byte;
+typedef unsigned char t_byte;
 
 enum			e_errcodes
 {
@@ -38,7 +38,7 @@ typedef struct	s_op
 	char		*mnemonic;
 	char		arg_c;
 	t_arg_type	ar[3];
-	byte		opcode;
+	t_byte		opcode;
 	size_t		cycles;
 	char		*full_mess;
 	char		reg:1;
@@ -47,7 +47,7 @@ typedef struct	s_op
 
 typedef	struct	s_vm
 {
-	byte			memory[MEM_SIZE];
+	t_byte			memory[MEM_SIZE];
 	t_list			*players;
 	t_list			*processes;
 	unsigned int	player_count;
@@ -72,15 +72,15 @@ typedef struct		s_champion
 typedef	struct	s_param
 {
 	t_arg_type	t;
-	byte		value[REG_SIZE];
+	t_byte		value[REG_SIZE];
 }				t_param;
 
 typedef struct	s_action
 {
 	t_op	*op;
-	byte	encoding;
+	t_byte	encoding;
+	t_byte	pc[REG_SIZE];
 	t_param	params[MAX_ARGS_NUMBER];
-	byte	four[4];
 }				t_action;
 
 typedef struct	s_process
@@ -88,11 +88,11 @@ typedef struct	s_process
 	unsigned int	pid;
 	t_champion		*parent;
 	t_action		act;
-	byte			registers[REG_NUMBER][REG_SIZE];
-	byte			pc[REG_SIZE];
+	t_byte			registers[REG_NUMBER][REG_SIZE];
+	t_byte			pc[REG_SIZE];
 	int				carry:1;
 	unsigned int	live_count;
-	int				cycle_count;
+	unsigned int	cycle_count;
 
 }				t_process;
 
@@ -109,8 +109,10 @@ extern t_op op_tab[17];
 t_vm			*vm_get();
 int				vm_init();
 void			init_processes(t_vm *vm);
+t_process		*create_process(unsigned int offset, t_champion *parent, \
+								t_vm *vm);
 
-void			ft_print_mem(byte *memory, size_t size);
+void			ft_print_mem(t_byte *memory, size_t size);
 int				parse_args(int argc, char **argv, t_vm *vm, t_options *opt);
 int				create_champion(t_vm *vm, char *str, unsigned int *custom_nbr, \
 		unsigned int *player_n);
@@ -122,8 +124,16 @@ void			vm_loop(t_vm *vm, t_options *opt);
 void			error_exit(int code);
 void			parse_instruction(t_process *process, t_vm *vm);
 
-void			utoreg(unsigned int n, byte reg[REG_SIZE]);
-unsigned int	regtou(byte reg[REG_SIZE]);
+void			utoreg(unsigned int n, t_byte reg[REG_SIZE]);
+unsigned int	regtou(t_byte reg[REG_SIZE]);
+unsigned int	memtou(t_byte *mem, unsigned int offset, size_t size);
+int				par_to_val(int par, unsigned int *vars, t_process *proc, \
+					t_vm *vm);
+int				lpar_to_val(int par, unsigned int *vars, t_process *proc, \
+					t_vm *vm);
+int				param_checker(t_process *proc);
+
+t_champion		*id_to_champion(t_list *champions, unsigned int id);
 
 /*
 ** operations
@@ -138,6 +148,12 @@ void			op_or(t_process *proc, t_vm *vm);
 void			op_xor(t_process *proc, t_vm *vm);
 void			op_zjump(t_process *proc, t_vm *vm);
 void			op_ldi(t_process *proc, t_vm *vm);
+void			op_sti(t_process *proc, t_vm *vm);
+void			op_fork(t_process *proc, t_vm *vm);
+void			op_lld(t_process *proc, t_vm *vm);
+void			op_lldi(t_process *proc, t_vm *vm);
+void			op_lfork(t_process *proc, t_vm *vm);
+void			op_akk(t_process *proc, t_vm *vm);
 
 
 void			op_lld(t_process *proc, t_vm *vm);

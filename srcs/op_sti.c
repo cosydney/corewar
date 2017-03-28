@@ -6,13 +6,13 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 19:59:03 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 19:59:09 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/28 13:11:56 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void		ld_to_mem(unsigned int offset, byte reg[REG_SIZE], t_vm *vm)
+static void		ld_to_mem(unsigned int offset, t_byte reg[REG_SIZE], t_vm *vm)
 {
 	int	i;
 
@@ -26,13 +26,18 @@ static void		ld_to_mem(unsigned int offset, byte reg[REG_SIZE], t_vm *vm)
 
 void			op_sti(t_process *proc, t_vm *vm)
 {
-	byte			*reg_param_first;
-	byte			*reg_param_second;
-	byte			*reg_src;
+	unsigned int	first[2];
+	unsigned int	second[2];
+	unsigned int	idx;
 
-	reg_src = proc->act.params[0].value;
-	reg_param_first = proc->act.params[1];
-	reg_param_second = proc->act.params[2];
-	proc->carry = (reg_src) ? 0 : 1;
-	ld_to_mem(regtou(reg_param_first) + regtou(reg_param_second), reg_src, vm);
+	if (!param_checker(proc))
+		return ;
+	first[1] = REG_SIZE;
+	second[1] = IND_SIZE;
+	if (!par_to_val(1, first, proc, vm) || !par_to_val(2, second, proc, vm))
+		return ;
+	if ((idx = regtou(proc->act.params[0].value) - 1) >= REG_NUMBER)
+		return ;
+	ld_to_mem(((first[0] + second[0]) % IDX_MOD) + regtou(proc->act.pc), \
+		proc->registers[idx], vm);
 }

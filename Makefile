@@ -1,6 +1,6 @@
 NAME 	=	corewar
-CC		=	clang
-CFLAGS 	=	-Wall -Werror -Wextra -fsanitize=address
+CC		=	gcc
+CFLAGS 	=	-Wall -Werror -Wextra
 INC		=	-I includes/ -I libft/includes/
 SRCS 	=	main.c \
 			op.c \
@@ -15,6 +15,7 @@ SRCS 	=	main.c \
 			loading.c \
 			initializer.c \
 			process_loop.c \
+			op_funcs.c \
 			op_live.c \
 			op_ld.c \
 			op_st.c \
@@ -25,7 +26,11 @@ SRCS 	=	main.c \
 			op_xor.c \
 			op_zjump.c \
 			op_ldi.c \
+			op_sti.c \
+			op_fork.c \
 			op_lld.c \
+			op_lldi.c \
+			op_lfork.c \
 			op_aff.c \
 			killer.c
 
@@ -45,6 +50,8 @@ CYN = \033[36;1m
 WHT = \033[37;1m
 EOC = \033[0m
 BEER = \xF0\x9F\x8D\xBA
+
+asan: CFLAGS += -fsanitize=address
 
 all: $(NAME)
 
@@ -71,5 +78,8 @@ reli:
 	@make -C $(LIBPATH) re
 
 re: fclean all
+
+asan: all
+
 
 .PHONY: re all clean fclean

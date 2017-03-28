@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:17:53 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 18:41:41 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/11 18:59:19 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,19 @@
 
 void	op_and(t_process *proc, t_vm *vm)
 {
-	unsigned int i;
+	unsigned int a[2];
+	unsigned int b[2];
+	unsigned int idx;
 
 	(void)vm;
-	i = 0;
-	while (i < REG_SIZE)
-	{
-		proc->act.params[2].value[i] = proc->act.params[0].value[i] \
-	& proc->act.params[1].value[i];
-		i++;
-	}
+	if (!param_checker(proc))
+		return ;
+	a[1] = REG_SIZE;
+	b[1] = REG_SIZE;
+	if (!par_to_val(0, a, proc, vm) || !par_to_val(1, b, proc,  vm))
+		return ;
+	if ((idx = regtou(proc->act.params[2].value) - 1) >= REG_NUMBER)
+		return ;
+	utoreg(a[0] & b[0], proc->registers[idx]);
+	proc->carry = (a[0] & b[0]) ? 0 : 1;
 }

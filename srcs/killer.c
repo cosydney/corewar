@@ -21,7 +21,7 @@ static t_list	*delete_node(t_list **prev, t_list *node)
 	node = node->next;
 	ft_lstdelone(&tmp, delete_process);
 	if (prev && *prev)
-		*prev = node;
+		(*prev)->next = node;
 	return (node);
 }
 

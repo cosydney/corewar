@@ -6,13 +6,13 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:56:00 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 19:49:22 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/16 13:28:41 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void		ld_to_mem(unsigned int offset, byte reg[REG_SIZE], t_vm *vm)
+static void		ld_to_mem(unsigned int offset, t_byte reg[REG_SIZE], t_vm *vm)
 {
 	int	i;
 
@@ -24,28 +24,27 @@ static void		ld_to_mem(unsigned int offset, byte reg[REG_SIZE], t_vm *vm)
 	}
 }
 
-static void		ld_to_reg(byte reg_src[REG_SIZE], byte reg_param[REG_SIZE])
-{
-	int	i;
-
-	i = 0;
-	while (i < REG_SIZE)
-	{
-		reg_param[i] = reg_src[i];
-		++i;
-	}
-}
-
 void			op_st(t_process *proc, t_vm *vm)
 {
 	t_param			reg_param;
-	byte			*reg_src;
+	t_byte			*reg_src;
+	unsigned int	idx;
 
-	reg_src = proc->act.params[0].value;
+	if (!param_checker(proc))
+		return ;
+	if ((idx = regtou(proc->act.params[0].value) - 1) >= REG_NUMBER)
+		return ;
+	reg_src = proc->registers[idx];
 	reg_param = proc->act.params[1];
-	proc->carry = (reg_src) ? 0 : 1;
 	if (reg_param.t == T_REG)
-		ld_to_reg(reg_src, reg_param.value);
+	{
+		if ((idx = regtou(proc->act.params[1].value) - 1) >= REG_NUMBER)
+			return ;
+		ft_memcpy(proc->registers[idx], reg_src, REG_SIZE);
+	}
 	else if (reg_param.t == T_IND)
-		ld_to_mem(regtou(reg_param.value), reg_src, vm);
+	{
+		ld_to_mem(((short)regtou(reg_param.value) % IDX_MOD) + \
+		regtou(proc->act.pc), reg_src, vm);
+	}
 }

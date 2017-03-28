@@ -6,11 +6,21 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/08 16:01:10 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/10 13:45:25 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+static void	show_winner(t_vm *vm)
+{
+	t_champion *cmp;
+
+	cmp = id_to_champion(vm->players, vm->last_live_id);
+	if (!cmp)
+		return ;
+	ft_printf("%c%s%c wins the corewar!\n", '"', cmp->header.prog_name, '"');
+}
 
 int			main(int argc, char **argv)
 {
@@ -25,8 +35,7 @@ int			main(int argc, char **argv)
 	parse_champion(vm);
 	init_processes(vm);
 	vm_loop(vm, &opt);
+	show_winner(vm);
 	clear_vm(vm);
-//	sleep(10);
 	return (0);
 }
-
