@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/28 20:57:03 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/29 18:58:33 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <libft.h>
+# include <time.h>
 # include "op.h"
+# define UI_SPEED 100000
 
 typedef unsigned char t_byte;
 
@@ -53,12 +55,21 @@ typedef struct	s_options
 	int		dump_cycles;
 }				t_options;
 
+typedef struct	s_gui
+{
+	int		speed;
+	t_byte	*curbuf[2];
+	t_byte	cursors[2][MEM_SIZE];
+	int		fresh[2][MEM_SIZE];
+}				t_gui;
+
 typedef	struct	s_vm
 {
 	t_byte			memory[MEM_SIZE];
 	t_list			*players;
 	t_list			*processes;
 	t_options		opt;
+	t_gui			gui;
 	unsigned int	player_count;
 	unsigned int	total_cycles;
 	unsigned int	cycle;
@@ -172,7 +183,9 @@ void			delete_process(void *content, size_t content_size);
 */
 void			init_ui(void);
 void			gui_show_champ(t_champion *champ, t_vm *vm);
-void			gui_highlight(int state, int index, t_vm *vm);
+void			gui_update_cursors(int state, int index, t_vm *vm);
 void			gui_writemem(int offset, unsigned int id, t_vm *vm);
+void			gui_set_cursors(t_vm *vm);
+void			gui_set_highlight(t_vm *vm);
 
 #endif

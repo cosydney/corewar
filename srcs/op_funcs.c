@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 18:42:05 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/28 20:58:26 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/29 20:05:27 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,19 @@ void			st_to_mem(unsigned int offset, t_byte reg[REG_SIZE], \
 		t_process *proc, t_vm *vm)
 {
 	int	i;
+	int	idx;
 
 	i = 0;
 	while (i < REG_SIZE)
 	{
-		vm->memory[(offset + i) % MEM_SIZE] = reg[i];
+		idx = (offset + i) % MEM_SIZE;
+		vm->memory[idx] = reg[i];
+		if (vm->opt.gui)
+		{
+			vm->gui.fresh[0][idx] += 50;
+		}
 		++i;
 	}
 	if (vm->opt.gui)
-		gui_writemem(offset, proc->parent->id, vm);
+		gui_writemem(offset % MEM_SIZE, proc->parent->id, vm);
 }

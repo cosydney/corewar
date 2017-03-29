@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/28 21:00:36 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/29 16:12:05 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int			main(int argc, char **argv)
 	vm_loop(vm, &(vm->opt));
 	if (!vm->opt.gui)
 		show_winner(vm);
+	else
+		getch();
 	clear_vm(vm);
 	return (0);
 }
