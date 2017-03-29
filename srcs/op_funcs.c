@@ -95,7 +95,7 @@ void			st_to_mem(unsigned int offset, t_byte reg[REG_SIZE], \
 		vm->memory[idx] = reg[i];
 		if (vm->opt.gui)
 		{
-			vm->gui.fresh[0][idx] += 50;
+			vm->gui.fresh[0][idx] += UI_TIME_NEW;
 		}
 		++i;
 	}

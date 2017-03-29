@@ -20,6 +20,7 @@
 # include <time.h>
 # include "op.h"
 # define UI_SPEED 100000
+# define UI_TIME_NEW 20
 
 typedef unsigned char t_byte;
 

@@ -100,7 +100,7 @@ void		gui_update_cursors(int state, int index, t_vm *vm)
 		attr &= ~A_REVERSE;
 	else
 		attr |= A_REVERSE;
-	attron(attr);
+	attrset(attr & ~A_CHARTEXT);
 	addch(c & A_CHARTEXT);
 	c = mvinch(y, x + 1);
 	addch(c & A_CHARTEXT);
@@ -124,7 +124,7 @@ void		gui_highlight(int state, int index, t_vm *vm)
 		attr &= ~A_BOLD;
 	else
 		attr |= A_BOLD;
-	attrset(attr);
+	attrset(attr & ~A_CHARTEXT);
 	addch(c & A_CHARTEXT);
 	c = mvinch(y, x + 1);
 	addch(c & A_CHARTEXT);

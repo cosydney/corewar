@@ -83,9 +83,13 @@ static void	screen_stuff(t_vm *vm)
 
 void		vm_loop(t_vm *vm, t_options *opt)
 {
+	if (vm->opt.gui)
+		while (getch() != ' ');
 	while (vm->process_count && \
 	(!opt->dump || (vm->total_cycles < (unsigned int)opt->dump_cycles)))
 	{
+		if (vm->opt.gui && getch() == ' ')
+			while (getch() != ' ');
 		vm->cycle++;
 		vm->total_cycles++;
 		if (vm->cycle >= vm->cycle_to_die)
