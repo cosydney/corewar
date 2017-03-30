@@ -83,7 +83,8 @@ int			move_i(int i, char *file)
 {
 	while (file[i] != ',')
 		i++;
+	i++;
 	while (file[i] == '\t' || file[i] == ' ')
 		i++;
-	return (i + 1);
+	return (i);
 }
