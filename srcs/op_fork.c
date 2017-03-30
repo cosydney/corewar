@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_memory.c                                     :+:      :+:    :+:   */
+/*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 20:02:48 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/28 16:10:42 by amarzial         ###   ########.fr       */
+/*   Created: 2017/03/09 18:24:58 by amarzial          #+#    #+#             */
+/*   Updated: 2017/03/28 14:26:39 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "corewar.h"
 
-void		delete_process(void *content, size_t content_size)
+void	op_fork(t_process *proc, t_vm *vm)
 {
-	(void)content_size;
-	free(content);
-}
+	t_process *new_proc;
 
-static void	delete_champion(void *content, size_t content_size)
-{
-
-	(void)content_size;
-	free(content);
-}
-
-void		clear_vm(t_vm *vm)
-{
-	if (vm->players)
-		ft_lstdel(&(vm->players), delete_champion);
-	if (vm->processes)
-		ft_lstdel(&(vm->processes), delete_process);
-	if (vm->opt.gui)
-		endwin();
-	free(vm);
+	new_proc = create_process(regtou(proc->act.pc) + \
+				(short)regtou(proc->act.params[0].value) % IDX_MOD, \
+				proc->parent, vm);
+	ft_memcpy(new_proc->registers, proc->registers, \
+				(sizeof(t_byte) * REG_SIZE) * REG_NUMBER);
+	new_proc->carry = proc->carry;
 }

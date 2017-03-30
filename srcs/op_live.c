@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_memory.c                                     :+:      :+:    :+:   */
+/*   op_live.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 20:02:48 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/28 16:10:42 by amarzial         ###   ########.fr       */
+/*   Created: 2017/03/06 15:56:00 by amarzial          #+#    #+#             */
+/*   Updated: 2017/03/10 13:44:33 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "corewar.h"
 
-void		delete_process(void *content, size_t content_size)
+void	op_live(t_process *proc, t_vm *vm)
 {
-	(void)content_size;
-	free(content);
-}
+	unsigned int id;
 
-static void	delete_champion(void *content, size_t content_size)
-{
-
-	(void)content_size;
-	free(content);
-}
-
-void		clear_vm(t_vm *vm)
-{
-	if (vm->players)
-		ft_lstdel(&(vm->players), delete_champion);
-	if (vm->processes)
-		ft_lstdel(&(vm->processes), delete_process);
-	if (vm->opt.gui)
-		endwin();
-	free(vm);
+	(void)vm;
+	id = regtou(proc->act.params[0].value);
+	if (id_to_champion(vm->players, id))
+		vm->last_live_id = id;
+	proc->live_count++;
+	vm->live_count++;
 }
