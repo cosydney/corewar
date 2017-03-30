@@ -92,6 +92,8 @@ static int	handle_input(int c, t_vm *vm)
 		mvprintw(69, 0, "SPEED:         %10u", vm->gui.speed);
 		refresh();
 	}
+	else if (c == 'q')
+		error_exit(NO_ERROR);
 	return (running);
 }
 

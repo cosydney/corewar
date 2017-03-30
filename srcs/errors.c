@@ -15,7 +15,7 @@
 
 static char	*g_errors[10] =
 {
-	[0] = "Unknown error",
+	[0] = "Program stopped by user",
 	[GENERIC_ERROR] = "Error",
 	[ARG_ERROR] = "Error: invalid argument",
 	[MALLOC_ERROR] = "Error: cannot allocate memory",
@@ -31,8 +31,8 @@ void	error_exit(int code)
 {
 	t_vm	*vm;
 
-	ft_printf_fd(2, "%s\n", g_errors[code]);
 	if ((vm = vm_get()))
 		clear_vm(vm);
+	ft_printf_fd(2, "%s\n", g_errors[code]);
 	exit(code);
 }

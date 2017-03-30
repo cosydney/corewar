@@ -26,7 +26,8 @@ typedef unsigned char t_byte;
 
 enum			e_errcodes
 {
-	MALLOC_ERROR= 1,
+	NO_ERROR,
+	MALLOC_ERROR,
 	GENERIC_ERROR,
 	ARG_ERROR,
 	TOO_MANY_PLAYERS,

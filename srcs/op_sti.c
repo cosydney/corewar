@@ -28,8 +28,8 @@ void			op_sti(t_process *proc, t_vm *vm)
 	if ((idx = regtou(proc->act.params[0].value) - 1) >= REG_NUMBER)
 		return ;
 	offset = 0;
-	offset += (proc->act.params[1].t == T_DIR) ? (short)first[0] : first[0];
-	offset += (proc->act.params[2].t == T_DIR) ? (short)second[0] : second[0];
+	offset += (proc->act.params[1].t == T_DIR) ? (short)first[0] : (int)first[0];
+	offset += (proc->act.params[2].t == T_DIR) ? (short)second[0] : (int)second[0];
 	st_to_mem(((offset) % IDX_MOD) + regtou(proc->act.pc), \
 		proc->registers[idx], proc, vm);
 }
