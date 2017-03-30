@@ -28,9 +28,11 @@ static void	delete_champion(void *content, size_t content_size)
 
 void		clear_vm(t_vm *vm)
 {
-	ft_lstdel(&(vm->players), delete_champion);
-	ft_lstdel(&(vm->processes), delete_process);
-	free(vm);
+	if (vm->players)
+		ft_lstdel(&(vm->players), delete_champion);
+	if (vm->processes)
+		ft_lstdel(&(vm->processes), delete_process);
 	if (vm->opt.gui)
 		endwin();
+	free(vm);
 }

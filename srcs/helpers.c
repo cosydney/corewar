@@ -48,14 +48,14 @@ void				utoreg(unsigned int n, t_byte reg[REG_SIZE])
 		n = n >> 8;
 	}
 }
-
+/*
 unsigned int		regtou(t_byte reg[REG_SIZE])
 {
 	unsigned int	res;
 
 	res = reg[3] + (reg[2] << 8) + (reg[1] << 16) + (reg[0] << 24);
 	return (res);
-}
+}*/
 
 unsigned int		memtou(t_byte *mem, unsigned int offset, size_t size)
 {

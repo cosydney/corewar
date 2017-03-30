@@ -21,6 +21,8 @@
 # include "op.h"
 # define UI_SPEED 100000
 # define UI_TIME_NEW 20
+# define regtou(x) ((unsigned int)(x[3] + (x[2] << 8) + (x[1] << 16) + \
+(x[0] << 24)))
 
 typedef unsigned char t_byte;
 
@@ -141,7 +143,7 @@ void			error_exit(int code);
 void			parse_instruction(t_process *process, t_vm *vm);
 
 void			utoreg(unsigned int n, t_byte reg[REG_SIZE]);
-unsigned int	regtou(t_byte reg[REG_SIZE]);
+//unsigned int	regtou(t_byte reg[REG_SIZE]);
 unsigned int	memtou(t_byte *mem, unsigned int offset, size_t size);
 int				par_to_val(int par, unsigned int *vars, t_process *proc, \
 					t_vm *vm);
