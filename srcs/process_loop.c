@@ -77,19 +77,32 @@ static void	screen_stuff(t_vm *vm)
 	gui_set_highlight(vm);
 	gui_set_cursors(vm);
 	refresh();
-	speed_set(getch(), &(vm->gui.speed));
 	usleep(vm->gui.speed);
+}
+
+static int	handle_input(int c, t_vm *vm)
+{
+	static int	running;
+
+	if (c == ' ')
+		running = !running;
+	else if (c == '+' || c == '-')
+	{
+		speed_set(c, &(vm->gui.speed));
+		mvprintw(69, 0, "SPEED:         %10u", vm->gui.speed);
+		refresh();
+	}
+	return (running);
 }
 
 void		vm_loop(t_vm *vm, t_options *opt)
 {
-	if (vm->opt.gui)
-		while (getch() != ' ');
 	while (vm->process_count && \
 	(!opt->dump || (vm->total_cycles < (unsigned int)opt->dump_cycles)))
 	{
-		if (vm->opt.gui && getch() == ' ')
-			while (getch() != ' ');
+		if (vm->opt.gui)
+			if (!handle_input(getch(), vm))
+				continue;
 		vm->cycle++;
 		vm->total_cycles++;
 		if (vm->cycle >= vm->cycle_to_die)

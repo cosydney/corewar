@@ -56,7 +56,8 @@ int			main(int argc, char **argv)
 	if (!vm->opt.gui)
 		show_winner(vm);
 	else
-		getch();
+		while (getch() == -1)
+			continue ;
 	clear_vm(vm);
 	return (0);
 }
