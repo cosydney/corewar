@@ -51,16 +51,9 @@ void				utoreg(unsigned int n, t_byte reg[REG_SIZE])
 
 unsigned int		regtou(t_byte reg[REG_SIZE])
 {
-	int				i;
 	unsigned int	res;
 
-	res = 0;
-	i = 0;
-	while (i < REG_SIZE)
-	{
-		res <<= 8;
-		res += reg[i++];
-	}
+	res = reg[3] + (reg[2] << 8) + (reg[1] << 16) + (reg[0] << 24);
 	return (res);
 }
 
