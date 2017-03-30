@@ -79,23 +79,23 @@ void			parse_champion(t_vm *vm)
 	{
 		champ = (t_champion*)players->content;
 		if ((fd = open(champ->filename, O_RDONLY)) == -1)
-			error_exit(OPEN_ERROR);
+			error_exit(OPEN_ERROR, champ->filename);
 		if (!check_magic(fd, COREWAR_EXEC_MAGIC))
-			error_exit(INVALID_FILE);
+			error_exit(INVALID_FILE, champ->filename);
 		/*
 		 ** lseek below is a temporary workaround until we find the meaning of the 4 empty t_bytes between name and prog_size
 		 */
 		if (!ft_parse_header(champ->header.prog_name, fd, PROG_NAME_LENGTH) || \
 				(lseek(fd, 4, SEEK_CUR) == -1) || !ft_get_prog_size(champ, fd) || \
 				!ft_parse_header(champ->header.comment, fd, COMMENT_LENGTH))
-			error_exit(INVALID_FILE);
+			error_exit(INVALID_FILE, champ->filename);
 		//same here
 		lseek(fd, 4, SEEK_CUR);
 		if (!load_to_memory(fd, (champ->offset = \
 						(MEM_SIZE / vm->player_count) * i++), vm, champ->header.prog_size))
-			error_exit(READ_ERROR);
+			error_exit(INVALID_FILE, champ->filename);
 		if ((fd = close(fd)) == -1)
-			error_exit(CLOSE_ERROR);
+			error_exit(CLOSE_ERROR, champ->filename);
 		players = players->next;
 	}
 }

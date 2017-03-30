@@ -47,7 +47,7 @@ int				create_champion(t_vm *vm, char *str, unsigned int *custom_nbr, \
 	unsigned int	next_id;
 
 	if (vm->player_count >= MAX_PLAYERS)
-		error_exit(TOO_MANY_PLAYERS);
+		error_exit(TOO_MANY_PLAYERS, 0);
 	vm->player_count++;
 	ft_bzero(&champ, sizeof(t_champion));
 	champ.filename = str;

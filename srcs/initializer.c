@@ -26,7 +26,7 @@ t_process	*create_process(unsigned int offset, t_champion *parent, t_vm *vm)
 	utoreg(offset % MEM_SIZE, proc.pc);
 	utoreg(parent->id, proc.registers[0]);
 	if (!(tmp = ft_lstnew(&proc, sizeof(t_process))))
-		error_exit(MALLOC_ERROR);
+		error_exit(MALLOC_ERROR, 0);
 	ft_lstadd(&(vm->processes), tmp);
 	parent->process_n++;
 	vm->process_count++;

@@ -93,7 +93,7 @@ static int	handle_input(int c, t_vm *vm)
 		refresh();
 	}
 	else if (c == 'q')
-		error_exit(NO_ERROR);
+		error_exit(NO_ERROR, "user closed");
 	return (running);
 }
 
