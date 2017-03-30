@@ -24,6 +24,21 @@ t_champion		*id_to_champion(t_list *champions, unsigned int id)
 	return (0);
 }
 
+static void		addtoback(t_list **lst, t_list *item)
+{
+	t_list *tmp;
+
+	if (!(*lst))
+		ft_lstadd(lst, item);
+	else
+	{
+		tmp = *lst;
+		while (tmp && tmp->next)
+			tmp = tmp->next;
+		ft_lstadd(&(tmp->next), item);
+	}
+}
+
 int				create_champion(t_vm *vm, char *str, unsigned int *custom_nbr, \
 		unsigned int *player_n)
 {
@@ -46,6 +61,6 @@ int				create_champion(t_vm *vm, char *str, unsigned int *custom_nbr, \
 	vm->last_live_id = next_id;
 	if (!(tmp = ft_lstnew(&champ, sizeof(t_champion))))
 		return (0);
-	ft_lstadd(&(vm->players), tmp);
+	addtoback(&(vm->players), tmp);
 	return (1);
 }
