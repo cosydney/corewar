@@ -68,6 +68,24 @@ t_vm *vm)
 	return (1);
 }
 
+void	parse_op(t_process *process, t_vm *vm)
+{
+	int				i;
+	unsigned int	pc;
+
+	i = 0;
+	pc = regtou(process->pc);
+	while (i < 16 && (op_tab[i].opcode != (vm->memory)[pc]))
+		i++;
+	ft_memcpy(process->act.pc, process->pc, REG_SIZE);
+	if ((process->act.op = (i < 16) ? &op_tab[i] : 0))
+		process->cycle_count = process->act.op->cycles;
+	else
+		process->cycle_count = 0;
+	pc++;
+	utoreg(pc % MEM_SIZE, process->pc);
+}
+
 int				param_checker(t_process *proc)
 {
 	int i;

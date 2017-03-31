@@ -48,7 +48,7 @@ typedef struct	s_op
 	t_byte		opcode;
 	size_t		cycles;
 	char		*full_mess;
-	char		reg:1;
+	char		encoding:1;
 	char		index:1;
 }				t_op;
 
@@ -80,6 +80,7 @@ typedef	struct	s_vm
 	unsigned int	cycle_to_die;
 	unsigned int	checks;
 	unsigned int	live_count;
+	unsigned int	live_total;
 	unsigned int	process_count;
 	unsigned int	last_live_id;
 }				t_vm;
@@ -141,7 +142,7 @@ void			vm_loop(t_vm *vm, t_options *opt);
 
 void			error_exit(int code, char *info);
 void			parse_op(t_process *process, t_vm *vm);
-void			parse_instruction(t_process *process, t_vm *vm);
+int				parse_instruction(t_process *process, t_vm *vm);
 
 void			utoreg(unsigned int n, t_byte reg[REG_SIZE]);
 //unsigned int	regtou(t_byte reg[REG_SIZE]);

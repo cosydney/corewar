@@ -77,6 +77,7 @@ static void	screen_stuff(t_vm *vm)
 	mvprintw(67, 0, "CYCLE TO DIE:  %10u", vm->cycle_to_die);
 	mvprintw(68, 0, "PROCESS COUNT: %10u", vm->process_count);
 	mvprintw(69, 0, "SPEED:         %10u", vm->gui.speed);
+
 	gui_set_highlight(vm);
 	gui_set_cursors(vm);
 	refresh();
@@ -110,13 +111,11 @@ void		vm_loop(t_vm *vm, t_options *opt)
 		if (vm->opt.gui)
 			if (!handle_input(getch(), vm))
 				continue;
-		vm->cycle++;
-		vm->total_cycles++;
 		if (vm->cycle >= vm->cycle_to_die)
 		{
 			kill_processes(vm);
 			vm->checks++;
-			if ((vm->live_count > NBR_LIVE || vm->checks >= MAX_CHECKS) && \
+			if ((vm->live_count >= NBR_LIVE || vm->checks >= MAX_CHECKS) && \
 			!(vm->checks = 0))
 				vm->cycle_to_die -= ft_min(CYCLE_DELTA, vm->cycle_to_die);
 			vm->cycle = 0;
@@ -125,6 +124,8 @@ void		vm_loop(t_vm *vm, t_options *opt)
 		run_cycle(vm);
 		if (vm->opt.gui)
 			screen_stuff(vm);
+		vm->cycle++;
+		vm->total_cycles++;
 	}
 	if (opt->dump && vm->process_count)
 		ft_print_mem(vm->memory, MEM_SIZE);
