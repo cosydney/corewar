@@ -140,6 +140,7 @@ int				load_to_memory(int fd, int current, t_vm *vm, \
 void			vm_loop(t_vm *vm, t_options *opt);
 
 void			error_exit(int code, char *info);
+void			parse_op(t_process *process, t_vm *vm);
 void			parse_instruction(t_process *process, t_vm *vm);
 
 void			utoreg(unsigned int n, t_byte reg[REG_SIZE]);

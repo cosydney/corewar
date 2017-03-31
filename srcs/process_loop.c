@@ -46,8 +46,11 @@ void		run_cycle(t_vm *vm)
 		if (!proc->cycle_count)
 		{
 			if (proc->act.op)
+			{
+				parse_instruction(proc, vm);
 				g_operators[proc->act.op->opcode](proc, vm);
-			parse_instruction(proc, vm);
+			}
+			parse_op(proc, vm);
 		}
 		if (vm->opt.gui)
 			vm->gui.curbuf[0][regtou(proc->act.pc)] = 1;

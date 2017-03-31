@@ -78,6 +78,24 @@ static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 				(process->act.op->opcode == 0x01) ? 4 : IND_SIZE);
 }
 
+void	parse_op(t_process *process, t_vm *vm)
+{
+	int				i;
+	unsigned int	pc;
+
+	i = 0;
+	pc = regtou(process->pc);
+	while (i < 16 && (op_tab[i].opcode != (vm->memory)[pc]))
+		i++;
+	ft_memcpy(process->act.pc, process->pc, REG_SIZE);
+	if ((process->act.op = (i < 16) ? &op_tab[i] : 0))
+		process->cycle_count = process->act.op->cycles;
+	else
+		process->cycle_count = 0;
+	pc++;
+	utoreg(pc % MEM_SIZE, process->pc);
+}
+
 void	parse_instruction(t_process *process, t_vm *vm)
 {
 	int				i;
@@ -86,22 +104,15 @@ void	parse_instruction(t_process *process, t_vm *vm)
 
 	i = 0;
 	pc = regtou(process->pc);
-	while (i < 16 && (op_tab[i].opcode != (vm->memory)[pc]))
-		i++;
-	ft_memcpy(process->act.pc, process->pc, REG_SIZE);
-	pc = (pc + 1) % MEM_SIZE;
-	if ((process->act.op = (i < 16) ? &op_tab[i] : 0))
-	{
-		opcode = process->act.op->opcode;
-		process->act.encoding = 0;
-		if (opcode != 1 && opcode != 9 && opcode != 0x0c && opcode != 0x0f)
-			(process->act).encoding = (vm->memory)[pc++];
-		i = (process->act).op->arg_c;
-		pc %= MEM_SIZE;
-		while (i > 0)
-			input_params(vm, process, i--, &pc);
-		process->cycle_count = process->act.op->cycles;
-	}
+	opcode = process->act.op->opcode;
+	process->act.encoding = 0;
+	if (opcode != 1 && opcode != 9 && opcode != 0x0c && opcode != 0x0f)
+		(process->act).encoding = (vm->memory)[pc++];
+	i = (process->act).op->arg_c;
+	pc %= MEM_SIZE;
+	while (i > 0)
+		input_params(vm, process, i--, &pc);
+	process->cycle_count = process->act.op->cycles;
 	utoreg(pc, process->pc);
 }
 
