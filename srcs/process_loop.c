@@ -102,8 +102,10 @@ static int	handle_input(int c, t_vm *vm)
 
 void		vm_loop(t_vm *vm, t_options *opt)
 {
+	if (vm->opt.gui)
+		screen_stuff(vm);
 	while (vm->process_count && \
-	(!opt->dump || (vm->total_cycles < (unsigned int)opt->dump_cycles)))
+	(!opt->dump || (vm->total_cycles <= (unsigned int)opt->dump_cycles)))
 	{
 		if (vm->opt.gui)
 			if (!handle_input(getch(), vm))
