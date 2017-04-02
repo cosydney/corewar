@@ -61,7 +61,8 @@ static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 		process->act.params[index].t = T_IND;
 		set_param(vm, process->act.params[index].value, j, IND_SIZE);
 	}
-	else if (process->act.op->index || process->act.op->opcode == 0x01)
+	else if ((!process->act.op->encoding && process->act.op->index) || \
+	process->act.op->opcode == 0x01)
 		set_param(vm, process->act.params[index].value, j, \
 				(process->act.op->opcode == 0x01) ? 4 : IND_SIZE);
 }
@@ -80,6 +81,7 @@ int		parse_instruction(t_process *process, t_vm *vm)
 		(process->act).encoding = (vm->memory)[pc++];
 	i = (process->act).op->arg_c;
 	pc %= MEM_SIZE;
+	ft_bzero(&(process->act.params), sizeof(t_param) * MAX_ARGS_NUMBER);
 	while (i > 0)
 		input_params(vm, process, i--, &pc);
 	process->cycle_count = process->act.op->cycles;
