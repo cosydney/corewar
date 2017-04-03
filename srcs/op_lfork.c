@@ -21,5 +21,7 @@ void	op_lfork(t_process *proc, t_vm *vm)
 				proc->parent, vm);
 	ft_memcpy(new_proc->registers, proc->registers, \
 				(sizeof(t_byte) * REG_SIZE) * REG_NUMBER);
+	if (new_proc->act.op)
+		new_proc->cycle_count--;
 	new_proc->carry = proc->carry;
 }

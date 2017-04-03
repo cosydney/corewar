@@ -32,7 +32,8 @@ SRCS 	=	main.c \
 			op_lldi.c \
 			op_lfork.c \
 			op_aff.c \
-			killer.c
+			killer.c \
+			gui.c
 
 OBJ		=	$(SRCS:.c=.o)
 HDRS	=	corewar.h\
@@ -57,7 +58,7 @@ all: $(NAME)
 
 $(NAME): $(ODIR)
 	@make -C $(LIBPATH)
-	@$(CC) $(CFLAGS) $(ODIR) -L./libft -lft -o $(NAME) $(INC)
+	@$(CC) $(CFLAGS) $(ODIR) -L./libft -lft -lncurses -o $(NAME) $(INC)
 	@echo "$(GRN)$(BEER) $(NAME) created successfully!$(EOC)"
 
 objs/%.o: srcs/%.c $(HDIR)

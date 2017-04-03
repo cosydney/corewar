@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 14:02:39 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/28 13:22:14 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/28 19:35:19 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,6 @@ static void	set_param(t_vm *vm, t_byte *dest, unsigned int *offset, size_t size)
 	}
 }
 
-static int	as_idx(t_process *proc)
-{
-	int opcode;
-
-	opcode = proc->act.op->opcode;
-	if (opcode == 0xa || opcode == 0xb)
-		return (1);
-	return (0);
-}
-
 static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 {
 	unsigned int	index;
@@ -63,22 +53,21 @@ static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 	else if (code == DIR_CODE)
 	{
 		process->act.params[index].t = T_DIR;
-		if (!as_idx(process))
-			set_param(vm, process->act.params[index].value, j, DIR_SIZE);
-		else
-			set_param(vm, process->act.params[index].value, j, IND_SIZE);
+		set_param(vm, process->act.params[index].value, j, \
+			(process->act.op->index) ? IND_SIZE : DIR_SIZE);
 	}
 	else if (code == IND_CODE)
 	{
 		process->act.params[index].t = T_IND;
 		set_param(vm, process->act.params[index].value, j, IND_SIZE);
 	}
-	else if (!code)
+	else if ((!process->act.op->encoding && process->act.op->index) || \
+	process->act.op->opcode == 0x01)
 		set_param(vm, process->act.params[index].value, j, \
 				(process->act.op->opcode == 0x01) ? 4 : IND_SIZE);
 }
 
-void	parse_instruction(t_process *process, t_vm *vm)
+int		parse_instruction(t_process *process, t_vm *vm)
 {
 	int				i;
 	unsigned int	pc;
@@ -86,24 +75,18 @@ void	parse_instruction(t_process *process, t_vm *vm)
 
 	i = 0;
 	pc = regtou(process->pc);
-	while (i < 16 && (op_tab[i].opcode != (vm->memory)[pc]))
-		i++;
-	ft_memcpy(process->act.pc, process->pc, REG_SIZE);
-	pc = (pc + 1) % MEM_SIZE;
-	if ((process->act.op = (i < 16) ? &op_tab[i] : 0))
-	{
-		opcode = process->act.op->opcode;
-		process->act.encoding = 0;
-		if (opcode != 0x01 && opcode != 0x09 && opcode != 0x0c && \
-				opcode != 0x0f)
-			(process->act).encoding = (vm->memory)[pc++];
-		i = (process->act).op->arg_c;
-		pc %= MEM_SIZE;
-		while (i > 0)
-			input_params(vm, process, i--, &pc);
-		process->cycle_count = process->act.op->cycles;
-	}
+	opcode = process->act.op->opcode;
+	process->act.encoding = 0;
+	if (process->act.op->encoding)
+		(process->act).encoding = (vm->memory)[pc++];
+	i = (process->act).op->arg_c;
+	pc %= MEM_SIZE;
+	ft_bzero(&(process->act.params), sizeof(t_param) * MAX_ARGS_NUMBER);
+	while (i > 0)
+		input_params(vm, process, i--, &pc);
+	process->cycle_count = process->act.op->cycles;
 	utoreg(pc, process->pc);
+	return (1);
 }
 
 /*

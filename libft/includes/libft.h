@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 11:59:55 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/02 19:26:24 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/04 11:04:52 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ void					ft_lstadd(t_list **alst, t_list *new);
 void					ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list					*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 size_t					ft_lstlen(t_list *lst);
+int						ft_error(char *str);
+int						ft_strclen(char *str, char c);
 
 /*
 ** My extra functions

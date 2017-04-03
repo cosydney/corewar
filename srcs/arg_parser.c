@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:03:24 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/08 11:37:33 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/03/28 16:13:18 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ static int	get_opts(int argc, char **argv, t_options *opt)
 		{
 			if (opt->dump || !((i + 1) < argc) || \
 					!ft_strtoi(&(opt->dump_cycles), argv[i + 1]))
-				error_exit(ARG_ERROR);
-			opt->dump = 1;
+				error_exit(ARG_ERROR, argv[i]);
+			opt->dump = ~0;
 			i++;
 			count += 2;
 		}
+		else if (ft_strequ(argv[i], "-gui") && (++count))
+			opt->gui = ~0;
 		else
 			break ;
 		i++;
@@ -53,12 +55,12 @@ int			parse_args(int argc, char **argv, t_vm *vm, t_options *opt)
 		if (ft_strequ(argv[i], "-n"))
 		{
 			if (!((i + 2) < argc) || !ft_strtou(custom_nbr, argv[i + 1]))
-				error_exit(ARG_ERROR);
+				error_exit(ARG_ERROR, argv[i]);
 			custom_nbr[1] = 1;
 			i += 2;
 		}
 		if (!create_champion(vm, argv[i], custom_nbr, &player_n))
-			error_exit(MALLOC_ERROR);
+			error_exit(MALLOC_ERROR, 0);
 		i++;
 	}
 	return (1);

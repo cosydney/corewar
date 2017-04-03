@@ -6,29 +6,18 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 19:59:03 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/28 13:11:56 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/28 20:13:46 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-static void		ld_to_mem(unsigned int offset, t_byte reg[REG_SIZE], t_vm *vm)
-{
-	int	i;
-
-	i = 0;
-	while (i < REG_SIZE)
-	{
-		vm->memory[(offset + i) % MEM_SIZE] = reg[i];
-		++i;
-	}
-}
 
 void			op_sti(t_process *proc, t_vm *vm)
 {
 	unsigned int	first[2];
 	unsigned int	second[2];
 	unsigned int	idx;
+	int				offset;
 
 	if (!param_checker(proc))
 		return ;
@@ -38,6 +27,9 @@ void			op_sti(t_process *proc, t_vm *vm)
 		return ;
 	if ((idx = regtou(proc->act.params[0].value) - 1) >= REG_NUMBER)
 		return ;
-	ld_to_mem(((first[0] + second[0]) % IDX_MOD) + regtou(proc->act.pc), \
-		proc->registers[idx], vm);
+	offset = 0;
+	offset += (proc->act.params[1].t == T_DIR) ? (short)first[0] : (int)first[0];
+	offset += (proc->act.params[2].t == T_DIR) ? (short)second[0] : (int)second[0];
+	st_to_mem(((offset) % IDX_MOD) + regtou(proc->act.pc), \
+		proc->registers[idx], proc, vm);
 }

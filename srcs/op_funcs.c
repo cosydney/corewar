@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 18:42:05 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/28 14:25:46 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/29 20:05:27 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,24 @@ t_vm *vm)
 	return (1);
 }
 
+void	parse_op(t_process *process, t_vm *vm)
+{
+	int				i;
+	unsigned int	pc;
+
+	i = 0;
+	pc = regtou(process->pc);
+	while (i < 16 && (op_tab[i].opcode != (vm->memory)[pc]))
+		i++;
+	ft_memcpy(process->act.pc, process->pc, REG_SIZE);
+	if ((process->act.op = (i < 16) ? &op_tab[i] : 0))
+		process->cycle_count = process->act.op->cycles;
+	else
+		process->cycle_count = 0;
+	pc++;
+	utoreg(pc % MEM_SIZE, process->pc);
+}
+
 int				param_checker(t_process *proc)
 {
 	int i;
@@ -80,4 +98,25 @@ int				param_checker(t_process *proc)
 		i++;
 	}
 	return (1);
+}
+
+void			st_to_mem(unsigned int offset, t_byte reg[REG_SIZE], \
+		t_process *proc, t_vm *vm)
+{
+	int	i;
+	int	idx;
+
+	i = 0;
+	while (i < REG_SIZE)
+	{
+		idx = (offset + i) % MEM_SIZE;
+		vm->memory[idx] = reg[i];
+		if (vm->opt.gui)
+		{
+			vm->gui.fresh[0][idx] += UI_TIME_NEW;
+		}
+		++i;
+	}
+	if (vm->opt.gui)
+		gui_writemem(offset % MEM_SIZE, proc->parent->id, vm);
 }

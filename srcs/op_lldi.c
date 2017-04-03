@@ -29,17 +29,21 @@ void			op_lldi(t_process *proc, t_vm *vm)
 	unsigned int	first[2];
 	unsigned int	second[2];
 	unsigned int	idx;
+	int				offset;
 	t_byte			*reg_dst;
 
 	if (!param_checker(proc))
 		return ;
-	first[1] = IDX_MOD;
-	second[1] = IDX_MOD;
+	first[1] = REG_SIZE;
+	second[1] = IND_SIZE;
 	if (!par_to_val(0, first, proc, vm) || !par_to_val(1, second, proc, vm))
 		return ;
 	if ((idx = regtou(proc->act.params[2].value) - 1) >= REG_NUMBER)
 		return ;
 	reg_dst = proc->registers[idx];
-	ld(regtou(proc->act.pc) + ((first[0] + second[0])), reg_dst, vm);
+	offset = 0;
+	offset += (proc->act.params[0].t == T_DIR) ? (short)first[0] : (int)first[0];
+	offset += (proc->act.params[1].t == T_DIR) ? (short)second[0] : (int)second[0];
+	ld(regtou(proc->act.pc) + ((offset)), reg_dst, vm);
 	proc->carry = (regtou(reg_dst)) ? 0 : 1;
 }

@@ -15,7 +15,7 @@
 
 static char	*g_errors[10] =
 {
-	[0] = "Unknown error",
+	[0] = "Program ended",
 	[GENERIC_ERROR] = "Error",
 	[ARG_ERROR] = "Error: invalid argument",
 	[MALLOC_ERROR] = "Error: cannot allocate memory",
@@ -27,12 +27,15 @@ static char	*g_errors[10] =
 	[INVALID_FILE] = "Error: the file is not valid"
 };
 
-void	error_exit(int code)
+void	error_exit(int code, char *info)
 {
 	t_vm	*vm;
 
-	ft_printf_fd(2, "%s\n", g_errors[code]);
 	if ((vm = vm_get()))
 		clear_vm(vm);
+	if (info)
+		ft_printf_fd(2, "%s (%s)\n", g_errors[code], info);
+	else
+		ft_printf_fd(2, "%s\n", g_errors[code]);
 	exit(code);
 }

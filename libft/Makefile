@@ -92,6 +92,8 @@ SOURCES = ./srcs/ft_abs.c \
 		  ./srcs/ft_printf/srcs/ft_printf_utils.c \
 		  ./srcs/ft_printf/srcs/ft_printf_wchar.c \
 		  ./srcs/ft_printf/srcs/ft_printf_wstring.c \
+		  ft_error.c\
+		  ft_strclen.c\
 
 INCLUDES = ./includes/libft.h \
 		   ./includes/ft_printf_handler.h \
@@ -105,18 +107,19 @@ vpath %.c ./srcs ./srcs/ft_printf/srcs
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	@ /bin/echo -n "Creating library => "
+	@ printf "\33[2K"
+	@ printf "Creating library => "
 	@ if ar rc $(NAME) $(OBJECTS) ; \
-		then /bin/echo ✅; \
-		else /bin/echo ❌ ; fi
+		then printf "✅\n"; \
+		else printf "❌\n"; fi
 	@ ranlib $(NAME)
 	@ echo "Finished"
 
 %.o: %.c $(INCLUDES)
-	@ /bin/echo -n "Compiling: $< => "
-	@ if $(CC) -o $@ -c $(CFLAGS) $< $(addprefix -I ,$(sort $(dir $(INCLUDES)))) ;\
-		then /bin/echo ✅; \
-		else /bin/echo ❌ ; fi
+	@ printf "\33[2K"
+	@ printf "Compiling: $< ..."
+	@ $(CC) -o $@ -c $(CFLAGS) $< $(addprefix -I ,$(sort $(dir $(INCLUDES))))
+	@ printf "\r"
 
 clean:
 	@ echo "Deleting object files"

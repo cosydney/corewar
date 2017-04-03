@@ -22,4 +22,5 @@ void	op_live(t_process *proc, t_vm *vm)
 		vm->last_live_id = id;
 	proc->live_count++;
 	vm->live_count++;
+	vm->live_total++;
 }

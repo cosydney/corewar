@@ -6,23 +6,11 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 11:56:00 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/16 13:28:41 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/28 20:13:36 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-static void		ld_to_mem(unsigned int offset, t_byte reg[REG_SIZE], t_vm *vm)
-{
-	int	i;
-
-	i = 0;
-	while (i < REG_SIZE)
-	{
-		vm->memory[(offset + i) % MEM_SIZE] = reg[i];
-		++i;
-	}
-}
 
 void			op_st(t_process *proc, t_vm *vm)
 {
@@ -44,7 +32,7 @@ void			op_st(t_process *proc, t_vm *vm)
 	}
 	else if (reg_param.t == T_IND)
 	{
-		ld_to_mem(((short)regtou(reg_param.value) % IDX_MOD) + \
-		regtou(proc->act.pc), reg_src, vm);
+		st_to_mem(((short)regtou(reg_param.value) % IDX_MOD) + \
+		regtou(proc->act.pc), reg_src, proc, vm);
 	}
 }

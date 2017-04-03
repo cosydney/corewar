@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 14:56:51 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/14 18:37:53 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/03/29 19:50:29 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_callback	g_operators[17] =
 	[0x10] = op_aff
 };
 
-void	run_cycle(t_vm *vm)
+void		run_cycle(t_vm *vm)
 {
 	t_list				*process;
 	t_process			*proc;
@@ -46,33 +46,86 @@ void	run_cycle(t_vm *vm)
 		if (!proc->cycle_count)
 		{
 			if (proc->act.op)
+			{
+				parse_instruction(proc, vm);
 				g_operators[proc->act.op->opcode](proc, vm);
-			parse_instruction(proc, vm);
+			}
+			parse_op(proc, vm);
 		}
+		if (vm->opt.gui)
+			vm->gui.curbuf[0][regtou(proc->act.pc)] = 1;
 		if (proc->cycle_count)
 			proc->cycle_count--;
 		process = process->next;
 	}
 }
 
-void	vm_loop(t_vm *vm, t_options *opt)
+static void	speed_set(int c, int *speed)
 {
-	while (vm->process_count && \
-	(!opt->dump || (vm->total_cycles < (unsigned int)opt->dump_cycles)))
+	int factor;
+
+	factor = *speed * 20 / 100;
+	if (c == '-')
+		*speed = ft_min(*speed + factor, 1000000);
+	else if (c == '+')
+		*speed = ft_max(*speed - factor, 1000);
+}
+
+static void	screen_stuff(t_vm *vm)
+{
+	mvprintw(66, 0, "CYCLE NUMBER:  %10u", vm->total_cycles);
+	mvprintw(67, 0, "CYCLE TO DIE:  %10u", vm->cycle_to_die);
+	mvprintw(68, 0, "PROCESS COUNT: %10u", vm->process_count);
+	mvprintw(69, 0, "SPEED:         %10u", vm->gui.speed);
+
+	gui_set_highlight(vm);
+	gui_set_cursors(vm);
+	refresh();
+	usleep(vm->gui.speed);
+}
+
+static int	handle_input(int c, t_vm *vm)
+{
+	static int	running;
+
+	if (c == ' ')
+		running = !running;
+	else if (c == '+' || c == '-')
 	{
-		vm->cycle++;
-		vm->total_cycles++;
+		speed_set(c, &(vm->gui.speed));
+		mvprintw(69, 0, "SPEED:         %10u", vm->gui.speed);
+		refresh();
+	}
+	else if (c == 'q')
+		error_exit(NO_ERROR, "user closed");
+	return (running);
+}
+
+void		vm_loop(t_vm *vm, t_options *opt)
+{
+	if (vm->opt.gui)
+		screen_stuff(vm);
+	while (vm->process_count && \
+	(!opt->dump || (vm->total_cycles <= (unsigned int)opt->dump_cycles)))
+	{
+		if (vm->opt.gui)
+			if (!handle_input(getch(), vm))
+				continue;
 		if (vm->cycle >= vm->cycle_to_die)
 		{
 			kill_processes(vm);
 			vm->checks++;
-			if ((vm->live_count > NBR_LIVE || vm->checks >= MAX_CHECKS) && \
+			if ((vm->live_count >= NBR_LIVE || vm->checks >= MAX_CHECKS) && \
 			!(vm->checks = 0))
-				vm->cycle_to_die -= CYCLE_DELTA;
+				vm->cycle_to_die -= ft_min(CYCLE_DELTA, vm->cycle_to_die);
 			vm->cycle = 0;
 			vm->live_count = 0;
 		}
 		run_cycle(vm);
+		if (vm->opt.gui)
+			screen_stuff(vm);
+		vm->cycle++;
+		vm->total_cycles++;
 	}
 	if (opt->dump && vm->process_count)
 		ft_print_mem(vm->memory, MEM_SIZE);
