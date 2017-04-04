@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 17:55:11 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/08 14:48:29 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/04 19:13:12 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_list	*delete_node(t_list **prev, t_list *node)
 	return (node);
 }
 
-void			kill_processes(t_vm *vm)
+static void		remove_dead(t_vm *vm)
 {
 	t_process	*process;
 	t_list		*tmp;
@@ -49,4 +49,15 @@ void			kill_processes(t_vm *vm)
 		else if (!(process->live_count = 0))
 			tmp = tmp->next;
 	}
+}
+
+void			kill_processes(t_vm *vm)
+{
+	remove_dead(vm);
+	vm->checks++;
+	if ((vm->live_count >= NBR_LIVE || vm->checks >= MAX_CHECKS) && \
+		!(vm->checks = 0))
+		vm->cycle_to_die -= ft_min(CYCLE_DELTA, vm->cycle_to_die);
+	vm->cycle = 0;
+	vm->live_count = 0;
 }
