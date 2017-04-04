@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 20:02:48 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/28 16:10:42 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/04 14:36:00 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void		delete_process(void *content, size_t content_size)
 
 static void	delete_champion(void *content, size_t content_size)
 {
-
 	(void)content_size;
 	free(content);
 }

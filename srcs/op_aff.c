@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 12:15:28 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 18:36:13 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:34:20 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	op_aff(t_process *proc, t_vm *vm)
 {
-		unsigned int i;
+	unsigned int i;
 
-		(void)vm;
-		i = regtou(proc->act.params[0].value);
-		i %= 256;
-		write(1, &i, 1);
+	(void)vm;
+	i = REGTOU(proc->act.params[0].value);
+	i %= 256;
+	write(1, &i, 1);
 }

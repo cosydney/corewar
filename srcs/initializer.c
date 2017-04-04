@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:00:49 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/11 15:55:55 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:32:43 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_process	*create_process(unsigned int offset, t_champion *parent, t_vm *vm)
 	utoreg(offset % MEM_SIZE, proc.pc);
 	utoreg(parent->id, proc.registers[0]);
 	if (vm->opt.gui)
-		vm->gui.curbuf[0][regtou(proc.pc)] = 1;
+		vm->gui.curbuf[0][REGTOU(proc.pc)] = 1;
 	parse_op(&proc, vm);
 	if (!(tmp = ft_lstnew(&proc, sizeof(t_process))))
 		error_exit(MALLOC_ERROR, 0);

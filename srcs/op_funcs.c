@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 18:42:05 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/29 20:05:27 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:33:31 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,21 @@ t_vm *vm)
 	p = &(proc->act.params[par]);
 	if (p->t == T_REG)
 	{
-		tmp = regtou(p->value);
+		tmp = REGTOU(p->value);
 		if (tmp > REG_NUMBER || !tmp)
 			return (0);
-		vars[0] = (regtou(proc->registers[tmp - 1]));
+		vars[0] = (REGTOU(proc->registers[tmp - 1]));
 	}
 	else if (p->t == T_DIR)
-		vars[0] = (regtou(p->value));
+		vars[0] = (REGTOU(p->value));
 	else if (p->t == T_IND)
 	{
 		if (vars[1] != IND_SIZE)
-			vars[0] = (memtou(vm->memory, ((regtou(p->value) % IDX_MOD) + \
-							regtou(proc->act.pc)), vars[1]));
+			vars[0] = (memtou(vm->memory, ((REGTOU(p->value) % IDX_MOD) + \
+							REGTOU(proc->act.pc)), vars[1]));
 		else
-			vars[0] = (memtou(vm->memory, (((short)regtou(p->value) % IDX_MOD) \
-							+ regtou(proc->act.pc)), vars[1]));
+			vars[0] = (memtou(vm->memory, (((short)REGTOU(p->value) % IDX_MOD) \
+							+ REGTOU(proc->act.pc)), vars[1]));
 	}
 	return (1);
 }
@@ -49,36 +49,36 @@ t_vm *vm)
 	p = &(proc->act.params[par]);
 	if (p->t == T_REG)
 	{
-		tmp = regtou(p->value);
+		tmp = REGTOU(p->value);
 		if (tmp > REG_NUMBER || !tmp)
 			return (0);
-		vars[0] = (regtou(proc->registers[tmp - 1]));
+		vars[0] = (REGTOU(proc->registers[tmp - 1]));
 	}
 	else if (p->t == T_DIR)
-		vars[0] = (regtou(p->value));
+		vars[0] = (REGTOU(p->value));
 	else if (p->t == T_IND)
 	{
 		if (vars[1] != IND_SIZE)
-			vars[0] = (memtou(vm->memory, ((short)regtou(p->value) + \
-				regtou(proc->pc)), vars[1]));
+			vars[0] = (memtou(vm->memory, ((short)REGTOU(p->value) + \
+				REGTOU(proc->pc)), vars[1]));
 		else
-			vars[0] = (memtou(vm->memory, ((short)regtou(p->value) + \
-				regtou(proc->pc)), vars[1]));
+			vars[0] = (memtou(vm->memory, ((short)REGTOU(p->value) + \
+				REGTOU(proc->pc)), vars[1]));
 	}
 	return (1);
 }
 
-void	parse_op(t_process *process, t_vm *vm)
+void			parse_op(t_process *process, t_vm *vm)
 {
 	int				i;
 	unsigned int	pc;
 
 	i = 0;
-	pc = regtou(process->pc);
-	while (i < 16 && (op_tab[i].opcode != (vm->memory)[pc]))
+	pc = REGTOU(process->pc);
+	while (i < 16 && (g_op_tab[i].opcode != (vm->memory)[pc]))
 		i++;
 	ft_memcpy(process->act.pc, process->pc, REG_SIZE);
-	if ((process->act.op = (i < 16) ? &op_tab[i] : 0))
+	if ((process->act.op = (i < 16) ? &g_op_tab[i] : 0))
 		process->cycle_count = process->act.op->cycles;
 	else
 		process->cycle_count = 0;

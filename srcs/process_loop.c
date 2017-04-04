@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 14:56:51 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/29 19:50:29 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:32:58 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		run_cycle(t_vm *vm)
 			parse_op(proc, vm);
 		}
 		if (vm->opt.gui)
-			vm->gui.curbuf[0][regtou(proc->act.pc)] = 1;
+			vm->gui.curbuf[0][REGTOU(proc->act.pc)] = 1;
 		if (proc->cycle_count)
 			proc->cycle_count--;
 		process = process->next;
@@ -77,7 +77,6 @@ static void	screen_stuff(t_vm *vm)
 	mvprintw(67, 0, "CYCLE TO DIE:  %10u", vm->cycle_to_die);
 	mvprintw(68, 0, "PROCESS COUNT: %10u", vm->process_count);
 	mvprintw(69, 0, "SPEED:         %10u", vm->gui.speed);
-
 	gui_set_highlight(vm);
 	gui_set_cursors(vm);
 	refresh();
@@ -108,9 +107,8 @@ void		vm_loop(t_vm *vm, t_options *opt)
 	while (vm->process_count && \
 	(!opt->dump || (vm->total_cycles <= (unsigned int)opt->dump_cycles)))
 	{
-		if (vm->opt.gui)
-			if (!handle_input(getch(), vm))
-				continue;
+		if (vm->opt.gui && !handle_input(getch(), vm))
+			continue;
 		if (vm->cycle >= vm->cycle_to_die)
 		{
 			kill_processes(vm);
