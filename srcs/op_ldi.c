@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:25:02 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/11 19:16:43 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:34:37 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ void			op_ldi(t_process *proc, t_vm *vm)
 	second[1] = IND_SIZE;
 	if (!par_to_val(0, first, proc, vm) || !par_to_val(1, second, proc, vm))
 		return ;
-	if ((idx = regtou(proc->act.params[2].value) - 1) >= REG_NUMBER)
+	if ((idx = REGTOU(proc->act.params[2].value) - 1) >= REG_NUMBER)
 		return ;
 	reg_dst = proc->registers[idx];
 	offset = 0;
-	offset += (proc->act.params[0].t == T_DIR) ? (short)first[0] : (int)first[0];
-	offset += (proc->act.params[1].t == T_DIR) ? (short)second[0] : (int)second[0];
-	ld(regtou(proc->act.pc) + ((offset) % IDX_MOD), reg_dst, vm);
-	proc->carry = (regtou(reg_dst)) ? 0 : 1;
+	offset += (\
+			proc->act.params[0].t == T_DIR) ? (short)first[0] : (int)first[0];
+	offset += (\
+			proc->act.params[1].t == T_DIR) ? (short)second[0] : (int)second[0];
+	ld(REGTOU(proc->act.pc) + ((offset) % IDX_MOD), reg_dst, vm);
+	proc->carry = (REGTOU(reg_dst)) ? 0 : 1;
 }

@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:25:02 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/16 15:30:44 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:34:31 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void			op_ld(t_process *proc, t_vm *vm)
 
 	if (!param_checker(proc))
 		return ;
-	src_param = regtou(proc->act.params[0].value);
-	if ((idx = regtou(proc->act.params[1].value) - 1) >= REG_NUMBER)
+	src_param = REGTOU(proc->act.params[0].value);
+	if ((idx = REGTOU(proc->act.params[1].value) - 1) >= REG_NUMBER)
 		return ;
 	reg_dst = proc->registers[idx];
 	if (proc->act.params[0].t == T_DIR)
 		utoreg(src_param, reg_dst);
 	else if (proc->act.params[0].t == T_IND)
-		ld(regtou(proc->act.pc) + ((short)src_param % IDX_MOD), reg_dst, vm);
-	proc->carry = (regtou(reg_dst)) ? 0 : 1;
+		ld(REGTOU(proc->act.pc) + ((short)src_param % IDX_MOD), reg_dst, vm);
+	proc->carry = (REGTOU(reg_dst)) ? 0 : 1;
 }

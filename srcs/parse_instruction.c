@@ -6,20 +6,11 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 14:02:39 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/28 19:35:19 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:32:31 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-/*
- *  **   static unsigned int add(unsigned int a, unsigned int b)
- *   **   {
- *    **   if(b == 0)
- *     **   return a;
- *      **   return add( a ^ b, (a & b) << 1);
- *       **   }
- *        */
 
 static void	set_param(t_vm *vm, t_byte *dest, unsigned int *offset, size_t size)
 {
@@ -67,14 +58,14 @@ static void	input_params(t_vm *vm, t_process *process, int i, unsigned int *j)
 				(process->act.op->opcode == 0x01) ? 4 : IND_SIZE);
 }
 
-int		parse_instruction(t_process *process, t_vm *vm)
+int			parse_instruction(t_process *process, t_vm *vm)
 {
 	int				i;
 	unsigned int	pc;
 	unsigned int	opcode;
 
 	i = 0;
-	pc = regtou(process->pc);
+	pc = REGTOU(process->pc);
 	opcode = process->act.op->opcode;
 	process->act.encoding = 0;
 	if (process->act.op->encoding)
@@ -88,11 +79,3 @@ int		parse_instruction(t_process *process, t_vm *vm)
 	utoreg(pc, process->pc);
 	return (1);
 }
-
-/*
- *  **	ft_printf("%i\n", regtou(process->pc));
- *   **	ft_printf("%.2x %.2x %.2x %.2x\n", process->pc[0], process->pc[1], process->pc[2],process->pc[3]);
- *    **	ft_printf("%.2x\n", (process->act).params[0].value[0]);
- *     **	ft_printf("%.2x %.2x\n", (process->act).params[1].value[0], (process->act).params[1].value[1]);
- *      **	ft_printf("%.2x %.2x\n", (process->act).params[2].value[0], (process->act).params[2].value[1]);
- *       */

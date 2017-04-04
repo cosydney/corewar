@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 13:52:38 by abonneca          #+#    #+#             */
-/*   Updated: 2017/03/08 11:46:53 by abonneca         ###   ########.fr       */
+/*   Updated: 2017/04/04 15:16:07 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int		check_magic(int fd, unsigned int magic_n)
 void			parse_champion(t_vm *vm)
 {
 	t_list		*players;
-	t_champion	*champ;
+	t_champion	*ch;
 	int			fd;
 	int			i;
 
@@ -77,25 +77,20 @@ void			parse_champion(t_vm *vm)
 	i = 0;
 	while (players)
 	{
-		champ = (t_champion*)players->content;
-		if ((fd = open(champ->filename, O_RDONLY)) == -1)
-			error_exit(OPEN_ERROR, champ->filename);
+		ch = (t_champion*)players->content;
+		if ((fd = open(ch->filename, O_RDONLY)) == -1)
+			error_exit(OPEN_ERROR, ch->filename);
 		if (!check_magic(fd, COREWAR_EXEC_MAGIC))
-			error_exit(INVALID_FILE, champ->filename);
-		/*
-		 ** lseek below is a temporary workaround until we find the meaning of the 4 empty t_bytes between name and prog_size
-		 */
-		if (!ft_parse_header(champ->header.prog_name, fd, PROG_NAME_LENGTH) || \
-				(lseek(fd, 4, SEEK_CUR) == -1) || !ft_get_prog_size(champ, fd) || \
-				!ft_parse_header(champ->header.comment, fd, COMMENT_LENGTH))
-			error_exit(INVALID_FILE, champ->filename);
-		//same here
-		lseek(fd, 4, SEEK_CUR);
-		if (!load_to_memory(fd, (champ->offset = \
-						(MEM_SIZE / vm->player_count) * i++), vm, champ->header.prog_size))
-			error_exit(INVALID_FILE, champ->filename);
+			error_exit(INVALID_FILE, ch->filename);
+		if (!ft_parse_header(ch->header.prog_name, fd, PROG_NAME_LENGTH) || \
+			(lseek(fd, 4, SEEK_CUR) == -1) || !ft_get_prog_size(ch, fd) || \
+				!ft_parse_header(ch->header.comment, fd, COMMENT_LENGTH))
+			error_exit(INVALID_FILE, ch->filename);
+		if (lseek(fd, 4, SEEK_CUR) == -1 || !load_to_memory(fd, (ch->offset = \
+		(MEM_SIZE / vm->player_count) * i++), vm, ch->header.prog_size))
+			error_exit(INVALID_FILE, ch->filename);
 		if ((fd = close(fd)) == -1)
-			error_exit(CLOSE_ERROR, champ->filename);
+			error_exit(CLOSE_ERROR, ch->filename);
 		players = players->next;
 	}
 }
