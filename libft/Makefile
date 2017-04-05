@@ -105,6 +105,7 @@ NAME = libft.a
 vpath %.c ./srcs ./srcs/ft_printf/srcs
 
 all: $(NAME)
+	@echo > /dev/null
 
 $(NAME): $(OBJECTS)
 	@ printf "\33[2K"

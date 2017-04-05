@@ -8,30 +8,28 @@ SRC 	=	$(shell find $(DSRC) -name '*.c' -type f)
 SDIR	=	$(shell find $(DSRC) -type d)
 ODIR	=	$(addprefix $(DOBJ)/, $(SDIR))
 OBJ 	=	$(patsubst %.c, $(DOBJ)/%.o, $(SRC))
-LIBPATH =	-C ../libft/
+LIBPATH =	../libft/
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		@make $(LIBPATH)
-			@$(CC) $(OBJ) $(CFLAGS) $(INC) -L../libft -lft -o $(NAME)
-				@echo "\033[32;1m$(NAME) created successfully!\033[0m"
+	@make -C $(LIBPATH)
+	@$(CC) $(OBJ) $(CFLAGS) $(INC) -L$(LIBPATH) -lft -o $(NAME)
+	@echo "\033[32;1m$(NAME) created successfully!\033[0m"
 
 $(DOBJ)/%.o:%.c
-		@mkdir -p $(ODIR)
-			@$(CC) -c -o $@ $< -I../libft $(INC) $(CFLAGS)
+	@mkdir -p $(ODIR)
+	@$(CC) -c -o $@ $< -I../libft $(INC) $(CFLAGS)
 
 clean:
-		@/bin/rm -rf $(DOBJ)
+	@/bin/rm -rf $(DOBJ)
 
 fclean: clean
-		@/bin/rm -rf $(NAME)
-			@echo "\033[31;1m$(NAME) removes!\033[0m"
+	@/bin/rm -rf $(NAME)
+	@echo "\033[31;1m$(NAME) removes!\033[0m"
 
 relib:
-		make clean $(LIBPATH)
-			@rm -f ../libft/libft.a
-				@make $(LIBPATH)
+	@make -C $(LIBPATH) re
 
 re: fclean all
 
