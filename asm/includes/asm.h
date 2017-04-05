@@ -104,7 +104,8 @@ int					check_register(char **line, int check);
 int					check_indirect(char **line, int check);
 int					check_double_label(t_label *label);
 int					check_label_exist(t_label *label, char *str);
-int					reader(t_label *label, t_header *header, char *c, char *f);
+int					reader(t_label *label,
+	t_header *header, char *champ, char *file);
 int					free_label(t_label *label);
 int					binary_creator(int fd, t_label *label, char *file);
 int					write_register(int fd, char **file);

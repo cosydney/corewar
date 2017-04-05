@@ -6,13 +6,28 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 17:49:57 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/09 14:46:43 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/03/14 14:53:25 by sycohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			move_separator(char **file)
+char	*move_file(int fct, char *file)
+{
+	if (fct == 1 || fct == 9 || fct == 12 || fct == 14)
+		file = file + 4;
+	else if (fct == 2 || fct == 3 || fct == 7)
+		file = file + 2;
+	else if (fct == 15)
+		file = file + 5;
+	else
+		file = file + 3;
+	while (*file && (*file == ' ' || *file == '\t'))
+		file++;
+	return (file);
+}
+
+int		move_separator(char **file)
 {
 	while (**file && **file != SEPARATOR_CHAR && **file != '\n')
 		(*file)++;
@@ -24,68 +39,51 @@ int			move_separator(char **file)
 	return (1);
 }
 
-char		*move_file(int fct, char *file)
+int		function_call2(int fct, int fd, t_label *label, char **file)
 {
-	if (fct == LIVE || fct == ZJMP || fct == FORK || fct == LLDI)
-		file = file + 4;
-	else if (fct == LD || fct == ST || fct == OR)
-		file = file + 2;
-	else if (fct == LFORK)
-		file = file + 5;
-	else
-		file = file + 3;
-	while (*file && (*file == ' ' || *file == '\t'))
-		file++;
-	return (file);
-}
-
-int			function_call2(int fct, int fd, t_label *label, char **file)
-{
-	if ((fct == AND || fct == OR || fct == XOR) && opcode(fd, 3, 0, *file)
-			&& ((write_register(fd, file) || write_direct(fd, 4, label, file) ||
-					write_indirect(fd, label, file)) &&
-				((write_register(fd, file) || write_direct(fd, 4, label, file)
-				|| write_indirect(fd, label, file)))))
+	if ((fct == 6 || fct == 7 || fct == 8) && opcode(fd, 3, 0, *file)
+		&& ((write_register(fd, file) || write_direct(fd, 4, label, file) ||
+		write_indirect(fd, label, file)) &&
+		((write_register(fd, file) || write_direct(fd, 4, label, file) ||
+		write_indirect(fd, label, file)))))
 		return (write_register(fd, file));
-	else if (fct == ZJMP || fct == FORK || fct == LFORK)
+	else if (fct == 9 || fct == 12 || fct == 15)
 		return (write_direct(fd, 2, label, file));
-	else if ((fct == LDI || fct == LLDI) && opcode(fd, 3, 0, *file) &&
-			(((write_register(fd, file) || write_direct(fd, 2, label, file) ||
-				write_indirect(fd, label, file)) &&
-	(write_register(fd, file) || write_direct(fd, 2, label, file)))))
+	else if ((fct == 10 || fct == 14) && opcode(fd, 3, 0, *file) &&
+		(((write_register(fd, file) || write_direct(fd, 2, label, file) ||
+		write_indirect(fd, label, file)) &&
+		(write_register(fd, file) || write_direct(fd, 2, label, file)))))
 		return (write_register(fd, file));
-	else if (fct == STI && opcode(fd, 3, 0, *file) &&
-			((write_register(fd, file) && (write_register(fd, file) ||
-			write_direct(fd, 2, label, file) ||
-			write_indirect(fd, label, file)) &&
-			(write_register(fd, file) || write_direct(fd, 2, label, file)))))
+	else if (fct == 11 && opcode(fd, 3, 0, *file) &&
+		((write_register(fd, file) && (write_register(fd, file) ||
+		write_direct(fd, 2, label, file) || write_indirect(fd, label, file)) &&
+		(write_register(fd, file) || write_direct(fd, 2, label, file)))))
 		return (1);
-	else if (fct == AFF && write(fd, "@", 1) && ++g_temp)
+	else if (fct == 16 && write(fd, "@", 1) && ++g_temp)
 		return (write_register(fd, file));
 	return (1);
 }
 
-int			function_call(int fct, int fd, t_label *label, char **file)
+int		function_call(int fct, int fd, t_label *label, char **file)
 {
 	*file = move_file(fct, *file);
 	write(fd, &fct, 1);
-	if (fct == LIVE)
+	if (fct == 1)
 		return (write_direct(fd, 4, label, file));
-	else if ((fct == LD || fct == LLD) && opcode(fd, 2, 0, *file) &&
-			((write_direct(fd, 4, label, file) ||
-			write_indirect(fd, label, file))))
+	else if ((fct == 2 || fct == 13) && opcode(fd, 2, 0, *file) &&
+		((write_direct(fd, 4, label, file) || write_indirect(fd, label, file))))
 		return (write_register(fd, file));
-	else if (fct == ST && opcode(fd, 2, 0, *file) && write_register(fd, file)
-			&& (write_register(fd, file) || write_indirect(fd, label, file)))
+	else if (fct == 3 && opcode(fd, 2, 0, *file) && write_register(fd, file)
+		&& (write_register(fd, file) || write_indirect(fd, label, file)))
 		return (1);
-	else if ((fct == ADD || fct == SUB) && write(fd, "T", 1) && ++g_temp &&
-			write_register(fd, file) && write_register(fd, file) &&
-			write_register(fd, file))
+	else if ((fct == 4 || fct == 5) && write(fd, "T", 1) && ++g_temp &&
+		write_register(fd, file) && write_register(fd, file) &&
+		write_register(fd, file))
 		return (1);
 	return (function_call2(fct, fd, label, file));
 }
 
-int			binary_creator(int fd, t_label *label, char *file)
+int		binary_creator(int fd, t_label *label, char *file)
 {
 	int fct;
 

@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_memory.c                                     :+:      :+:    :+:   */
+/*   loading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 20:02:48 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/28 16:10:42 by amarzial         ###   ########.fr       */
+/*   Created: 2017/03/03 20:12:26 by amarzial          #+#    #+#             */
+/*   Updated: 2017/03/28 20:28:33 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "corewar.h"
 
-void		delete_process(void *content, size_t content_size)
+int		load_to_memory(int fd, int offset, t_vm *vm, unsigned int prog_size)
 {
-	(void)content_size;
-	free(content);
-}
-
-static void	delete_champion(void *content, size_t content_size)
-{
-
-	(void)content_size;
-	free(content);
-}
-
-void		clear_vm(t_vm *vm)
-{
-	if (vm->players)
-		ft_lstdel(&(vm->players), delete_champion);
-	if (vm->processes)
-		ft_lstdel(&(vm->processes), delete_process);
-	if (vm->opt.gui)
-		endwin();
-	free(vm);
+	if (prog_size > CHAMP_MAX_SIZE)
+		return (0);
+	if (read(fd, vm->memory + offset, prog_size) != prog_size)
+		return (0);
+	return (1);
 }

@@ -1,6 +1,6 @@
 NAME 	=	corewar
-CC		=	clang
-CFLAGS 	=	-Wall -Werror -Wextra #-fsanitize=address
+CC		=	gcc
+CFLAGS 	=	-Wall -Werror -Wextra
 INC		=	-I includes/ -I libft/includes/
 SRCS 	=	main.c \
 			op.c \
@@ -9,7 +9,31 @@ SRCS 	=	main.c \
 			arg_parser.c \
 			champion.c \
 			errors.c \
-			clear_memory.c
+			parse_champions.c \
+			clear_memory.c \
+			parse_instruction.c \
+			loading.c \
+			initializer.c \
+			process_loop.c \
+			op_funcs.c \
+			op_live.c \
+			op_ld.c \
+			op_st.c \
+			op_add.c \
+			op_sub.c \
+			op_and.c \
+			op_or.c \
+			op_xor.c \
+			op_zjump.c \
+			op_ldi.c \
+			op_sti.c \
+			op_fork.c \
+			op_lld.c \
+			op_lldi.c \
+			op_lfork.c \
+			op_aff.c \
+			killer.c \
+			gui.c
 
 OBJ		=	$(SRCS:.c=.o)
 HDRS	=	corewar.h\
@@ -28,11 +52,13 @@ WHT = \033[37;1m
 EOC = \033[0m
 BEER = \xF0\x9F\x8D\xBA
 
+asan: CFLAGS += -fsanitize=address
+
 all: $(NAME)
 
 $(NAME): $(ODIR)
 	@make -C $(LIBPATH)
-	@$(CC) $(CFLAGS) $(ODIR) -L./libft -lft -o $(NAME) $(INC)
+	@$(CC) $(CFLAGS) $(ODIR) -L./libft -lft -lncurses -o $(NAME) $(INC)
 	@echo "$(GRN)$(BEER) $(NAME) created successfully!$(EOC)"
 
 objs/%.o: srcs/%.c $(HDIR)
@@ -53,5 +79,8 @@ reli:
 	@make -C $(LIBPATH) re
 
 re: fclean all
+
+asan: all
+
 
 .PHONY: re all clean fclean
