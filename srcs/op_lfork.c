@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 18:28:41 by amarzial          #+#    #+#             */
-/*   Updated: 2017/04/04 15:34:42 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/04 17:58:49 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	op_lfork(t_process *proc, t_vm *vm)
 				(sizeof(t_byte) * REG_SIZE) * REG_NUMBER);
 	if (new_proc->act.op)
 		new_proc->cycle_count--;
+	new_proc->live_count = proc->live_count;
 	new_proc->carry = proc->carry;
 }

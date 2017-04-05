@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 15:07:15 by amarzial          #+#    #+#             */
-/*   Updated: 2017/04/04 15:38:40 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/04 19:00:28 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		gui_update_cursors(int state, int index, t_vm *vm)
 	int		x;
 	int		y;
 
-	(void) vm;
+	(void)vm;
 	y = (index * 3) / 192;
 	x = (index * 3) % 192;
 	move(y, x);
@@ -44,7 +44,7 @@ void		gui_highlight(int state, int index, t_vm *vm)
 	int		x;
 	int		y;
 
-	(void) vm;
+	(void)vm;
 	y = (index * 3) / 192;
 	x = (index * 3) % 192;
 	move(y, x);

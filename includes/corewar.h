@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/04/04 15:31:41 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/05 16:29:46 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ typedef void			(*t_callback)(t_process*, t_vm*);
 extern t_op				g_op_tab[17];
 
 t_vm					*vm_get();
-int						vm_init();
 void					init_processes(t_vm *vm);
 t_process				*create_process(\
 		unsigned int offset, t_champion *parent, t_vm *vm);

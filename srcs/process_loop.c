@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 14:56:51 by amarzial          #+#    #+#             */
-/*   Updated: 2017/04/04 15:32:58 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/04 19:09:45 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,15 +110,7 @@ void		vm_loop(t_vm *vm, t_options *opt)
 		if (vm->opt.gui && !handle_input(getch(), vm))
 			continue;
 		if (vm->cycle >= vm->cycle_to_die)
-		{
 			kill_processes(vm);
-			vm->checks++;
-			if ((vm->live_count >= NBR_LIVE || vm->checks >= MAX_CHECKS) && \
-			!(vm->checks = 0))
-				vm->cycle_to_die -= ft_min(CYCLE_DELTA, vm->cycle_to_die);
-			vm->cycle = 0;
-			vm->live_count = 0;
-		}
 		run_cycle(vm);
 		if (vm->opt.gui)
 			screen_stuff(vm);
