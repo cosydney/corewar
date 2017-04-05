@@ -38,7 +38,7 @@ static void	init_global(void)
 static int	ac_check(int ac)
 {
 	if (ac == 2)
-		ft_printf_fd(2, "Missing champion.\n");
+		asm_error(CHAMPION_ERROR);
 	return (1);
 }
 

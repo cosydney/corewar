@@ -88,3 +88,13 @@ int			calculate_i(char *file, t_label *label)
 	}
 	return (asm_error(ARG_ERROR));
 }
+
+int			move_i(int i, char *file)
+{
+	while (file[i] != ',')
+		i++;
+	i++;
+	while (file[i] == '\t' || file[i] == ' ')
+		i++;
+	return (i);
+}

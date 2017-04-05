@@ -99,6 +99,6 @@ int		binary_creator(int fd, t_label *label, char *file)
 		file++;
 		g_pos = g_pos + g_temp;
 		g_temp = 0;
-	}
+	}  
 	return (1);
 }
