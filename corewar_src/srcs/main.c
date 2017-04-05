@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/04/05 18:42:42 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/05 18:44:34 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	show_winner(t_vm *vm)
 	if (vm->opt.gui)
 		mvprintw(66, 30, "Winner: %s", cmp->header.prog_name);
 	else
-		ft_printf("And the winner is...\n\tPlayer %u: \"%s\"\n", \
+		ft_printf("\nAnd the winner is...\n\tPlayer %u: \"%s\"\n", \
 				cmp->id, cmp->header.prog_name);
 	if (vm->player_count == 1)
 		ft_putstr("Wait!\nDo you think that fighting alone is fair?\n\
