@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/04/04 19:12:12 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/05 16:50:04 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,39 @@ static void	show_champs(t_vm *vm)
 	}
 }
 
+static void	print_usage(void)
+{
+	ft_printf(\
+	"Usage:\n./corewar [-dump N | -gui] <[-n N] champion1.cor> <...>\n\n\
+\t-dump N	: Print a dump of the memory after N cycles\n\
+\t-gui	: Runs the program with an interactive graphical interface\n\n\
+\t-n N	: Used before a champion filename. Specifies the champion number\n");
+}
+
 int			main(int argc, char **argv)
 {
 	t_vm		*vm;
 
-	if (!vm_init())
-		exit(1);
-	vm = vm_get();
+	if (!(vm = vm_get()))
+		error_exit(MALLOC_ERROR, "VM");
 	ft_bzero(&(vm->opt), sizeof(t_options));
 	parse_args(argc, argv, vm, &(vm->opt));
 	parse_champion(vm);
-	if (vm->opt.gui)
+	if (vm->players)
 	{
-		init_ui();
-		show_champs(vm);
-	}
-	init_processes(vm);
-	vm_loop(vm, &(vm->opt));
-	show_winner(vm);
-	if (vm->opt.gui)
-		while (getch() == -1)
+		if (vm->opt.gui)
+		{
+			init_ui();
+			show_champs(vm);
+		}
+		init_processes(vm);
+		vm_loop(vm, &(vm->opt));
+		show_winner(vm);
+		while (vm->opt.gui && (getch() == -1))
 			continue ;
+	}
+	else
+		print_usage();
 	clear_vm(vm);
 	return (0);
 }
