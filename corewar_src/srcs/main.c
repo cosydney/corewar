@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/04/05 18:44:34 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/05 19:08:41 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	show_winner(t_vm *vm)
 {
 	t_champion *cmp;
 
+	if (vm->process_count)
+		return ;
 	cmp = id_to_champion(vm->players, vm->last_live_id);
 	if (!cmp)
 		return ;
