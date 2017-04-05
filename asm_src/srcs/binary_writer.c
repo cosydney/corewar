@@ -6,7 +6,7 @@
 /*   By: sycohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 17:49:57 by sycohen           #+#    #+#             */
-/*   Updated: 2017/03/14 14:53:25 by sycohen          ###   ########.fr       */
+/*   Updated: 2017/04/05 18:09:52 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ int		binary_creator(int fd, t_label *label, char *file)
 		file++;
 		g_pos = g_pos + g_temp;
 		g_temp = 0;
-	}  
+	}
 	return (1);
 }
