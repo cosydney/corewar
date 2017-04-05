@@ -62,11 +62,9 @@ int			parse_instruction(t_process *process, t_vm *vm)
 {
 	int				i;
 	unsigned int	pc;
-	unsigned int	opcode;
 
 	i = 0;
 	pc = REGTOU(process->pc);
-	opcode = process->act.op->opcode;
 	process->act.encoding = 0;
 	if (process->act.op->encoding)
 		(process->act).encoding = (vm->memory)[pc++];
