@@ -6,12 +6,13 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 15:00:49 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/11 15:55:55 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/05 16:17:47 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "corewar.h"
+#include <limits.h>
 
 t_process	*create_process(unsigned int offset, t_champion *parent, t_vm *vm)
 {
@@ -24,7 +25,10 @@ t_process	*create_process(unsigned int offset, t_champion *parent, t_vm *vm)
 	proc.pid = pid;
 	proc.parent = parent;
 	utoreg(offset % MEM_SIZE, proc.pc);
-	utoreg(parent->id, proc.registers[0]);
+	utoreg(UINT_MAX - (parent->id - 1), proc.registers[0]);
+	if (vm->opt.gui)
+		vm->gui.curbuf[0][REGTOU(proc.pc)] = 1;
+	parse_op(&proc, vm);
 	if (!(tmp = ft_lstnew(&proc, sizeof(t_process))))
 		error_exit(MALLOC_ERROR, 0);
 	ft_lstadd(&(vm->processes), tmp);

@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 14:56:51 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/29 19:50:29 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/04 19:09:45 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,14 @@ void		run_cycle(t_vm *vm)
 		if (!proc->cycle_count)
 		{
 			if (proc->act.op)
+			{
+				parse_instruction(proc, vm);
 				g_operators[proc->act.op->opcode](proc, vm);
-			parse_instruction(proc, vm);
+			}
+			parse_op(proc, vm);
 		}
 		if (vm->opt.gui)
-			vm->gui.curbuf[0][regtou(proc->act.pc)] = 1;
+			vm->gui.curbuf[0][REGTOU(proc->act.pc)] = 1;
 		if (proc->cycle_count)
 			proc->cycle_count--;
 		process = process->next;
@@ -99,27 +102,20 @@ static int	handle_input(int c, t_vm *vm)
 
 void		vm_loop(t_vm *vm, t_options *opt)
 {
+	if (vm->opt.gui)
+		screen_stuff(vm);
 	while (vm->process_count && \
-	(!opt->dump || (vm->total_cycles < (unsigned int)opt->dump_cycles)))
+	(!opt->dump || (vm->total_cycles <= (unsigned int)opt->dump_cycles)))
 	{
-		if (vm->opt.gui)
-			if (!handle_input(getch(), vm))
-				continue;
-		vm->cycle++;
-		vm->total_cycles++;
+		if (vm->opt.gui && !handle_input(getch(), vm))
+			continue;
 		if (vm->cycle >= vm->cycle_to_die)
-		{
 			kill_processes(vm);
-			vm->checks++;
-			if ((vm->live_count > NBR_LIVE || vm->checks >= MAX_CHECKS) && \
-			!(vm->checks = 0))
-				vm->cycle_to_die -= ft_min(CYCLE_DELTA, vm->cycle_to_die);
-			vm->cycle = 0;
-			vm->live_count = 0;
-		}
 		run_cycle(vm);
 		if (vm->opt.gui)
 			screen_stuff(vm);
+		vm->cycle++;
+		vm->total_cycles++;
 	}
 	if (opt->dump && vm->process_count)
 		ft_print_mem(vm->memory, MEM_SIZE);

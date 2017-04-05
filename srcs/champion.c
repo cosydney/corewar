@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 18:26:32 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/10 13:42:25 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/05 16:08:11 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				create_champion(t_vm *vm, char *str, unsigned int *custom_nbr, \
 	ft_bzero(&champ, sizeof(t_champion));
 	champ.filename = str;
 	if (custom_nbr[1] == 0)
-		next_id = (*player_n)--;
+		next_id = ++(*player_n);
 	else
 		next_id = custom_nbr[0];
 	while (id_to_champion(vm->players, next_id))

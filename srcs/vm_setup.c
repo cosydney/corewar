@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 16:05:31 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/29 18:42:05 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/05 16:27:18 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,4 @@ t_vm	*vm_get(void)
 		vm->gui.curbuf[1] = vm->gui.cursors[1];
 	}
 	return (vm);
-}
-
-int		vm_init(void)
-{
-	if (vm_get())
-		return (1);
-	return (0);
 }

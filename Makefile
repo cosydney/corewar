@@ -33,7 +33,8 @@ SRCS 	=	main.c \
 			op_lfork.c \
 			op_aff.c \
 			killer.c \
-			gui.c
+			gui.c \
+			gui_extra.c
 
 OBJ		=	$(SRCS:.c=.o)
 HDRS	=	corewar.h\

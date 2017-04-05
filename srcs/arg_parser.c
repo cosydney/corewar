@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:03:24 by amarzial          #+#    #+#             */
-/*   Updated: 2017/03/28 16:13:18 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/05 16:17:02 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,14 @@ int			parse_args(int argc, char **argv, t_vm *vm, t_options *opt)
 	unsigned int	custom_nbr[2];
 
 	i = get_opts(argc, argv, opt) + 1;
-	player_n = UINT_MAX;
+	player_n = 0;
 	while (i < argc)
 	{
 		custom_nbr[1] = 0;
 		if (ft_strequ(argv[i], "-n"))
 		{
-			if (!((i + 2) < argc) || !ft_strtou(custom_nbr, argv[i + 1]))
+			if (!((i + 2) < argc) || !ft_strtou(custom_nbr, argv[i + 1]) || \
+					custom_nbr[0] == 0)
 				error_exit(ARG_ERROR, argv[i]);
 			custom_nbr[1] = 1;
 			i += 2;
