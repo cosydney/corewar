@@ -5,13 +5,17 @@ LIBFT_DIR = ./libft/
 COREWAR = corewar
 ASM = asm
 
-all: $(ASM) $(COREWAR)
+all: asm_only corewar_only
+	@if ! [ -s $(ASM) ] ; \
+		then ln -s $(addprefix $(ASM_DIR), $(ASM)); fi
+	@if ! [ -s $(COREWAR) ] ; \
+		then ln -s $(addprefix $(COREWAR_DIR), $(COREWAR)); fi
 
-$(ASM):
+asm_only:
 	@echo "Building asm"
 	@make -C $(ASM_DIR)
 
-$(COREWAR):
+corewar_only:
 	@echo "Building corewar"
 	@make -C $(COREWAR_DIR)
 
@@ -24,5 +28,7 @@ fclean:
 	@make -C $(LIBFT_DIR) fclean
 	@make -C $(ASM_DIR) fclean
 	@make -C $(COREWAR_DIR) fclean
+	@rm -f $(ASM)
+	@rm -f $(COREWAR)
 
 re: fclean all

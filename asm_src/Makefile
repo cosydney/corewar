@@ -3,7 +3,7 @@ DOBJ 	=	objs
 DSRC 	=	srcs
 INC 	=	-I includes/ -I ../libft/includes
 CC	 	=	gcc
-CFLAGS 	=	-Wall -Werror -Wextra -fsanitize=address 
+CFLAGS 	=	-Wall -Werror -Wextra
 SRC 	=	$(shell find $(DSRC) -name '*.c' -type f)
 SDIR	=	$(shell find $(DSRC) -type d)
 ODIR	=	$(addprefix $(DOBJ)/, $(SDIR))
@@ -25,7 +25,7 @@ clean:
 	@/bin/rm -rf $(DOBJ)
 
 fclean: clean
-	@/bin/rm -rf $(NAME)
+	@/bin/rm -f $(NAME)
 	@echo "\033[31;1m$(NAME) removes!\033[0m"
 
 relib:
