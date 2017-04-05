@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/04/05 16:29:46 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/05 18:15:37 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ void					delete_process(void *content, size_t content_size);
 ** user interface
 */
 void					init_ui(void);
+void					show_champs(t_vm *vm);
 void					gui_show_champ(t_champion *champ, t_vm *vm);
 void					gui_update_cursors(int state, int index, t_vm *vm);
 void					gui_writemem(int offset, unsigned int id, t_vm *vm);

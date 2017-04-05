@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/04 15:07:15 by amarzial          #+#    #+#             */
-/*   Updated: 2017/04/04 19:00:28 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/05 18:14:55 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,18 @@ void		gui_set_cursors(t_vm *vm)
 	vm->gui.curbuf[0] = vm->gui.curbuf[1];
 	vm->gui.curbuf[1] = tmp;
 	ft_bzero(vm->gui.curbuf[0], MEM_SIZE);
+}
+
+void		show_champs(t_vm *vm)
+{
+	t_list		*lst;
+	t_champion	*champ;
+
+	lst = vm->players;
+	while (lst)
+	{
+		champ = (t_champion*)lst->content;
+		gui_show_champ(champ, vm);
+		lst = lst->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/04/05 16:50:04 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/05 18:42:42 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,28 @@ static void	show_winner(t_vm *vm)
 	if (vm->opt.gui)
 		mvprintw(66, 30, "Winner: %s", cmp->header.prog_name);
 	else
-		ft_printf("%c%s%c wins the corewar!\n", \
-				'"', cmp->header.prog_name, '"');
+		ft_printf("And the winner is...\n\tPlayer %u: \"%s\"\n", \
+				cmp->id, cmp->header.prog_name);
+	if (vm->player_count == 1)
+		ft_putstr("Wait!\nDo you think that fighting alone is fair?\n\
+I'm sorry no prize for you. Show me a REAL fight\n");
+	else
+		ft_putstr("Congrats dude! You are the best, for now\n");
 }
 
-static void	show_champs(t_vm *vm)
+static void	welcome_message(t_list *players)
 {
-	t_list		*lst;
 	t_champion	*champ;
 
-	lst = vm->players;
-	while (lst)
+	ft_putstr("Welcome to the corewar!\nToday match we have \
+the following champions fighting for glory and \"memory\":\n");
+	while (players)
 	{
-		champ = (t_champion*)lst->content;
-		gui_show_champ(champ, vm);
-		lst = lst->next;
+		champ = (t_champion*)players->content;
+		ft_printf("\tPlayer %u, %u bytes big. \"%s\" (\"%s\")!\n", \
+				champ->id, champ->header.prog_size, \
+				champ->header.prog_name, champ->header.comment);
+		players = players->next;
 	}
 }
 
@@ -60,6 +67,7 @@ int			main(int argc, char **argv)
 	parse_champion(vm);
 	if (vm->players)
 	{
+		welcome_message(vm->players);
 		if (vm->opt.gui)
 		{
 			init_ui();
