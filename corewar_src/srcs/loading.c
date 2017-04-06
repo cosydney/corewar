@@ -14,9 +14,13 @@
 
 int		load_to_memory(int fd, int offset, t_vm *vm, unsigned int prog_size)
 {
+	char test;
+
 	if (prog_size > CHAMP_MAX_SIZE)
 		return (0);
 	if (read(fd, vm->memory + offset, prog_size) != prog_size)
+		return (0);
+	if (read(fd, &test, 1) != 0)
 		return (0);
 	return (1);
 }

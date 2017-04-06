@@ -21,6 +21,7 @@ for line in o2:
 
 f1 = open("out", 'w')
 f2 = open("out_o", 'w')
+logfile = open("checker.log", 'a+')
 
 f1.write(diff1)
 f2.write(diff2)
@@ -28,12 +29,17 @@ f2.write(diff2)
 f1.close()
 f2.close()
 
+msg = ("Checking for " + str(files) + " at cycle " + str(dump) + ": ")
+logfile.write(msg)
 try:
     o = sp.check_output(['diff', 'out', 'out_o'])
     returncode = 0
+    print (msg + "Passed!\n")
+    logfile.write("Passed!\n")
 except sp.CalledProcessError as ex:
     o = ex.output
     returncode = ex.returncode
+    print (msg + "Failed!\n" + str(o) + "\n")
+    logfile.write("Failed!\n" + str(o) + "\n")
     if returncode != 1: # some other error happened
         raise
-print o
