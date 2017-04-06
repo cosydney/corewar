@@ -47,5 +47,4 @@ void			op_ldi(t_process *proc, t_vm *vm)
 	offset += (\
 			proc->act.params[1].t == T_DIR) ? (short)second[0] : (int)second[0];
 	ld(REGTOU(proc->act.pc) + ((offset) % IDX_MOD), reg_dst, vm);
-	proc->carry = (REGTOU(reg_dst)) ? 0 : 1;
 }
