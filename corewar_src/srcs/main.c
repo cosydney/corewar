@@ -24,6 +24,7 @@ static void	show_winner(t_vm *vm)
 	if (vm->opt.gui)
 		mvprintw(66, 30, "Winner: %s", cmp->header.prog_name);
 	else
+	{
 		ft_printf("\nAnd the winner is...\n\tPlayer %u: \"%s\"\n", \
 				cmp->id, cmp->header.prog_name);
 	if (vm->player_count == 1)
@@ -31,6 +32,7 @@ static void	show_winner(t_vm *vm)
 I'm sorry no prize for you. Show me a REAL fight\n");
 	else
 		ft_putstr("Congrats dude! You are the best, for now\n");
+	}
 }
 
 static void	welcome_message(t_list *players)
