@@ -19,7 +19,7 @@ static int		check_champ_name(char *champ)
 	i = 0;
 	while (champ[i])
 		i++;
-	if (i > 3 && champ[i - 1] == 's' && champ[i - 2] == '.')
+	if (i >= 3 && champ[i - 1] == 's' && champ[i - 2] == '.')
 		return (1);
 	else
 		return (asm_error(FILE_ERROR));
