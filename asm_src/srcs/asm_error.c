@@ -21,7 +21,7 @@ int		asm_error_sec(int error)
 	if (error == LINES_ERROR)
 		ft_printf_fd(2, "Error multiple lines on name or comment\n");
 	if (error == FILE_ERROR)
-		ft_printf_fd(2, "Wrong file extension");
+		ft_printf_fd(2, "Wrong file extension\n");
 	if (error == LABEL_ERROR)
 		ft_printf_fd(2, "Label Char error\n");
 	if (error == MALLOC_ERROR)
