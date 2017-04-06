@@ -6,7 +6,14 @@ prot:	st r1,:var1
 		ld :var1, r1
 		ld %191103999,r10
 		st r10,:var2
-
+		fork %:begin
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
 begin:	live %1
 		fork %:part2
 part1:	fork %:part4
@@ -19,11 +26,11 @@ part2:	fork %:part3
 		ld %4,r4
 		and r11,%0,r11
 		zjmp %:go
-part3:	ld %1677918374,r3
+part3:	ld %1677918272,r3 #0x640300a6
 		ld %8,r4
 		and r11,%0,r11
 		zjmp %:go
-part4:	ld %67698850,r3
+part4:	ld %67698748,r3 #0x040900a2
 		ld %12,r4
 		and r11,%0,r11
 		zjmp %:go
