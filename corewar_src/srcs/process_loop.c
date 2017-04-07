@@ -109,9 +109,9 @@ void		vm_loop(t_vm *vm, t_options *opt)
 	{
 		if (vm->opt.gui && !handle_input(getch(), vm))
 			continue;
+		run_cycle(vm);
 		if (vm->cycle >= vm->cycle_to_die)
 			kill_processes(vm);
-		run_cycle(vm);
 		if (vm->opt.gui)
 			screen_stuff(vm);
 		vm->cycle++;
