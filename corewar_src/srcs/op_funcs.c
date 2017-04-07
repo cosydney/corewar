@@ -79,7 +79,7 @@ void			parse_op(t_process *process, t_vm *vm)
 		i++;
 	ft_memcpy(process->act.pc, process->pc, REG_SIZE);
 	if ((process->act.op = (i < 16) ? &g_op_tab[i] : 0))
-		process->cycle_count = process->act.op->cycles;
+		process->cycle_count = process->act.op->cycles - 1;
 	else
 		process->cycle_count = 0;
 	pc++;

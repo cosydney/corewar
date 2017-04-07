@@ -73,7 +73,6 @@ int			parse_instruction(t_process *process, t_vm *vm)
 	ft_bzero(&(process->act.params), sizeof(t_param) * MAX_ARGS_NUMBER);
 	while (i > 0)
 		input_params(vm, process, i--, &pc);
-	process->cycle_count = process->act.op->cycles;
 	utoreg(pc, process->pc);
 	return (1);
 }

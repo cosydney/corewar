@@ -28,7 +28,6 @@ t_process	*create_process(unsigned int offset, t_champion *parent, t_vm *vm)
 	utoreg(UINT_MAX - (parent->id - 1), proc.registers[0]);
 	if (vm->opt.gui)
 		vm->gui.curbuf[0][REGTOU(proc.pc)] = 1;
-	parse_op(&proc, vm);
 	if (!(tmp = ft_lstnew(&proc, sizeof(t_process))))
 		error_exit(MALLOC_ERROR, 0);
 	ft_lstadd(&(vm->processes), tmp);

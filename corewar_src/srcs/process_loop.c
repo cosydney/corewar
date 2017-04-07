@@ -43,14 +43,14 @@ void		run_cycle(t_vm *vm)
 	while (process)
 	{
 		proc = (t_process*)process->content;
-		if (!proc->cycle_count)
-		{
-			if (proc->act.op)
-			{
-				parse_instruction(proc, vm);
-				g_operators[proc->act.op->opcode](proc, vm);
-			}
+		if (!proc->act.op)
 			parse_op(proc, vm);
+		else if (!proc->cycle_count)
+		{
+			parse_instruction(proc, vm);
+			g_operators[proc->act.op->opcode](proc, vm);
+			proc->act.op = 0;
+			ft_memcpy(proc->act.pc, proc->pc, REG_SIZE);
 		}
 		if (vm->opt.gui)
 			vm->gui.curbuf[0][REGTOU(proc->act.pc)] = 1;
@@ -105,17 +105,17 @@ void		vm_loop(t_vm *vm, t_options *opt)
 	if (vm->opt.gui)
 		screen_stuff(vm);
 	while (vm->process_count && \
-	(!opt->dump || (vm->total_cycles <= (unsigned int)opt->dump_cycles)))
+	(!opt->dump || (vm->total_cycles + 1 <= (unsigned int)opt->dump_cycles)))
 	{
 		if (vm->opt.gui && !handle_input(getch(), vm))
 			continue;
 		run_cycle(vm);
 		if (vm->cycle >= vm->cycle_to_die)
 			kill_processes(vm);
-		if (vm->opt.gui)
-			screen_stuff(vm);
 		vm->cycle++;
 		vm->total_cycles++;
+		if (vm->opt.gui)
+			screen_stuff(vm);
 	}
 	if (opt->dump && vm->process_count)
 		ft_print_mem(vm->memory, MEM_SIZE);

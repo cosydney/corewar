@@ -16,7 +16,7 @@ static void	show_winner(t_vm *vm)
 {
 	t_champion *cmp;
 
-	if (vm->process_count)
+	if (vm->process_count || vm->opt.dump)
 		return ;
 	cmp = id_to_champion(vm->players, vm->last_live_id);
 	if (!cmp)

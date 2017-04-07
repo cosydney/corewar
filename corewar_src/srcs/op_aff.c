@@ -16,7 +16,8 @@ void	op_aff(t_process *proc, t_vm *vm)
 {
 	unsigned int i[2];
 
-	(void)vm;
+	if (vm->opt.dump || vm->opt.gui)
+		return ;
 	i[1] = REG_SIZE;
 	if (!par_to_val(0, i, proc, vm))
 		return ;
