@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/04/05 19:08:41 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/07 18:51:41 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	show_winner(t_vm *vm)
 	if (!cmp)
 		return ;
 	if (vm->opt.gui)
-		mvprintw(66, 30, "Winner: %s", cmp->header.prog_name);
+		mvprintw(65, 0, "Winner: %s", cmp->header.prog_name);
 	else
 	{
 		ft_printf("\nAnd the winner is...\n\tPlayer %u: \"%s\"\n", \

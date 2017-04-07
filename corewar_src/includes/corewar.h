@@ -6,7 +6,7 @@
 /*   By: abonneca <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 13:39:59 by abonneca          #+#    #+#             */
-/*   Updated: 2017/04/05 18:15:37 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/07 18:56:40 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct			s_champion
 	char			*filename;
 	unsigned int	offset;
 	size_t			process_n;
+	unsigned int	live_calls;
 }						t_champion;
 
 typedef	struct			s_param
@@ -191,5 +192,6 @@ void					gui_update_cursors(int state, int index, t_vm *vm);
 void					gui_writemem(int offset, unsigned int id, t_vm *vm);
 void					gui_set_cursors(t_vm *vm);
 void					gui_set_highlight(t_vm *vm);
+void					gui_player_names(t_list *players);
 
 #endif

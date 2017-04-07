@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 17:55:11 by amarzial          #+#    #+#             */
-/*   Updated: 2017/04/04 19:13:12 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/07 19:07:48 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,21 @@ static void		remove_dead(t_vm *vm)
 
 void			kill_processes(t_vm *vm)
 {
+	t_list		*players;
+	t_champion	*champ;
+
 	remove_dead(vm);
 	vm->checks++;
 	if ((vm->live_count >= NBR_LIVE || vm->checks >= MAX_CHECKS) && \
 		!(vm->checks = 0))
 		vm->cycle_to_die -= ft_min(CYCLE_DELTA, vm->cycle_to_die);
+	players = vm->players;
+	while (players)
+	{
+		champ = (t_champion*)players->content;
+		champ->live_calls = 0;
+		players = players->next;
+	}
 	vm->cycle = 0;
 	vm->live_count = 0;
 }

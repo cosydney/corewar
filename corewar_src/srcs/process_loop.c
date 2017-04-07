@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 14:56:51 by amarzial          #+#    #+#             */
-/*   Updated: 2017/04/04 19:09:45 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/07 18:53:59 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static void	screen_stuff(t_vm *vm)
 	mvprintw(69, 0, "SPEED:         %10u", vm->gui.speed);
 	gui_set_highlight(vm);
 	gui_set_cursors(vm);
+	gui_player_names(vm->players);
 	refresh();
 	usleep(vm->gui.speed);
 }
