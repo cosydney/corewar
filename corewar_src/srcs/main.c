@@ -6,7 +6,7 @@
 /*   By: amarzial <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:56:35 by amarzial          #+#    #+#             */
-/*   Updated: 2017/04/05 19:08:41 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/04/08 15:35:00 by abonneca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static void	show_winner(t_vm *vm)
 	{
 		ft_printf("\nAnd the winner is...\n\tPlayer %u: \"%s\"\n", \
 				cmp->id, cmp->header.prog_name);
-	if (vm->player_count == 1)
-		ft_putstr("Wait!\nDo you think that fighting alone is fair?\n\
+		if (vm->player_count == 1)
+			ft_putstr("Wait!\nDo you think that fighting alone is fair?\n\
 I'm sorry no prize for you. Show me a REAL fight\n");
-	else
-		ft_putstr("Congrats dude! You are the best, for now\n");
+		else
+			ft_putstr("Congrats dude! You are the best, for now\n");
 	}
 }
 
@@ -40,7 +40,7 @@ static void	welcome_message(t_list *players)
 	t_champion	*champ;
 
 	ft_putstr("Welcome to the corewar!\nToday match we have \
-the following champions fighting for glory and \"memory\":\n");
+			the following champions fighting for glory and \"memory\":\n");
 	while (players)
 	{
 		champ = (t_champion*)players->content;
@@ -54,7 +54,7 @@ the following champions fighting for glory and \"memory\":\n");
 static void	print_usage(void)
 {
 	ft_printf(\
-	"Usage:\n./corewar [-dump N | -gui] <[-n N] champion1.cor> <...>\n\n\
+"Usage:\n./corewar [-dump N | -gui] <[-n N] champion1.cor> <...>\n\n\
 \t-dump N	: Print a dump of the memory after N cycles\n\
 \t-gui	: Runs the program with an interactive graphical interface\n\n\
 \t-n N	: Used before a champion filename. Specifies the champion number\n");
